@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Magnus Verity — Builder. Founder. Limitless.</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<meta name="theme-color" content="#050505" />
+
+<title>Magnus Verity — The Story Is Still Being Written.</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-
-:root{
-  --bg:#050505;
-  --fg:#f5f5f5;
-  --muted:#888;
-  --line:rgba(255,255,255,.11);
-  --glass:rgba(255,255,255,.045);
-}
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -28,27 +24,32 @@ html{
 }
 
 body{
-  background:var(--bg);
-  color:var(--fg);
+  background:#050505;
+  color:#fff;
   font-family:Inter,Arial,sans-serif;
   overflow-x:hidden;
 }
 
-/* =========================
-   GLOBAL
-========================= */
-
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:20;
-  opacity:.035;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+body::-webkit-scrollbar{
+  width:6px;
+}
+body::-webkit-scrollbar-thumb{
+  background:#555;
+  border-radius:20px;
 }
 
-#canvas{
+:root{
+  --white:#fff;
+  --muted:#8c8c8c;
+  --line:rgba(255,255,255,.12);
+  --glass:rgba(255,255,255,.055);
+}
+
+/* ============================= */
+/* GLOBAL */
+/* ============================= */
+
+#space{
   position:fixed;
   inset:0;
   width:100%;
@@ -57,206 +58,191 @@ body:before{
   pointer-events:none;
 }
 
+.noise{
+  position:fixed;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+
+.vignette{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at center,transparent 35%,rgba(0,0,0,.45) 100%);
+}
+
 .progress{
   position:fixed;
   top:0;
   left:0;
-  width:100%;
   height:2px;
-  z-index:100;
-  background:rgba(255,255,255,.08);
-}
-
-.progress span{
-  display:block;
-  width:0;
-  height:100%;
+  width:0%;
   background:#fff;
-  transform-origin:left;
+  z-index:100;
+  box-shadow:0 0 14px rgba(255,255,255,.8);
 }
 
 .nav{
   position:fixed;
-  top:20px;
+  top:22px;
   left:50%;
   transform:translateX(-50%);
-  width:min(94%,1100px);
-  height:62px;
+  width:min(92%,900px);
+  height:58px;
+  border:1px solid var(--line);
+  background:rgba(5,5,5,.62);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  border-radius:100px;
   z-index:90;
-
   display:flex;
   align-items:center;
   justify-content:space-between;
-
-  padding:0 20px;
-  border:1px solid var(--line);
-  background:rgba(5,5,5,.52);
-  backdrop-filter:blur(22px);
-  -webkit-backdrop-filter:blur(22px);
-  border-radius:999px;
-
-  transition:.4s ease;
+  padding:0 10px 0 22px;
 }
 
 .logo{
-  font-size:14px;
+  font-size:13px;
   font-weight:800;
-  letter-spacing:-.04em;
+  letter-spacing:.18em;
 }
 
-.logo span{
-  opacity:.42;
-}
-
-.navlinks{
+.nav-links{
   display:flex;
-  gap:24px;
+  gap:5px;
 }
 
-.navlinks a{
+.nav-links a{
   color:#aaa;
   text-decoration:none;
-  font-size:12px;
+  font-size:11px;
+  padding:10px 13px;
+  border-radius:30px;
   transition:.3s;
 }
 
-.navlinks a:hover{
+.nav-links a:hover{
   color:#fff;
+  background:rgba(255,255,255,.08);
 }
 
-.nav-btn{
-  border:1px solid rgba(255,255,255,.2);
+.ai-btn{
+  border:0;
   background:#fff;
   color:#000;
-  padding:10px 16px;
-  border-radius:999px;
+  border-radius:30px;
+  padding:11px 16px;
   font-size:11px;
-  font-weight:700;
+  font-weight:800;
   cursor:pointer;
+  transition:.3s;
 }
 
-/* =========================
-   HERO
-========================= */
+.ai-btn:hover{
+  transform:scale(1.05);
+}
+
+/* ============================= */
+/* HERO */
+/* ============================= */
 
 .hero{
-  min-height:100vh;
   position:relative;
-  z-index:2;
+  height:170vh;
+  z-index:5;
+}
 
+.hero-sticky{
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow:hidden;
   display:flex;
   align-items:center;
   justify-content:center;
-  text-align:center;
-
-  perspective:1400px;
-  overflow:hidden;
 }
 
 .hero-content{
-  width:min(1000px,92%);
   position:relative;
-  z-index:5;
+  z-index:8;
+  width:min(1100px,90%);
+  text-align:center;
   transform-style:preserve-3d;
 }
 
 .eyebrow{
-  display:inline-flex;
-  gap:9px;
-  align-items:center;
-  border:1px solid var(--line);
-  padding:8px 13px;
-  border-radius:999px;
-  background:rgba(255,255,255,.035);
-  color:#aaa;
   font-size:10px;
-  letter-spacing:.12em;
+  letter-spacing:.35em;
   text-transform:uppercase;
-  margin-bottom:30px;
-}
-
-.dot{
-  width:6px;
-  height:6px;
-  background:#fff;
-  border-radius:50%;
-  box-shadow:0 0 18px #fff;
+  color:#888;
+  margin-bottom:28px;
 }
 
 .hero h1{
-  font-size:clamp(62px,12vw,170px);
-  line-height:.82;
-  letter-spacing:-.085em;
+  font-size:clamp(58px,13vw,190px);
+  line-height:.78;
+  letter-spacing:-.09em;
   font-weight:900;
-  margin-left:-.07em;
+  perspective:1000px;
 }
 
-.hero h1 .line{
+.hero h1 span{
   display:block;
 }
 
-.hero h1 .ghost{
+.hero h1 .outline{
   color:transparent;
-  -webkit-text-stroke:1px rgba(255,255,255,.45);
+  -webkit-text-stroke:1px rgba(255,255,255,.65);
 }
 
 .hero-sub{
-  max-width:570px;
-  margin:40px auto 0;
+  margin:42px auto 0;
+  max-width:520px;
   color:#999;
-  font-size:15px;
   line-height:1.7;
+  font-size:14px;
 }
 
-.hero-actions{
-  margin-top:30px;
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap;
+.scroll-hint{
+  position:absolute;
+  bottom:35px;
+  left:50%;
+  transform:translateX(-50%);
+  color:#666;
+  font-size:9px;
+  letter-spacing:.25em;
+  text-transform:uppercase;
 }
 
-.btn{
-  padding:14px 20px;
-  border-radius:999px;
-  text-decoration:none;
-  font-size:12px;
-  font-weight:700;
-  transition:.35s;
+.scroll-line{
+  width:1px;
+  height:55px;
+  background:linear-gradient(#fff,transparent);
+  margin:12px auto 0;
 }
 
-.btn-primary{
-  background:#fff;
-  color:#000;
-}
-
-.btn-secondary{
-  color:#fff;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.04);
-}
-
-.btn:hover{
-  transform:translateY(-4px);
-}
-
-/* =========================
-   3D CORE
-========================= */
+/* ============================= */
+/* HERO CORE */
+/* ============================= */
 
 .core{
   position:absolute;
-  width:430px;
-  height:430px;
+  width:360px;
+  height:360px;
   left:50%;
   top:50%;
   transform:translate(-50%,-50%);
+  transform-style:preserve-3d;
   pointer-events:none;
-  opacity:.65;
-  z-index:1;
+  opacity:.75;
 }
 
-.orbit{
+.core-orbit{
   position:absolute;
   inset:0;
   border:1px solid rgba(255,255,255,.12);
@@ -264,444 +250,559 @@ body:before{
   transform-style:preserve-3d;
 }
 
-.o1{
-  transform:rotateX(67deg) rotateZ(20deg);
-  animation:orbit1 13s linear infinite;
+.orbit-a{
+  transform:rotateX(65deg) rotateZ(10deg);
+  animation:orbitA 14s linear infinite;
 }
 
-.o2{
-  transform:rotateY(66deg) rotateZ(-25deg);
-  animation:orbit2 17s linear infinite reverse;
+.orbit-b{
+  transform:rotateY(70deg) rotateZ(-25deg);
+  animation:orbitB 19s linear infinite;
 }
 
-.o3{
-  inset:55px;
-  transform:rotateX(70deg) rotateY(20deg);
-  animation:orbit3 10s linear infinite;
+.orbit-c{
+  transform:rotateX(75deg) rotateY(25deg);
+  animation:orbitC 25s linear infinite;
+}
+
+@keyframes orbitA{
+  to{transform:rotateX(65deg) rotateZ(370deg)}
+}
+@keyframes orbitB{
+  to{transform:rotateY(70deg) rotateZ(-385deg)}
+}
+@keyframes orbitC{
+  to{transform:rotateX(435deg) rotateY(25deg)}
 }
 
 .core-ball{
   position:absolute;
+  width:85px;
+  height:85px;
   left:50%;
   top:50%;
-  width:100px;
-  height:100px;
   transform:translate(-50%,-50%);
   border-radius:50%;
-  background:radial-gradient(circle at 35% 30%,#fff,#777 18%,#111 60%,#000);
-  box-shadow:
-    0 0 40px rgba(255,255,255,.18),
-    0 0 120px rgba(255,255,255,.06);
-  animation:float 4s ease-in-out infinite;
-}
-
-.core-ball:after{
-  content:"";
-  position:absolute;
-  inset:-15px;
-  border:1px solid rgba(255,255,255,.25);
-  border-radius:50%;
-}
-
-@keyframes orbit1{
-  to{transform:rotateX(67deg) rotateZ(380deg)}
-}
-
-@keyframes orbit2{
-  to{transform:rotateY(66deg) rotateZ(-385deg)}
-}
-
-@keyframes orbit3{
-  to{transform:rotateX(70deg) rotateY(380deg)}
-}
-
-@keyframes float{
-  50%{transform:translate(-50%,-57%)}
-}
-
-/* =========================
-   SECTION
-========================= */
-
-section{
-  position:relative;
-  z-index:3;
-}
-
-.section{
-  min-height:100vh;
-  width:min(1180px,92%);
-  margin:auto;
-  display:flex;
-  align-items:center;
-  padding:130px 0;
-}
-
-.section-inner{
-  width:100%;
-}
-
-.section-tag{
-  color:#777;
-  font-size:10px;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  margin-bottom:25px;
-}
-
-.section-title{
-  font-size:clamp(42px,7vw,100px);
-  line-height:.92;
-  letter-spacing:-.07em;
-  max-width:950px;
-}
-
-.section-title span{
-  color:#555;
-}
-
-.description{
-  color:#888;
-  max-width:560px;
-  line-height:1.75;
-  font-size:14px;
-  margin-top:30px;
-}
-
-/* =========================
-   MANIFESTO
-========================= */
-
-.manifesto{
-  min-height:120vh;
-}
-
-.manifesto-word{
-  font-size:clamp(75px,17vw,230px);
-  line-height:.78;
-  letter-spacing:-.1em;
-  font-weight:900;
-  color:#111;
-  -webkit-text-stroke:1px rgba(255,255,255,.16);
-  transition:color .6s;
-}
-
-.manifesto-word.active{
-  color:#fff;
-}
-
-/* =========================
-   PROJECTS
-========================= */
-
-.projects{
-  min-height:100vh;
-  padding:150px 0;
-}
-
-.projects-grid{
-  width:min(1180px,92%);
-  margin:70px auto 0;
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px;
-}
-
-.project{
-  min-height:430px;
-  border:1px solid var(--line);
-  border-radius:28px;
-  padding:30px;
-  position:relative;
-  overflow:hidden;
   background:
-    radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.13),transparent 35%),
-    rgba(255,255,255,.025);
-
-  transform-style:preserve-3d;
-  transition:
-    transform .18s ease,
-    border-color .4s;
-}
-
-.project:hover{
-  border-color:rgba(255,255,255,.3);
-}
-
-.project-number{
-  font-size:11px;
-  color:#666;
-}
-
-.project h3{
-  position:absolute;
-  bottom:78px;
-  left:30px;
-  font-size:clamp(35px,5vw,65px);
-  letter-spacing:-.07em;
-  transform:translateZ(50px);
-}
-
-.project p{
-  position:absolute;
-  bottom:30px;
-  left:30px;
-  color:#777;
-  font-size:12px;
-  max-width:340px;
-  line-height:1.6;
-}
-
-.project-orb{
-  position:absolute;
-  right:-70px;
-  top:-70px;
-  width:250px;
-  height:250px;
-  border-radius:50%;
-  border:1px solid rgba(255,255,255,.16);
+    radial-gradient(circle at 30% 25%,#fff,#aaa 12%,#333 42%,#050505 70%);
   box-shadow:
-    inset 0 0 70px rgba(255,255,255,.04),
-    0 0 70px rgba(255,255,255,.04);
-  transform:translateZ(80px);
-  transition:.6s;
+    0 0 35px rgba(255,255,255,.2),
+    0 0 100px rgba(255,255,255,.08);
 }
 
-.project:hover .project-orb{
-  transform:translateZ(120px) rotate(25deg) scale(1.08);
+/* ============================= */
+/* CINEMATIC CHAPTERS */
+/* ============================= */
+
+.chapter{
+  position:relative;
+  min-height:150vh;
+  z-index:5;
 }
 
-/* =========================
-   3D WORLD
-========================= */
-
-.world{
-  height:120vh;
-  overflow:hidden;
-}
-
-.world-inner{
+.chapter-sticky{
   position:sticky;
   top:0;
   height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  perspective:1300px;
-}
-
-.world-grid{
-  position:absolute;
-  width:130vw;
-  height:130vw;
-  min-width:1000px;
-  min-height:1000px;
-  border:1px solid rgba(255,255,255,.1);
-  transform:rotateX(70deg) translateY(330px);
-  background-image:
-    linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
-  background-size:70px 70px;
-  mask-image:linear-gradient(to top,transparent,black 45%,transparent);
-}
-
-.ring-system{
-  width:500px;
-  height:500px;
-  position:relative;
-  transform-style:preserve-3d;
-}
-
-.ring-system div{
-  position:absolute;
-  inset:0;
-  border:1px solid rgba(255,255,255,.16);
-  border-radius:50%;
-}
-
-.r1{transform:rotateX(72deg)}
-.r2{transform:rotateY(65deg)}
-.r3{transform:rotateX(45deg) rotateY(45deg)}
-.r4{
-  inset:100px!important;
-  border-style:dashed!important;
-}
-
-.world-center{
-  position:absolute;
-  width:45px;
-  height:45px;
-  border-radius:50%;
-  background:#fff;
-  box-shadow:0 0 70px rgba(255,255,255,.45);
-}
-
-/* =========================
-   DUO
-========================= */
-
-.duo{
-  min-height:100vh;
-  padding:160px 0;
-}
-
-.duo-wrap{
-  width:min(1180px,92%);
-  margin:auto;
-}
-
-.duo-card{
-  margin-top:70px;
-  border:1px solid var(--line);
-  border-radius:35px;
-  padding:60px;
-  min-height:500px;
-  background:linear-gradient(
-    130deg,
-    rgba(255,255,255,.055),
-    rgba(255,255,255,.012)
-  );
-  position:relative;
   overflow:hidden;
-}
-
-.duo-names{
   display:flex;
   align-items:center;
-  gap:20px;
-  flex-wrap:wrap;
 }
 
-.duo-name{
-  font-size:clamp(38px,6vw,85px);
-  letter-spacing:-.08em;
-  font-weight:800;
+.chapter-inner{
+  width:min(1200px,88%);
+  margin:auto;
+  position:relative;
 }
 
-.duo-x{
-  color:#555;
-  font-size:40px;
+.chapter-number{
+  color:#666;
+  font-size:10px;
+  letter-spacing:.35em;
+  margin-bottom:25px;
 }
 
-.duo-line{
-  width:100%;
-  height:1px;
-  background:var(--line);
-  margin:45px 0;
+.chapter-title{
+  font-size:clamp(50px,9vw,130px);
+  line-height:.85;
+  letter-spacing:-.07em;
+  font-weight:900;
+  max-width:900px;
 }
 
-.duo-card p{
+.chapter-title .ghost{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.3);
+}
+
+.chapter-copy{
+  max-width:520px;
+  margin-top:35px;
   color:#888;
-  max-width:650px;
+  font-size:15px;
   line-height:1.8;
 }
 
-/* =========================
-   AI SECTION
-========================= */
-
-.ai-section{
-  min-height:100vh;
-  display:flex;
+.status{
+  margin-top:30px;
+  display:inline-flex;
   align-items:center;
+  gap:9px;
+  padding:9px 13px;
+  border:1px solid var(--line);
+  border-radius:50px;
+  color:#aaa;
+  font-size:9px;
+  letter-spacing:.15em;
+}
+
+.status-dot{
+  width:6px;
+  height:6px;
+  background:#fff;
+  border-radius:50%;
+  box-shadow:0 0 12px #fff;
+}
+
+/* ============================= */
+/* 3D OBJECTS */
+/* ============================= */
+
+.object{
+  position:absolute;
+  transform-style:preserve-3d;
+  pointer-events:none;
+}
+
+.cube{
+  width:170px;
+  height:170px;
+  right:8%;
+  top:50%;
+  transform-style:preserve-3d;
+}
+
+.cube-face{
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(255,255,255,.22);
+  background:rgba(255,255,255,.025);
+  backdrop-filter:blur(4px);
+}
+
+.f1{transform:translateZ(85px)}
+.f2{transform:rotateY(180deg) translateZ(85px)}
+.f3{transform:rotateY(90deg) translateZ(85px)}
+.f4{transform:rotateY(-90deg) translateZ(85px)}
+.f5{transform:rotateX(90deg) translateZ(85px)}
+.f6{transform:rotateX(-90deg) translateZ(85px)}
+
+.cube-inner{
+  position:absolute;
+  inset:25%;
+  border:1px solid rgba(255,255,255,.5);
+  transform:translateZ(20px) rotate(45deg);
+}
+
+/* ============================= */
+/* TALENTBRIDGE */
+/* ============================= */
+
+.archive{
+  position:absolute;
+  right:7%;
+  top:50%;
+  width:310px;
+  height:220px;
+  border:1px solid rgba(255,255,255,.13);
+  background:rgba(255,255,255,.025);
+  backdrop-filter:blur(20px);
+  transform:translateY(-50%) rotateX(18deg) rotateY(-20deg);
+  box-shadow:0 40px 100px rgba(0,0,0,.5);
+}
+
+.archive:before,
+.archive:after{
+  content:"";
+  position:absolute;
+  inset:20px;
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.archive-label{
+  position:absolute;
+  left:25px;
+  bottom:22px;
+  font-size:9px;
+  letter-spacing:.25em;
+  color:#666;
+}
+
+/* ============================= */
+/* AI WORKFORCE */
+/* ============================= */
+
+.aiworld{
+  min-height:180vh;
+}
+
+.aiworld .chapter-sticky{
+  background:
+    radial-gradient(circle at 70% 50%,rgba(255,255,255,.07),transparent 30%);
+}
+
+.ai-core{
+  position:absolute;
+  right:5%;
+  top:50%;
+  width:380px;
+  height:380px;
+  transform:translateY(-50%);
+  transform-style:preserve-3d;
+}
+
+.ai-ring{
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:50%;
+}
+
+.ai-ring:nth-child(1){
+  transform:rotateX(70deg);
+}
+.ai-ring:nth-child(2){
+  transform:rotateY(65deg);
+}
+.ai-ring:nth-child(3){
+  transform:rotateX(50deg) rotateY(45deg);
+}
+
+.ai-node{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:95px;
+  height:95px;
+  transform:translate(-50%,-50%);
+  border:1px solid #fff;
+  background:#050505;
+  box-shadow:
+    0 0 40px rgba(255,255,255,.15),
+    inset 0 0 25px rgba(255,255,255,.08);
+}
+
+.ai-node:before,
+.ai-node:after{
+  content:"";
+  position:absolute;
+  background:#fff;
+}
+
+.ai-node:before{
+  width:1px;
+  height:180px;
+  left:50%;
+  top:-43px;
+  opacity:.2;
+}
+
+.ai-node:after{
+  width:180px;
+  height:1px;
+  top:50%;
+  left:-43px;
+  opacity:.2;
+}
+
+.ai-link{
+  display:inline-flex;
+  margin-top:30px;
+  padding:15px 21px;
+  border-radius:50px;
+  background:#fff;
+  color:#000;
+  text-decoration:none;
+  font-size:11px;
+  font-weight:800;
+  transition:.3s;
+}
+
+.ai-link:hover{
+  transform:translateY(-4px) scale(1.03);
+}
+
+/* ============================= */
+/* GENESIS */
+/* ============================= */
+
+.genesis{
+  min-height:170vh;
+}
+
+.genesis-world{
+  position:absolute;
+  right:0;
+  width:500px;
+  height:500px;
+  top:50%;
+  transform:translateY(-50%);
+  perspective:1000px;
+}
+
+.grid-floor{
+  position:absolute;
+  inset:0;
+  transform:
+    rotateX(68deg)
+    rotateZ(-12deg)
+    translateY(90px);
+  background:
+    linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);
+  background-size:45px 45px;
+  mask-image:radial-gradient(circle,#000,transparent 70%);
+}
+
+.genesis-cube{
+  position:absolute;
+  width:170px;
+  height:170px;
+  left:50%;
+  top:42%;
+  transform:translate(-50%,-50%) rotateX(-20deg) rotateY(25deg);
+  transform-style:preserve-3d;
+}
+
+.genesis-cube div{
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(255,255,255,.35);
+}
+
+.gc1{transform:translateZ(85px)}
+.gc2{transform:rotateY(180deg) translateZ(85px)}
+.gc3{transform:rotateY(90deg) translateZ(85px)}
+.gc4{transform:rotateY(-90deg) translateZ(85px)}
+.gc5{transform:rotateX(90deg) translateZ(85px)}
+.gc6{transform:rotateX(-90deg) translateZ(85px)}
+
+/* ============================= */
+/* DUO */
+/* ============================= */
+
+.duo{
+  min-height:170vh;
+}
+
+.duo-stage{
+  position:absolute;
+  right:3%;
+  top:50%;
+  width:500px;
+  height:500px;
+  transform:translateY(-50%);
+  perspective:1200px;
+}
+
+.person-core{
+  position:absolute;
+  width:190px;
+  height:190px;
+  top:50%;
+  border:1px solid rgba(255,255,255,.3);
+  background:rgba(255,255,255,.025);
+  backdrop-filter:blur(15px);
+  transform-style:preserve-3d;
+}
+
+.person-core:first-child{
+  left:20px;
+  transform:translateY(-50%) rotateY(20deg) rotateX(10deg);
+}
+
+.person-core:last-child{
+  right:20px;
+  transform:translateY(-50%) rotateY(-20deg) rotateX(-10deg);
+}
+
+.person-core span{
+  position:absolute;
+  left:22px;
+  bottom:20px;
+  font-size:9px;
+  letter-spacing:.22em;
+  color:#777;
+}
+
+.connection{
+  position:absolute;
+  width:170px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,#fff,transparent);
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 20px rgba(255,255,255,.3);
+}
+
+/* ============================= */
+/* TODAY */
+/* ============================= */
+
+.today{
+  min-height:150vh;
+}
+
+.today-list{
+  margin-top:55px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  max-width:700px;
+}
+
+.today-list span{
+  padding:12px 16px;
+  border:1px solid var(--line);
+  border-radius:50px;
+  color:#999;
+  font-size:11px;
+  transition:.3s;
+}
+
+.today-list span:hover{
+  color:#fff;
+  transform:translateY(-3px);
+}
+
+/* ============================= */
+/* FUTURE */
+/* ============================= */
+
+.future{
+  min-height:180vh;
+}
+
+.future .chapter-sticky{
   justify-content:center;
   text-align:center;
-  padding:120px 20px;
 }
 
-.ai-content{
-  max-width:850px;
+.future-orbit{
+  position:absolute;
+  width:650px;
+  height:650px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:50%;
+  transform:rotateX(70deg);
+  animation:futureSpin 20s linear infinite;
 }
 
-.ai-title{
-  font-size:clamp(55px,10vw,130px);
-  letter-spacing:-.09em;
-  line-height:.85;
+.future-orbit:nth-child(2){
+  transform:rotateY(70deg);
+  animation-duration:27s;
 }
 
-.ai-sub{
-  color:#777;
-  max-width:550px;
-  margin:35px auto;
-  line-height:1.7;
+.future-orbit:nth-child(3){
+  width:350px;
+  height:350px;
+  animation-duration:13s;
 }
 
-.ai-pill{
-  display:inline-block;
-  border:1px solid var(--line);
-  padding:12px 18px;
-  border-radius:999px;
-  color:#aaa;
-  font-size:11px;
+@keyframes futureSpin{
+  to{transform:rotateX(70deg) rotateZ(360deg)}
 }
 
-/* =========================
-   FINAL
-========================= */
+/* ============================= */
+/* FINAL */
+/* ============================= */
 
 .final{
-  min-height:100vh;
+  height:130vh;
+  position:relative;
+  z-index:5;
+}
+
+.final-inner{
+  height:100%;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
-  overflow:hidden;
 }
 
 .final h2{
-  font-size:clamp(75px,17vw,240px);
-  line-height:.76;
-  letter-spacing:-.11em;
+  font-size:clamp(55px,12vw,170px);
+  line-height:.8;
+  letter-spacing:-.09em;
   font-weight:900;
 }
 
 .final h2 span{
   display:block;
+}
+
+.final .outline{
   color:transparent;
-  -webkit-text-stroke:1px rgba(255,255,255,.45);
+  -webkit-text-stroke:1px rgba(255,255,255,.55);
+}
+
+.final p{
+  margin:40px auto 0;
+  max-width:440px;
+  color:#777;
+  font-size:13px;
+  line-height:1.8;
 }
 
 .footer{
-  position:relative;
-  z-index:4;
-  padding:30px 5%;
+  position:absolute;
+  bottom:30px;
+  left:50%;
+  transform:translateX(-50%);
+  width:90%;
   display:flex;
   justify-content:space-between;
   color:#555;
-  font-size:10px;
-  border-top:1px solid var(--line);
+  font-size:9px;
+  letter-spacing:.15em;
 }
 
-/* =========================
-   REVEALS
-========================= */
+/* ============================= */
+/* REVEALS */
+/* ============================= */
 
 .reveal{
   opacity:0;
   transform:translateY(60px);
   transition:
-    opacity 1s cubic-bezier(.16,1,.3,1),
-    transform 1s cubic-bezier(.16,1,.3,1);
+    opacity 1s cubic-bezier(.2,.7,.2,1),
+    transform 1s cubic-bezier(.2,.7,.2,1);
 }
 
-.reveal.visible{
+.reveal.show{
   opacity:1;
   transform:none;
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* ============================= */
+/* MOBILE */
+/* ============================= */
 
-@media(max-width:700px){
+@media(max-width:800px){
 
   .nav{
-    top:10px;
-    height:54px;
+    top:12px;
+    height:52px;
   }
 
-  .navlinks{
+  .nav-links{
     display:none;
+  }
+
+  .hero{
+    height:140vh;
   }
 
   .hero h1{
@@ -710,47 +811,136 @@ section{
 
   .hero-sub{
     font-size:13px;
+    max-width:340px;
   }
 
   .core{
+    width:250px;
+    height:250px;
+    opacity:.4;
+  }
+
+  .chapter,
+  .aiworld,
+  .genesis,
+  .duo,
+  .today,
+  .future{
+    min-height:145vh;
+  }
+
+  .chapter-inner{
+    width:88%;
+    padding-top:40px;
+  }
+
+  .chapter-title{
+    font-size:15vw;
+  }
+
+  .chapter-copy{
+    font-size:13px;
+    max-width:330px;
+  }
+
+  .cube,
+  .archive,
+  .ai-core,
+  .genesis-world,
+  .duo-stage{
+    position:absolute;
+    right:auto;
+    left:50%;
+    top:auto;
+  }
+
+  .cube{
+    width:110px;
+    height:110px;
+    bottom:12%;
+    transform:translateX(-50%) rotateX(20deg) rotateY(20deg);
+  }
+
+  .f1{transform:translateZ(55px)}
+  .f2{transform:rotateY(180deg) translateZ(55px)}
+  .f3{transform:rotateY(90deg) translateZ(55px)}
+  .f4{transform:rotateY(-90deg) translateZ(55px)}
+  .f5{transform:rotateX(90deg) translateZ(55px)}
+  .f6{transform:rotateX(-90deg) translateZ(55px)}
+
+  .archive{
+    width:280px;
+    height:190px;
+    bottom:10%;
+    top:auto;
+    transform:translateX(-50%) rotateX(14deg) rotateY(-12deg);
+  }
+
+  .ai-core{
+    width:270px;
+    height:270px;
+    bottom:8%;
+    top:auto;
+    transform:translateX(-50%);
+  }
+
+  .genesis-world{
     width:300px;
     height:300px;
-    opacity:.45;
+    bottom:6%;
+    top:auto;
+    transform:translateX(-50%);
   }
 
-  .projects-grid{
-    grid-template-columns:1fr;
-  }
-
-  .project{
-    min-height:360px;
-  }
-
-  .duo-card{
-    padding:30px;
-  }
-
-  .ring-system{
+  .duo-stage{
     width:330px;
-    height:330px;
+    height:300px;
+    bottom:8%;
+    top:auto;
+    transform:translateX(-50%);
   }
 
-  .world-grid{
-    width:190vw;
-    height:190vw;
+  .person-core{
+    width:120px;
+    height:120px;
+  }
+
+  .person-core:first-child{
+    left:0;
+  }
+
+  .person-core:last-child{
+    right:0;
+  }
+
+  .connection{
+    width:90px;
+  }
+
+  .future-orbit{
+    width:350px;
+    height:350px;
+  }
+
+  .final{
+    height:110vh;
   }
 
   .footer{
     flex-direction:column;
     gap:10px;
+    text-align:center;
   }
 }
 
 @media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{
-    animation-duration:.01ms!important;
-    transition-duration:.01ms!important;
+  *,
+  *:before,
+  *:after{
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
     scroll-behavior:auto!important;
+    transition-duration:.001ms!important;
   }
 }
 </style>
@@ -758,209 +948,140 @@ section{
 
 <body>
 
-<div class="progress"><span id="progress"></span></div>
-
-<canvas id="canvas"></canvas>
+<div class="progress" id="progress"></div>
+<canvas id="space"></canvas>
+<div class="noise"></div>
+<div class="vignette"></div>
 
 <nav class="nav">
-  <div class="logo">MAGNUS <span>VERITY</span></div>
+  <div class="logo">MAGNUS VERITY</div>
 
-  <div class="navlinks">
-    <a href="#work">Work</a>
-    <a href="#story">Story</a>
-    <a href="#duo">Duo</a>
-    <a href="#future">Future</a>
+  <div class="nav-links">
+    <a href="#story">STORY</a>
+    <a href="#work">WORK</a>
+    <a href="#duo">DUO</a>
+    <a href="#future">FUTURE</a>
   </div>
 
-  <button class="nav-btn" onclick="document.getElementById('ai').scrollIntoView({behavior:'smooth'})">
+  <button class="ai-btn" onclick="document.getElementById('ai').scrollIntoView({behavior:'smooth'})">
     TALK TO AI
   </button>
 </nav>
 
 
+<!-- ========================================= -->
 <!-- HERO -->
-<section class="hero">
+<!-- ========================================= -->
 
-  <div class="core" id="core">
-    <div class="orbit o1"></div>
-    <div class="orbit o2"></div>
-    <div class="orbit o3"></div>
-    <div class="core-ball"></div>
-  </div>
+<section class="hero" id="story">
 
-  <div class="hero-content" id="heroContent">
+  <div class="hero-sticky">
 
-    <div class="eyebrow">
-      <span class="dot"></span>
-      Builder / Founder / Explorer
+    <div class="core" id="heroCore">
+      <div class="core-orbit orbit-a"></div>
+      <div class="core-orbit orbit-b"></div>
+      <div class="core-orbit orbit-c"></div>
+      <div class="core-ball"></div>
     </div>
 
-    <h1>
-      <span class="line">MAGNUS</span>
-      <span class="line ghost">VERITY</span>
-    </h1>
+    <div class="hero-content" id="heroContent">
 
-    <p class="hero-sub">
-      I build technology, experiment with impossible ideas,
-      and turn ambitious concepts into things that actually exist.
-    </p>
-
-    <div class="hero-actions">
-      <a href="#work" class="btn btn-primary">Explore the work</a>
-      <a href="#ai" class="btn btn-secondary">Talk to Magnus AI</a>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- MANIFESTO -->
-<section class="section manifesto" id="story">
-
-  <div class="section-inner">
-
-    <div class="section-tag reveal">01 — Philosophy</div>
-
-    <div class="manifesto-word reveal">BUILD.</div>
-    <div class="manifesto-word reveal">BREAK.</div>
-    <div class="manifesto-word reveal">REBUILD.</div>
-
-    <p class="description reveal">
-      Ideas are cheap until someone makes them real.
-      The goal isn't to look like a builder.
-      The goal is to build.
-    </p>
-
-  </div>
-
-</section>
-
-
-<!-- WORK -->
-<section class="projects" id="work">
-
-  <div class="section" style="min-height:auto;padding-bottom:0;">
-
-    <div class="section-inner">
-
-      <div class="section-tag reveal">02 — Selected Work</div>
-
-      <h2 class="section-title reveal">
-        Things that<br>
-        <span>actually exist.</span>
-      </h2>
-
-    </div>
-
-  </div>
-
-
-  <div class="projects-grid">
-
-    <article class="project tilt reveal">
-      <div class="project-number">01 / AI</div>
-      <div class="project-orb"></div>
-
-      <h3>AI Workforce</h3>
-
-      <p>
-        AI employees designed to handle real digital workflows
-        and work alongside people.
-      </p>
-    </article>
-
-
-    <article class="project tilt reveal">
-      <div class="project-number">02 / DIGITAL IDENTITY</div>
-      <div class="project-orb"></div>
-
-      <h3>LIMITLESS</h3>
-
-      <p>
-        A personal digital universe documenting the journey,
-        experiments, projects and ideas.
-      </p>
-    </article>
-
-
-    <article class="project tilt reveal">
-      <div class="project-number">03 / EXPERIMENT</div>
-      <div class="project-orb"></div>
-
-      <h3>GenesisAI</h3>
-
-      <p>
-        An AI-powered game creation concept exploring a
-        radically simpler way to build games.
-      </p>
-    </article>
-
-
-    <article class="project tilt reveal">
-      <div class="project-number">04 / EXPLORATION</div>
-      <div class="project-orb"></div>
-
-      <h3>WHAT'S NEXT?</h3>
-
-      <p>
-        New experiments in AI, automation, software,
-        interfaces and creative technology.
-      </p>
-    </article>
-
-  </div>
-
-</section>
-
-
-<!-- 3D WORLD -->
-<section class="world" id="future">
-
-  <div class="world-inner">
-
-    <div class="world-grid" id="grid"></div>
-
-    <div class="ring-system" id="rings">
-      <div class="r1"></div>
-      <div class="r2"></div>
-      <div class="r3"></div>
-      <div class="r4"></div>
-      <div class="world-center"></div>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- DUO -->
-<section class="duo" id="duo">
-
-  <div class="duo-wrap">
-
-    <div class="section-tag reveal">03 — The Build</div>
-
-    <h2 class="section-title reveal">
-      One vision.<br>
-      <span>Two minds.</span>
-    </h2>
-
-    <div class="duo-card tilt reveal">
-
-      <div class="duo-names">
-        <div class="duo-name">MAGNUS</div>
-        <div class="duo-x">×</div>
-        <div class="duo-name">BL4Z3</div>
+      <div class="eyebrow">
+        FOUNDER · BUILDER · EXPLORER
       </div>
 
-      <div class="duo-line"></div>
+      <h1>
+        <span>MAGNUS</span>
+        <span class="outline">VERITY</span>
+      </h1>
 
-      <p>
-        A founder and a technical mind building together —
-        turning ideas into systems, products and experiments.
-        The objective isn't to follow the map.
-        It's to build something that requires a new one.
+      <p class="hero-sub">
+        A story about curiosity, building, breaking,
+        rebuilding — and refusing to stop at the first version.
+      </p>
+
+    </div>
+
+    <div class="scroll-hint">
+      SCROLL TO ENTER
+      <div class="scroll-line"></div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ========================================= -->
+<!-- CHAPTER 01 -->
+<!-- ========================================= -->
+
+<section class="chapter">
+
+  <div class="chapter-sticky">
+
+    <div class="chapter-inner">
+
+      <div class="chapter-number">01 / THE BEGINNING</div>
+
+      <h2 class="chapter-title reveal">
+        BEFORE<br>
+        <span class="ghost">THE STARTUP.</span>
+      </h2>
+
+      <p class="chapter-copy reveal">
+        I didn't begin with a company.
+        I began with curiosity.
+
+        The urge to understand technology,
+        the obsession with creating things,
+        and the feeling that ideas were only
+        valuable once they became real.
+      </p>
+
+      <div class="cube object">
+        <div class="cube-face f1"></div>
+        <div class="cube-face f2"></div>
+        <div class="cube-face f3"></div>
+        <div class="cube-face f4"></div>
+        <div class="cube-face f5"></div>
+        <div class="cube-face f6"></div>
+        <div class="cube-inner"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ========================================= -->
+<!-- CHAPTER 02 -->
+<!-- ========================================= -->
+
+<section class="chapter">
+
+  <div class="chapter-sticky">
+
+    <div class="chapter-inner">
+
+      <div class="chapter-number">02 / THE IDEA</div>
+
+      <h2 class="chapter-title reveal">
+        THINK.<br>
+        BUILD.<br>
+        <span class="ghost">TEST.</span>
+      </h2>
+
+      <p class="chapter-copy reveal">
+        The ideas started getting bigger.
+
+        Eventually the question changed from
+        "what could I make?"
+        to
+
+        "what could I make that people could actually use?"
       </p>
 
     </div>
@@ -970,26 +1091,50 @@ section{
 </section>
 
 
-<!-- AI -->
-<section class="ai-section" id="ai">
+<!-- ========================================= -->
+<!-- TALENTBRIDGE -->
+<!-- ========================================= -->
 
-  <div class="ai-content">
+<section class="chapter" id="work">
 
-    <div class="section-tag reveal">04 — Digital Representative</div>
+  <div class="chapter-sticky">
 
-    <h2 class="ai-title reveal">
-      TALK TO<br>
-      MAGNUS AI
-    </h2>
+    <div class="chapter-inner">
 
-    <p class="ai-sub reveal">
-      Curious about Magnus, the projects, the ideas,
-      AI Workforce, GenesisAI, or potential collaboration?
-      Ask directly.
-    </p>
+      <div class="chapter-number">03 / FIRST REAL CHAPTER</div>
 
-    <div class="ai-pill reveal">
-      AI ASSISTANT · POWERED BY AI WORKFORCE
+      <h2 class="chapter-title reveal">
+        TALENT<br>
+        <span class="ghost">BRIDGE.</span>
+      </h2>
+
+      <p class="chapter-copy reveal">
+        TalentBridge was one of the first serious attempts
+        to turn an idea into a real product.
+
+        It wasn't meant to be the final destination.
+
+        It became something more useful:
+        experience.
+
+        Building.
+        Testing.
+        Breaking.
+        Learning.
+
+      </p>
+
+      <div class="status reveal">
+        <span class="status-dot"></span>
+        ARCHIVED · CLOSED
+      </div>
+
+      <div class="archive">
+        <div class="archive-label">
+          CHAPTER CLOSED
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -997,26 +1142,428 @@ section{
 </section>
 
 
-<!-- FINAL -->
-<section class="final">
+<!-- ========================================= -->
+<!-- TURNING POINT -->
+<!-- ========================================= -->
 
-  <div>
-    <h2 class="reveal">
-      STAY
-      <span>LIMITLESS.</span>
-    </h2>
+<section class="chapter">
+
+  <div class="chapter-sticky">
+
+    <div class="chapter-inner">
+
+      <div class="chapter-number">04 / THE TURNING POINT</div>
+
+      <h2 class="chapter-title reveal">
+        BUILD<br>
+        <span class="ghost">BETTER.</span>
+      </h2>
+
+      <p class="chapter-copy reveal">
+        Every failed idea leaves something behind.
+
+        A lesson.
+        A better question.
+        A stronger instinct.
+
+        The goal was never to have a perfect first attempt.
+
+        It was to become better at the next one.
+      </p>
+
+    </div>
+
   </div>
 
 </section>
 
 
-<footer class="footer">
-  <span>© Magnus Verity</span>
-  <span>BUILT WITHOUT LIMITS.</span>
-</footer>
+<!-- ========================================= -->
+<!-- AI WORKFORCE -->
+<!-- ========================================= -->
+
+<section class="chapter aiworld" id="aiworkforce">
+
+  <div class="chapter-sticky">
+
+    <div class="chapter-inner">
+
+      <div class="chapter-number">05 / CURRENT CHAPTER</div>
+
+      <h2 class="chapter-title reveal">
+        AI<br>
+        <span class="ghost">WORKFORCE.</span>
+      </h2>
+
+      <p class="chapter-copy reveal">
+        Then came a bigger question:
+
+        What if AI could become more than a chatbot?
+
+        What if AI employees could actually
+        perform real digital work?
+
+        AI Workforce is the answer we're building.
+
+        Not finished.
+        Not "done."
+
+        <strong>Working.</strong>
+        Evolving.
+        Getting better.
+      </p>
+
+      <div class="status reveal">
+        <span class="status-dot"></span>
+        CURRENTLY WORKING
+      </div>
+
+      <a
+        class="ai-link"
+        href="https://aiworkforce.ai.studio"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        OPEN AI WORKFORCE ↗
+      </a>
+
+      <div class="ai-core">
+
+        <div class="ai-ring"></div>
+        <div class="ai-ring"></div>
+        <div class="ai-ring"></div>
+
+        <div class="ai-node"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
 
 
+<!-- ========================================= -->
+<!-- BUILDER PHILOSOPHY -->
+<!-- ========================================= -->
+
+<section class="chapter">
+
+  <div class="chapter-sticky">
+
+    <div class="chapter-inner">
+
+      <div class="chapter-number">06 / THE BUILDER</div>
+
+      <h2 class="chapter-title reveal">
+        RELIABILITY<br>
+        <span class="ghost">FIRST.</span>
+      </h2>
+
+      <p class="chapter-copy reveal">
+        Build the foundation first.
+
+        Reliability.
+        Security.
+        Performance.
+        AI quality.
+        Design.
+
+        Then the crazy stuff.
+
+        Because a beautiful product that doesn't work
+        isn't a product.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ========================================= -->
+<!-- GENESIS -->
+<!-- ========================================= -->
+
+<section class="chapter genesis">
+
+  <div class="chapter-sticky">
+
+    <div class="chapter-inner">
+
+      <div class="chapter-number">07 / NEXT CHAPTER</div>
+
+      <h2 class="chapter-title reveal">
+        GENESIS<br>
+        <span class="ghost">AI.</span>
+      </h2>
+
+      <p class="chapter-copy reveal">
+        Another idea is taking shape.
+
+        GenesisAI is being built around a simple question:
+
+        What if creating a Roblox game
+        could begin with an idea,
+        rather than hours of technical work?
+
+        It's still being built.
+
+        Which means the most interesting part
+        hasn't happened yet.
+      </p>
+
+      <div class="status reveal">
+        <span class="status-dot"></span>
+        IN DEVELOPMENT
+      </div>
+
+      <div class="genesis-world">
+
+        <div class="grid-floor"></div>
+
+        <div class="genesis-cube">
+          <div class="gc1"></div>
+          <div class="gc2"></div>
+          <div class="gc3"></div>
+          <div class="gc4"></div>
+          <div class="gc5"></div>
+          <div class="gc6"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ========================================= -->
+<!-- DUO -->
+<!-- ========================================= -->
+
+<section class="chapter duo" id="duo">
+
+  <div class="chapter-sticky">
+
+    <div class="chapter-inner">
+
+      <div class="chapter-number">08 / THE DUO</div>
+
+      <h2 class="chapter-title reveal">
+        MAGNUS<br>
+        <span class="ghost">× BL4Z3</span>
+      </h2>
+
+      <p class="chapter-copy reveal">
+        Two minds.
+
+        One obsession with building.
+
+        Magnus Verity —
+        vision, product, ideas and direction.
+
+        BL4Z3 —
+        technology, systems and execution.
+
+        Not a finished story.
+
+        A partnership still building.
+      </p>
+
+      <div class="duo-stage">
+
+        <div class="person-core">
+          <span>MAGNUS</span>
+        </div>
+
+        <div class="connection"></div>
+
+        <div class="person-core">
+          <span>BL4Z3</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ========================================= -->
+<!-- TODAY -->
+<!-- ========================================= -->
+
+<section class="chapter today">
+
+  <div class="chapter-sticky">
+
+    <div class="chapter-inner">
+
+      <div class="chapter-number">09 / TODAY</div>
+
+      <h2 class="chapter-title reveal">
+        STILL<br>
+        <span class="ghost">BUILDING.</span>
+      </h2>
+
+      <p class="chapter-copy reveal">
+        I'm still learning.
+        Still experimenting.
+        Still breaking things.
+        Still rebuilding.
+
+        AI.
+        Software.
+        Startups.
+        Design.
+        Automation.
+        Creative technology.
+
+        The list keeps getting longer.
+      </p>
+
+      <div class="today-list reveal">
+        <span>ARTIFICIAL INTELLIGENCE</span>
+        <span>STARTUPS</span>
+        <span>SOFTWARE</span>
+        <span>AI AGENTS</span>
+        <span>SAAS</span>
+        <span>PRODUCT DESIGN</span>
+        <span>AUTOMATION</span>
+        <span>CREATIVE TECHNOLOGY</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ========================================= -->
+<!-- FUTURE -->
+<!-- ========================================= -->
+
+<section class="chapter future" id="future">
+
+  <div class="chapter-sticky">
+
+    <div class="future-orbit"></div>
+    <div class="future-orbit"></div>
+    <div class="future-orbit"></div>
+
+    <div class="chapter-inner">
+
+      <div class="chapter-number">10 / WHAT'S NEXT</div>
+
+      <h2 class="chapter-title reveal">
+        I DON'T<br>
+        <span class="ghost">KNOW YET.</span>
+      </h2>
+
+      <p class="chapter-copy reveal" style="margin-left:auto;margin-right:auto">
+        And that's exactly what makes it interesting.
+
+        The next startup.
+        The next product.
+        The next impossible idea.
+
+        It hasn't been revealed yet.
+
+        Maybe that's the best part.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ========================================= -->
+<!-- AI -->
+<!-- ========================================= -->
+
+<section class="chapter" id="ai">
+
+  <div class="chapter-sticky">
+
+    <div class="chapter-inner" style="text-align:center">
+
+      <div class="chapter-number">11 / MEET THE AI</div>
+
+      <h2 class="chapter-title reveal" style="margin:auto">
+        TALK TO<br>
+        <span class="ghost">MAGNUS AI.</span>
+      </h2>
+
+      <p class="chapter-copy reveal" style="margin:35px auto 0">
+        Explore the projects, ideas and story behind
+        Magnus Verity through an interactive AI assistant.
+      </p>
+
+      <button
+        class="ai-link reveal"
+        onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})"
+      >
+        START CONVERSATION ↓
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ========================================= -->
+<!-- FINAL -->
+<!-- ========================================= -->
+
+<section class="final">
+
+  <div class="final-inner">
+
+    <div>
+
+      <div class="eyebrow">
+        THE STORY IS STILL BEING WRITTEN.
+      </div>
+
+      <h2>
+        <span>STAY</span>
+        <span class="outline">LIMITLESS.</span>
+      </h2>
+
+      <p>
+        I build things that help people become
+        better versions of themselves.
+      </p>
+
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <span>MAGNUS VERITY</span>
+    <span>MAGNUS × BL4Z3</span>
+    <span>2026 — STILL BUILDING</span>
+  </div>
+
+</section>
+
+
+<!-- ========================================= -->
 <!-- MAGNUS AI WIDGET -->
+<!-- ========================================= -->
+
 <script
   src="https://aiworkforce.ai.studio/widget.js"
   data-widget-id="wgt_8va1xl_re01u0"
@@ -1025,340 +1572,340 @@ section{
 
 
 <script>
-
-/* ==========================================
+/* =========================================
    PARTICLE UNIVERSE
-========================================== */
+========================================= */
 
-const canvas = document.getElementById("canvas");
+const canvas = document.getElementById("space");
 const ctx = canvas.getContext("2d");
 
-let W,H,dpr;
-let particles=[];
-let mouse={x:0,y:0};
-let scrollVelocity=0;
-let lastScroll=window.scrollY;
+let W = innerWidth;
+let H = innerHeight;
+let dpr = Math.min(devicePixelRatio || 1,2);
 
-function resizeCanvas(){
+function resize(){
+  W = innerWidth;
+  H = innerHeight;
 
-  dpr=Math.min(window.devicePixelRatio || 1,2);
-
-  W=window.innerWidth;
-  H=window.innerHeight;
-
-  canvas.width=W*dpr;
-  canvas.height=H*dpr;
-
-  canvas.style.width=W+"px";
-  canvas.style.height=H+"px";
+  canvas.width = W*dpr;
+  canvas.height = H*dpr;
+  canvas.style.width = W+"px";
+  canvas.style.height = H+"px";
 
   ctx.setTransform(dpr,0,0,dpr,0,0);
 }
 
-resizeCanvas();
+resize();
+addEventListener("resize",resize);
 
-window.addEventListener("resize",resizeCanvas);
+const particles = [];
 
-function createParticles(){
+const count = innerWidth < 700 ? 75 : 145;
 
-  particles=[];
+for(let i=0;i<count;i++){
 
-  const count=window.innerWidth<700 ? 65 : 120;
+  particles.push({
+    x:Math.random()*W,
+    y:Math.random()*H,
+    z:Math.random(),
+    size:Math.random()*1.5+.2,
+    speed:Math.random()*.25+.04,
+    phase:Math.random()*Math.PI*2
+  });
 
-  for(let i=0;i<count;i++){
-
-    particles.push({
-      x:(Math.random()-.5)*W*1.6,
-      y:(Math.random()-.5)*H*1.6,
-      z:Math.random()*1000+1,
-      size:Math.random()*1.5+.2,
-      speed:Math.random()*.5+.15
-    });
-
-  }
 }
 
-createParticles();
+let scrollY = 0;
+let previousScroll = 0;
+let velocity = 0;
+let smoothVelocity = 0;
 
-function drawParticles(){
+function particlesLoop(){
 
   ctx.clearRect(0,0,W,H);
 
+  smoothVelocity += (velocity-smoothVelocity)*.08;
+
   for(const p of particles){
 
-    p.z-=p.speed + Math.abs(scrollVelocity)*.015;
+    p.y -= p.speed + smoothVelocity*.025;
+    p.x += Math.sin(performance.now()*.0003+p.phase)*.08;
 
-    if(p.z<1){
-      p.z=1000;
-      p.x=(Math.random()-.5)*W*1.6;
-      p.y=(Math.random()-.5)*H*1.6;
-    }
+    if(p.y < -10) p.y = H+10;
+    if(p.y > H+10) p.y = -10;
 
-    const scale=500/p.z;
-
-    const x=W/2+p.x*scale;
-    const y=H/2+p.y*scale;
-
-    if(x<-20||x>W+20||y<-20||y>H+20) continue;
-
-    const alpha=Math.min(1,(1000-p.z)/500);
+    let alpha = .12 + p.z*.45;
 
     ctx.beginPath();
-
     ctx.arc(
-      x,
-      y,
-      Math.max(.3,p.size*scale),
+      p.x,
+      p.y,
+      p.size*(.6+p.z),
       0,
       Math.PI*2
     );
 
-    ctx.fillStyle=`rgba(255,255,255,${alpha*.45})`;
-
+    ctx.fillStyle = `rgba(255,255,255,${alpha})`;
     ctx.fill();
+
   }
 
-  requestAnimationFrame(drawParticles);
+  requestAnimationFrame(particlesLoop);
 }
 
-drawParticles();
+particlesLoop();
 
 
-/* ==========================================
-   SCROLL VELOCITY
-========================================== */
+/* =========================================
+   SCROLL ENGINE
+========================================= */
+
+let ticking = false;
+
+function updateScroll(){
+
+  scrollY = window.scrollY;
+
+  velocity = scrollY-previousScroll;
+  previousScroll = scrollY;
+
+  smoothVelocity += (velocity-smoothVelocity)*.08;
+
+  const max =
+    document.documentElement.scrollHeight-innerHeight;
+
+  const progress =
+    max > 0 ? scrollY/max : 0;
+
+  document.getElementById("progress").style.width =
+    `${progress*100}%`;
+
+  ticking = false;
+}
 
 window.addEventListener("scroll",()=>{
 
-  const now=window.scrollY;
-
-  scrollVelocity=now-lastScroll;
-
-  lastScroll=now;
-
-  clearTimeout(window.scrollTimer);
-
-  window.scrollTimer=setTimeout(()=>{
-    scrollVelocity*=.2;
-  },80);
+  if(!ticking){
+    requestAnimationFrame(updateScroll);
+    ticking = true;
+  }
 
 });
 
 
-/* ==========================================
-   PROGRESS
-========================================== */
-
-const progress=document.getElementById("progress");
-
-function updateProgress(){
-
-  const max=document.documentElement.scrollHeight-window.innerHeight;
-
-  const amount=max>0 ? window.scrollY/max : 0;
-
-  progress.style.width=(amount*100)+"%";
-
-}
-
-window.addEventListener("scroll",updateProgress);
-
-
-/* ==========================================
+/* =========================================
    HERO PARALLAX
-========================================== */
-
-const heroContent=document.getElementById("heroContent");
-const core=document.getElementById("core");
-
-window.addEventListener("pointermove",e=>{
-
-  mouse.x=e.clientX;
-  mouse.y=e.clientY;
-
-  const px=(e.clientX/window.innerWidth-.5);
-  const py=(e.clientY/window.innerHeight-.5);
-
-  heroContent.style.transform=
-    `rotateY(${px*5}deg) rotateX(${-py*5}deg)`;
-
-  core.style.transform=
-    `translate(-50%,-50%) translate(${px*25}px,${py*25}px) rotate(${px*8}deg)`;
-
-});
-
-
-/* ==========================================
-   TILT CARDS
-========================================== */
-
-document.querySelectorAll(".tilt").forEach(card=>{
-
-  card.addEventListener("pointermove",e=>{
-
-    if(window.innerWidth<700)return;
-
-    const r=card.getBoundingClientRect();
-
-    const x=e.clientX-r.left;
-    const y=e.clientY-r.top;
-
-    const px=x/r.width-.5;
-    const py=y/r.height-.5;
-
-    card.style.setProperty("--mx",(x/r.width*100)+"%");
-    card.style.setProperty("--my",(y/r.height*100)+"%");
-
-    card.style.transform=
-      `perspective(1000px)
-       rotateX(${-py*7}deg)
-       rotateY(${px*7}deg)
-       translateY(-5px)`;
-
-  });
-
-  card.addEventListener("pointerleave",()=>{
-
-    card.style.transform="";
-
-  });
-
-});
-
-
-/* ==========================================
-   REVEAL ENGINE
-========================================== */
-
-const observer=new IntersectionObserver(entries=>{
-
-  entries.forEach(entry=>{
-
-    if(entry.isIntersecting){
-
-      entry.target.classList.add("visible");
-
-    }
-
-  });
-
-},{
-  threshold:.12
-});
-
-document.querySelectorAll(".reveal").forEach(el=>{
-  observer.observe(el);
-});
-
-
-/* ==========================================
-   MANIFESTO ACTIVATION
-========================================== */
-
-const words=document.querySelectorAll(".manifesto-word");
-
-const wordObserver=new IntersectionObserver(entries=>{
-
-  entries.forEach(entry=>{
-
-    if(entry.isIntersecting){
-      entry.target.classList.add("active");
-    }
-
-  });
-
-},{
-  threshold:.65
-});
-
-words.forEach(w=>wordObserver.observe(w));
-
-
-/* ==========================================
-   3D WORLD SCROLL
-========================================== */
-
-const rings=document.getElementById("rings");
-const grid=document.getElementById("grid");
-
-function animateWorld(){
-
-  const rect=document
-    .querySelector(".world")
-    .getBoundingClientRect();
-
-  const progress=
-    Math.max(0,Math.min(1,
-      (window.innerHeight-rect.top)/
-      (window.innerHeight+rect.height)
-    ));
-
-  const rotation=progress*360;
-
-  rings.style.transform=
-    `rotateX(${progress*15}deg)
-     rotateY(${rotation}deg)
-     scale(${.7+progress*.45})`;
-
-  grid.style.transform=
-    `rotateX(${68+progress*7}deg)
-     translateY(${330-progress*260}px)
-     rotateZ(${progress*18}deg)`;
-
-  requestAnimationFrame(animateWorld);
-}
-
-animateWorld();
-
-
-/* ==========================================
-   MOBILE TOUCH FRIENDLY BEHAVIOR
-========================================== */
-
-let touchStart=0;
-
-window.addEventListener("touchstart",e=>{
-  touchStart=e.touches[0].clientY;
-},{passive:true});
-
-window.addEventListener("touchmove",e=>{
-
-  const current=e.touches[0].clientY;
-
-  scrollVelocity=(touchStart-current)*.15;
-
-  touchStart=current;
-
-},{passive:true});
-
-
-/* ==========================================
-   SMOOTH NAV HOVER
-========================================== */
-
-document.querySelectorAll(".navlinks a").forEach(link=>{
-
-  link.addEventListener("click",e=>{
-
-    const target=document.querySelector(
-      link.getAttribute("href")
+========================================= */
+
+const hero = document.querySelector(".hero");
+const heroContent = document.getElementById("heroContent");
+const heroCore = document.getElementById("heroCore");
+
+function heroMotion(){
+
+  const rect = hero.getBoundingClientRect();
+
+  const p =
+    Math.min(
+      1,
+      Math.max(
+        0,
+        -rect.top/(hero.offsetHeight-innerHeight)
+      )
     );
 
-    if(target){
+  const scale = 1+p*.75;
+  const rotate = p*18;
 
-      e.preventDefault();
+  heroContent.style.transform =
+    `translate3d(0,${p*-100}px,0)
+     scale(${1-p*.25})
+     rotateX(${rotate*.2}deg)`;
 
-      target.scrollIntoView({
-        behavior:"smooth"
+  heroCore.style.transform =
+    `translate(-50%,-50%)
+     scale(${scale})
+     rotateX(${p*45}deg)
+     rotateY(${p*70}deg)`;
+
+}
+
+function animationLoop(){
+
+  heroMotion();
+
+  requestAnimationFrame(animationLoop);
+
+}
+
+animationLoop();
+
+
+/* =========================================
+   POINTER PHYSICS
+========================================= */
+
+let mouseX = 0;
+let mouseY = 0;
+let targetX = 0;
+let targetY = 0;
+
+addEventListener("pointermove",e=>{
+
+  targetX =
+    (e.clientX/innerWidth-.5)*2;
+
+  targetY =
+    (e.clientY/innerHeight-.5)*2;
+
+});
+
+function pointerLoop(){
+
+  mouseX += (targetX-mouseX)*.05;
+  mouseY += (targetY-mouseY)*.05;
+
+  document.querySelectorAll(
+    ".cube,.archive,.ai-core,.genesis-world,.duo-stage"
+  ).forEach((el,i)=>{
+
+    const amount = i%2 ? 7 : 11;
+
+    el.style.marginLeft =
+      `${mouseX*amount}px`;
+
+    el.style.marginTop =
+      `${mouseY*amount}px`;
+
+  });
+
+  requestAnimationFrame(pointerLoop);
+}
+
+pointerLoop();
+
+
+/* =========================================
+   REVEAL SYSTEM
+========================================= */
+
+const revealObserver =
+  new IntersectionObserver(
+    entries=>{
+
+      entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+          entry.target.classList.add("show");
+        }
+
       });
 
+    },
+    {
+      threshold:.15
+    }
+  );
+
+document.querySelectorAll(".reveal")
+  .forEach(el=>revealObserver.observe(el));
+
+
+/* =========================================
+   3D STARTUP OBJECT ROTATION
+========================================= */
+
+const objects = document.querySelectorAll(
+  ".cube,.archive,.ai-core,.genesis-cube,.person-core"
+);
+
+window.addEventListener("scroll",()=>{
+
+  const v = Math.min(25,Math.abs(velocity));
+
+  objects.forEach((el,i)=>{
+
+    const current =
+      parseFloat(el.dataset.rotation || 0);
+
+    const next =
+      current + velocity*.08;
+
+    el.dataset.rotation = next;
+
+    if(el.classList.contains("cube")){
+      el.style.rotate =
+        `${next*.35}deg ${next*.5}deg`;
+    }
+
+    if(el.classList.contains("ai-core")){
+      el.style.rotate =
+        `${next*.15}deg ${next*.3}deg`;
+    }
+
+    if(el.classList.contains("genesis-cube")){
+      el.style.rotate =
+        `${next*.3}deg ${next*.5}deg`;
     }
 
   });
 
 });
 
+
+/* =========================================
+   MAGNETIC BUTTONS
+========================================= */
+
+document.querySelectorAll(".ai-btn,.ai-link")
+.forEach(btn=>{
+
+  btn.addEventListener("pointermove",e=>{
+
+    const r = btn.getBoundingClientRect();
+
+    const x =
+      (e.clientX-r.left-r.width/2)*.15;
+
+    const y =
+      (e.clientY-r.top-r.height/2)*.15;
+
+    btn.style.transform =
+      `translate(${x}px,${y}px)`;
+
+  });
+
+  btn.addEventListener("pointerleave",()=>{
+
+    btn.style.transform = "";
+
+  });
+
+});
+
+
+/* =========================================
+   TOUCH FRIENDLY RESET
+========================================= */
+
+addEventListener("touchstart",()=>{
+  targetX = 0;
+  targetY = 0;
+},{passive:true});
+
+
+/* =========================================
+   PREVENT HEAVY LAYOUT ON HIDDEN TABS
+========================================= */
+
+document.addEventListener("visibilitychange",()=>{
+
+  if(document.hidden){
+    velocity = 0;
+  }
+
+});
 </script>
 
 </body>
-   </html>
+    </html>

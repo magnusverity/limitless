@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1.0" />
-<meta name="theme-color" content="#050505" />
-
-<title>Magnus Verity — The Story Is Still Being Written.</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050608">
+<title>Magnus Verity — Still Building.</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
+:root{
+  --bg:#050608;
+  --fg:#f7f7f7;
+  --muted:#a3a6ad;
+  --soft:#70747c;
+  --line:rgba(255,255,255,.12);
+  --glass:rgba(255,255,255,.055);
+  --ease:cubic-bezier(.2,.75,.2,1);
+}
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -19,928 +28,1242 @@
 }
 
 html{
+  background:var(--bg);
   scroll-behavior:smooth;
-  background:#050505;
 }
 
 body{
-  background:#050505;
-  color:#fff;
-  font-family:Inter,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:Inter,system-ui,sans-serif;
   overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
 }
 
 body::-webkit-scrollbar{
-  width:6px;
+  width:5px;
 }
+
 body::-webkit-scrollbar-thumb{
   background:#555;
-  border-radius:20px;
+  border-radius:99px;
 }
 
-:root{
-  --white:#fff;
-  --muted:#8c8c8c;
-  --line:rgba(255,255,255,.12);
-  --glass:rgba(255,255,255,.055);
-}
+/* =====================================================
+   GLOBAL
+===================================================== */
 
-/* ============================= */
-/* GLOBAL */
-/* ============================= */
-
-#space{
+#universe{
   position:fixed;
   inset:0;
   width:100%;
   height:100%;
-  z-index:0;
   pointer-events:none;
+  z-index:0;
 }
 
-.noise{
+.glow{
   position:fixed;
-  inset:0;
-  z-index:2;
+  width:500px;
+  height:500px;
+  border-radius:50%;
   pointer-events:none;
-  opacity:.035;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+  z-index:1;
+  background:radial-gradient(circle,rgba(255,255,255,.065),transparent 68%);
+  transform:translate(-50%,-50%);
+  filter:blur(30px);
 }
 
 .vignette{
   position:fixed;
   inset:0;
-  z-index:1;
   pointer-events:none;
+  z-index:3;
   background:
-    radial-gradient(circle at center,transparent 35%,rgba(0,0,0,.45) 100%);
+    radial-gradient(circle at center,transparent 30%,rgba(0,0,0,.34) 100%);
+}
+
+.noise{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:4;
+  opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 .progress{
   position:fixed;
   top:0;
   left:0;
+  width:0;
   height:2px;
-  width:0%;
   background:#fff;
   z-index:100;
-  box-shadow:0 0 14px rgba(255,255,255,.8);
+  box-shadow:0 0 16px rgba(255,255,255,.8);
 }
+
+/* =====================================================
+   NAV
+===================================================== */
 
 .nav{
   position:fixed;
-  top:22px;
+  z-index:90;
+  top:20px;
   left:50%;
   transform:translateX(-50%);
-  width:min(92%,900px);
-  height:58px;
-  border:1px solid var(--line);
-  background:rgba(5,5,5,.62);
-  backdrop-filter:blur(22px);
-  -webkit-backdrop-filter:blur(22px);
-  border-radius:100px;
-  z-index:90;
+  width:min(94%,1000px);
+  min-height:58px;
+  padding:7px 8px 7px 20px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 10px 0 22px;
+  gap:12px;
+
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:rgba(7,8,10,.68);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
 }
 
-.logo{
-  font-size:13px;
-  font-weight:800;
-  letter-spacing:.18em;
-}
-
-.nav-links{
-  display:flex;
-  gap:5px;
-}
-
-.nav-links a{
-  color:#aaa;
+.brand{
+  color:#fff;
   text-decoration:none;
-  font-size:11px;
-  padding:10px 13px;
-  border-radius:30px;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.16em;
+  white-space:nowrap;
+}
+
+.navlinks{
+  display:flex;
+  gap:2px;
+}
+
+.navlinks a{
+  color:#858991;
+  text-decoration:none;
+  font-size:10px;
+  font-weight:600;
+  padding:11px 13px;
+  border-radius:999px;
   transition:.3s;
 }
 
-.nav-links a:hover{
+.navlinks a:hover{
   color:#fff;
-  background:rgba(255,255,255,.08);
+  background:rgba(255,255,255,.07);
 }
 
-.ai-btn{
+.nav-ai{
   border:0;
   background:#fff;
-  color:#000;
-  border-radius:30px;
-  padding:11px 16px;
-  font-size:11px;
+  color:#050505;
+  border-radius:999px;
+  padding:12px 17px;
+  font-size:10px;
   font-weight:800;
   cursor:pointer;
-  transition:.3s;
+  transition:.35s var(--ease);
+  white-space:nowrap;
 }
 
-.ai-btn:hover{
+.nav-ai:hover{
   transform:scale(1.05);
 }
 
-/* ============================= */
-/* HERO */
-/* ============================= */
-
-.hero{
-  position:relative;
-  height:170vh;
-  z-index:5;
-}
-
-.hero-sticky{
-  position:sticky;
-  top:0;
-  height:100vh;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.hero-content{
-  position:relative;
-  z-index:8;
-  width:min(1100px,90%);
-  text-align:center;
-  transform-style:preserve-3d;
-}
-
-.eyebrow{
-  font-size:10px;
-  letter-spacing:.35em;
-  text-transform:uppercase;
-  color:#888;
-  margin-bottom:28px;
-}
-
-.hero h1{
-  font-size:clamp(58px,13vw,190px);
-  line-height:.78;
-  letter-spacing:-.09em;
-  font-weight:900;
-  perspective:1000px;
-}
-
-.hero h1 span{
-  display:block;
-}
-
-.hero h1 .outline{
-  color:transparent;
-  -webkit-text-stroke:1px rgba(255,255,255,.65);
-}
-
-.hero-sub{
-  margin:42px auto 0;
-  max-width:520px;
-  color:#999;
-  line-height:1.7;
-  font-size:14px;
-}
-
-.scroll-hint{
-  position:absolute;
-  bottom:35px;
-  left:50%;
-  transform:translateX(-50%);
-  color:#666;
-  font-size:9px;
-  letter-spacing:.25em;
-  text-transform:uppercase;
-}
-
-.scroll-line{
-  width:1px;
-  height:55px;
-  background:linear-gradient(#fff,transparent);
-  margin:12px auto 0;
-}
-
-/* ============================= */
-/* HERO CORE */
-/* ============================= */
-
-.core{
-  position:absolute;
-  width:360px;
-  height:360px;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  transform-style:preserve-3d;
-  pointer-events:none;
-  opacity:.75;
-}
-
-.core-orbit{
-  position:absolute;
-  inset:0;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:50%;
-  transform-style:preserve-3d;
-}
-
-.orbit-a{
-  transform:rotateX(65deg) rotateZ(10deg);
-  animation:orbitA 14s linear infinite;
-}
-
-.orbit-b{
-  transform:rotateY(70deg) rotateZ(-25deg);
-  animation:orbitB 19s linear infinite;
-}
-
-.orbit-c{
-  transform:rotateX(75deg) rotateY(25deg);
-  animation:orbitC 25s linear infinite;
-}
-
-@keyframes orbitA{
-  to{transform:rotateX(65deg) rotateZ(370deg)}
-}
-@keyframes orbitB{
-  to{transform:rotateY(70deg) rotateZ(-385deg)}
-}
-@keyframes orbitC{
-  to{transform:rotateX(435deg) rotateY(25deg)}
-}
-
-.core-ball{
-  position:absolute;
-  width:85px;
-  height:85px;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  border-radius:50%;
-  background:
-    radial-gradient(circle at 30% 25%,#fff,#aaa 12%,#333 42%,#050505 70%);
-  box-shadow:
-    0 0 35px rgba(255,255,255,.2),
-    0 0 100px rgba(255,255,255,.08);
-}
-
-/* ============================= */
-/* CINEMATIC CHAPTERS */
-/* ============================= */
+/* =====================================================
+   COMMON TYPOGRAPHY
+===================================================== */
 
 .chapter{
   position:relative;
-  min-height:150vh;
-  z-index:5;
+  z-index:10;
+  min-height:145vh;
 }
 
 .chapter-sticky{
   position:sticky;
   top:0;
-  height:100vh;
-  overflow:hidden;
+  min-height:100svh;
   display:flex;
   align-items:center;
+  overflow:hidden;
 }
 
-.chapter-inner{
-  width:min(1200px,88%);
-  margin:auto;
-  position:relative;
+.container{
+  width:min(1180px,88%);
+  margin:0 auto;
 }
 
-.chapter-number{
-  color:#666;
+.kicker{
+  color:#777b83;
   font-size:10px;
-  letter-spacing:.35em;
-  margin-bottom:25px;
+  font-weight:700;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  margin-bottom:24px;
 }
 
-.chapter-title{
-  font-size:clamp(50px,9vw,130px);
-  line-height:.85;
-  letter-spacing:-.07em;
-  font-weight:900;
+.title{
   max-width:900px;
+  font-size:clamp(54px,8.7vw,125px);
+  line-height:.86;
+  letter-spacing:-.075em;
+  font-weight:900;
 }
 
-.chapter-title .ghost{
+.title .outline{
   color:transparent;
-  -webkit-text-stroke:1px rgba(255,255,255,.3);
+  -webkit-text-stroke:1px rgba(255,255,255,.62);
 }
 
-.chapter-copy{
-  max-width:520px;
+.body{
+  max-width:590px;
   margin-top:35px;
-  color:#888;
+  color:var(--muted);
   font-size:15px;
-  line-height:1.8;
+  line-height:1.9;
+  letter-spacing:-.01em;
+}
+
+.body strong{
+  color:#fff;
+  font-weight:700;
 }
 
 .status{
-  margin-top:30px;
   display:inline-flex;
   align-items:center;
   gap:9px;
-  padding:9px 13px;
+  margin-top:28px;
   border:1px solid var(--line);
-  border-radius:50px;
-  color:#aaa;
+  border-radius:999px;
+  padding:10px 14px;
+  color:#a5a8af;
   font-size:9px;
-  letter-spacing:.15em;
+  font-weight:700;
+  letter-spacing:.18em;
 }
 
 .status-dot{
   width:6px;
   height:6px;
-  background:#fff;
   border-radius:50%;
+  background:#fff;
   box-shadow:0 0 12px #fff;
 }
 
-/* ============================= */
-/* 3D OBJECTS */
-/* ============================= */
-
-.object{
-  position:absolute;
-  transform-style:preserve-3d;
-  pointer-events:none;
+.cta{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  margin-top:27px;
+  padding:14px 19px;
+  border-radius:999px;
+  color:#000;
+  background:#fff;
+  text-decoration:none;
+  font-size:10px;
+  font-weight:800;
+  transition:.35s var(--ease);
 }
 
-.cube{
-  width:170px;
-  height:170px;
-  right:8%;
-  top:50%;
-  transform-style:preserve-3d;
+.cta:hover{
+  transform:translateY(-4px) scale(1.025);
+  box-shadow:0 15px 45px rgba(255,255,255,.12);
 }
 
-.cube-face{
-  position:absolute;
-  inset:0;
-  border:1px solid rgba(255,255,255,.22);
-  background:rgba(255,255,255,.025);
-  backdrop-filter:blur(4px);
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+  position:relative;
+  min-height:180vh;
+  z-index:10;
 }
 
-.f1{transform:translateZ(85px)}
-.f2{transform:rotateY(180deg) translateZ(85px)}
-.f3{transform:rotateY(90deg) translateZ(85px)}
-.f4{transform:rotateY(-90deg) translateZ(85px)}
-.f5{transform:rotateX(90deg) translateZ(85px)}
-.f6{transform:rotateX(-90deg) translateZ(85px)}
-
-.cube-inner{
-  position:absolute;
-  inset:25%;
-  border:1px solid rgba(255,255,255,.5);
-  transform:translateZ(20px) rotate(45deg);
+.hero-sticky{
+  position:sticky;
+  top:0;
+  height:100svh;
+  min-height:620px;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
 }
 
-/* ============================= */
-/* TALENTBRIDGE */
-/* ============================= */
-
-.archive{
-  position:absolute;
-  right:7%;
-  top:50%;
-  width:310px;
-  height:220px;
-  border:1px solid rgba(255,255,255,.13);
-  background:rgba(255,255,255,.025);
-  backdrop-filter:blur(20px);
-  transform:translateY(-50%) rotateX(18deg) rotateY(-20deg);
-  box-shadow:0 40px 100px rgba(0,0,0,.5);
+.hero-content{
+  position:relative;
+  z-index:12;
+  width:min(1180px,88%);
+  margin:auto;
+  text-align:center;
 }
 
-.archive:before,
-.archive:after{
-  content:"";
-  position:absolute;
-  inset:20px;
-  border:1px solid rgba(255,255,255,.08);
+.hero-kicker{
+  color:#777b83;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.34em;
+  margin-bottom:28px;
 }
 
-.archive-label{
+.hero-title{
+  font-size:clamp(65px,13vw,185px);
+  line-height:.77;
+  letter-spacing:-.095em;
+  font-weight:900;
+}
+
+.hero-title span{
+  display:block;
+}
+
+.hero-title .outline{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.72);
+}
+
+.hero-description{
+  width:min(530px,90%);
+  margin:42px auto 0;
+  color:#9b9ea5;
+  font-size:14px;
+  line-height:1.8;
+}
+
+.hero-scroll{
   position:absolute;
-  left:25px;
-  bottom:22px;
+  left:50%;
+  bottom:28px;
+  transform:translateX(-50%);
+  text-align:center;
+  color:#666a72;
   font-size:9px;
   letter-spacing:.25em;
-  color:#666;
+  white-space:nowrap;
 }
 
-/* ============================= */
-/* AI WORKFORCE */
-/* ============================= */
-
-.aiworld{
-  min-height:180vh;
+.hero-scroll-line{
+  width:1px;
+  height:50px;
+  margin:11px auto 0;
+  background:linear-gradient(#fff,transparent);
 }
 
-.aiworld .chapter-sticky{
-  background:
-    radial-gradient(circle at 70% 50%,rgba(255,255,255,.07),transparent 30%);
-}
+/* =====================================================
+   HERO ORBITAL SYSTEM
+===================================================== */
 
-.ai-core{
+.hero-system{
   position:absolute;
-  right:5%;
+  left:50%;
   top:50%;
-  width:380px;
-  height:380px;
-  transform:translateY(-50%);
+  width:620px;
+  height:620px;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+  z-index:5;
   transform-style:preserve-3d;
 }
 
-.ai-ring{
+.hero-system .ring{
   position:absolute;
   inset:0;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:50%;
+  transform-style:preserve-3d;
+}
+
+.ring.one{
+  transform:rotateX(67deg) rotateZ(15deg);
+  animation:spin1 18s linear infinite;
+}
+
+.ring.two{
+  transform:rotateY(67deg) rotateZ(-20deg);
+  animation:spin2 25s linear infinite;
+}
+
+.ring.three{
+  inset:75px;
+  transform:rotateX(58deg) rotateY(22deg);
+  animation:spin3 13s linear infinite reverse;
+}
+
+.ring.four{
+  inset:140px;
+  transform:rotateY(75deg);
+  animation:spin2 11s linear infinite;
+}
+
+.hero-core{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:90px;
+  height:90px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 32% 28%,#fff 0 5%,#d7d7d7 8%,#575757 28%,#121212 62%,#000 100%);
+  box-shadow:
+    0 0 40px rgba(255,255,255,.14),
+    0 0 130px rgba(255,255,255,.08);
+}
+
+.hero-core:after{
+  content:"";
+  position:absolute;
+  inset:-30px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:50%;
+}
+
+@keyframes spin1{
+  to{transform:rotateX(67deg) rotateZ(375deg)}
+}
+@keyframes spin2{
+  to{transform:rotateY(67deg) rotateZ(340deg)}
+}
+@keyframes spin3{
+  to{transform:rotateX(418deg) rotateY(22deg)}
+}
+
+/* =====================================================
+   VISUAL PANEL
+===================================================== */
+
+.visual{
+  position:absolute;
+  width:410px;
+  height:410px;
+  right:2%;
+  top:50%;
+  transform:translateY(-50%);
+  pointer-events:none;
+  perspective:1200px;
+}
+
+.visual.left{
+  right:auto;
+  left:2%;
+}
+
+.visual-inner{
+  position:absolute;
+  inset:0;
+  transform-style:preserve-3d;
+}
+
+/* glowing orb */
+.orb{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:145px;
+  height:145px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 35% 25%,#fff 0 4%,#ddd 7%,#888 15%,#333 36%,#0b0b0b 70%);
+  box-shadow:
+    0 0 35px rgba(255,255,255,.16),
+    0 0 100px rgba(255,255,255,.07);
+}
+
+.orb-ring{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:300px;
+  height:110px;
+  transform:translate(-50%,-50%) rotateX(68deg);
   border:1px solid rgba(255,255,255,.15);
   border-radius:50%;
 }
 
-.ai-ring:nth-child(1){
-  transform:rotateX(70deg);
-}
-.ai-ring:nth-child(2){
-  transform:rotateY(65deg);
-}
-.ai-ring:nth-child(3){
-  transform:rotateX(50deg) rotateY(45deg);
+.orb-ring.r2{
+  transform:translate(-50%,-50%) rotateY(68deg);
 }
 
-.ai-node{
+.orb-ring.r3{
+  width:220px;
+  height:220px;
+  transform:translate(-50%,-50%) rotateX(65deg) rotateY(25deg);
+}
+
+/* floating spheres */
+.sphere{
   position:absolute;
-  left:50%;
-  top:50%;
-  width:95px;
-  height:95px;
-  transform:translate(-50%,-50%);
-  border:1px solid #fff;
-  background:#050505;
-  box-shadow:
-    0 0 40px rgba(255,255,255,.15),
-    inset 0 0 25px rgba(255,255,255,.08);
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 25%,#fff,#777 35%,#111 75%);
+  box-shadow:0 0 25px rgba(255,255,255,.16);
 }
 
-.ai-node:before,
-.ai-node:after{
-  content:"";
+.s1{left:10%;top:25%}
+.s2{right:10%;top:17%;width:17px;height:17px}
+.s3{left:18%;bottom:17%;width:14px;height:14px}
+.s4{right:17%;bottom:24%;width:32px;height:32px}
+
+/* orbit nodes */
+.node{
   position:absolute;
+  width:8px;
+  height:8px;
+  border-radius:50%;
   background:#fff;
+  box-shadow:0 0 18px #fff;
 }
 
-.ai-node:before{
-  width:1px;
-  height:180px;
-  left:50%;
-  top:-43px;
-  opacity:.2;
+/* =====================================================
+   CHAPTER VISUALS
+===================================================== */
+
+.story-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  max-width:720px;
+  margin-top:48px;
 }
 
-.ai-node:after{
-  width:180px;
-  height:1px;
-  top:50%;
-  left:-43px;
-  opacity:.2;
+.story-card{
+  min-height:120px;
+  padding:20px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:var(--glass);
+  backdrop-filter:blur(18px);
+  transition:.5s var(--ease);
 }
 
-.ai-link{
-  display:inline-flex;
-  margin-top:30px;
-  padding:15px 21px;
-  border-radius:50px;
-  background:#fff;
-  color:#000;
-  text-decoration:none;
+.story-card:hover{
+  transform:translateY(-7px);
+  background:rgba(255,255,255,.08);
+}
+
+.story-card small{
+  color:#666a72;
+  font-size:8px;
+  letter-spacing:.2em;
+}
+
+.story-card h3{
+  margin-top:12px;
+  font-size:15px;
+  letter-spacing:-.03em;
+}
+
+.story-card p{
+  margin-top:8px;
+  color:#8d9198;
   font-size:11px;
-  font-weight:800;
-  transition:.3s;
+  line-height:1.6;
 }
 
-.ai-link:hover{
-  transform:translateY(-4px) scale(1.03);
-}
+/* =====================================================
+   TALENTBRIDGE VISUAL
+===================================================== */
 
-/* ============================= */
-/* GENESIS */
-/* ============================= */
-
-.genesis{
-  min-height:170vh;
-}
-
-.genesis-world{
+.bridge{
   position:absolute;
-  right:0;
-  width:500px;
-  height:500px;
+  right:4%;
   top:50%;
+  width:420px;
+  height:350px;
   transform:translateY(-50%);
   perspective:1000px;
 }
 
-.grid-floor{
+.bridge-line{
   position:absolute;
-  inset:0;
-  transform:
-    rotateX(68deg)
-    rotateZ(-12deg)
-    translateY(90px);
-  background:
-    linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);
-  background-size:45px 45px;
-  mask-image:radial-gradient(circle,#000,transparent 70%);
-}
-
-.genesis-cube{
-  position:absolute;
-  width:170px;
-  height:170px;
   left:50%;
-  top:42%;
-  transform:translate(-50%,-50%) rotateX(-20deg) rotateY(25deg);
-  transform-style:preserve-3d;
-}
-
-.genesis-cube div{
-  position:absolute;
-  inset:0;
-  border:1px solid rgba(255,255,255,.35);
-}
-
-.gc1{transform:translateZ(85px)}
-.gc2{transform:rotateY(180deg) translateZ(85px)}
-.gc3{transform:rotateY(90deg) translateZ(85px)}
-.gc4{transform:rotateY(-90deg) translateZ(85px)}
-.gc5{transform:rotateX(90deg) translateZ(85px)}
-.gc6{transform:rotateX(-90deg) translateZ(85px)}
-
-/* ============================= */
-/* DUO */
-/* ============================= */
-
-.duo{
-  min-height:170vh;
-}
-
-.duo-stage{
-  position:absolute;
-  right:3%;
   top:50%;
-  width:500px;
-  height:500px;
-  transform:translateY(-50%);
-  perspective:1200px;
-}
-
-.person-core{
-  position:absolute;
-  width:190px;
-  height:190px;
-  top:50%;
-  border:1px solid rgba(255,255,255,.3);
-  background:rgba(255,255,255,.025);
-  backdrop-filter:blur(15px);
-  transform-style:preserve-3d;
-}
-
-.person-core:first-child{
-  left:20px;
-  transform:translateY(-50%) rotateY(20deg) rotateX(10deg);
-}
-
-.person-core:last-child{
-  right:20px;
-  transform:translateY(-50%) rotateY(-20deg) rotateX(-10deg);
-}
-
-.person-core span{
-  position:absolute;
-  left:22px;
-  bottom:20px;
-  font-size:9px;
-  letter-spacing:.22em;
-  color:#777;
-}
-
-.connection{
-  position:absolute;
-  width:170px;
+  width:360px;
   height:1px;
   background:linear-gradient(90deg,transparent,#fff,transparent);
-  top:50%;
-  left:50%;
   transform:translate(-50%,-50%);
-  box-shadow:0 0 20px rgba(255,255,255,.3);
+  box-shadow:0 0 30px rgba(255,255,255,.16);
 }
 
-/* ============================= */
-/* TODAY */
-/* ============================= */
-
-.today{
-  min-height:150vh;
+.bridge-node{
+  position:absolute;
+  width:90px;
+  height:90px;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:22px;
+  background:rgba(255,255,255,.04);
+  backdrop-filter:blur(15px);
+  display:grid;
+  place-items:center;
+  font-size:8px;
+  letter-spacing:.18em;
+  color:#aaa;
 }
 
-.today-list{
-  margin-top:55px;
+.bridge-node.a{
+  left:0;
+  top:50%;
+  transform:translateY(-50%) rotateY(20deg);
+}
+
+.bridge-node.b{
+  right:0;
+  top:50%;
+  transform:translateY(-50%) rotateY(-20deg);
+}
+
+.bridge-node.c{
+  left:50%;
+  top:5%;
+  transform:translateX(-50%) rotateX(20deg);
+}
+
+.bridge-particle{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:9px;
+  height:9px;
+  background:#fff;
+  border-radius:50%;
+  box-shadow:0 0 20px #fff;
+}
+
+/* =====================================================
+   AI WORKFORCE VISUAL
+===================================================== */
+
+.ai-visual{
+  position:absolute;
+  right:0;
+  top:50%;
+  width:480px;
+  height:480px;
+  transform:translateY(-50%);
+}
+
+.ai-orbit{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:380px;
+  height:380px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:50%;
+  transform:translate(-50%,-50%) rotateX(65deg);
+}
+
+.ai-orbit.two{
+  transform:translate(-50%,-50%) rotateY(65deg);
+}
+
+.ai-orbit.three{
+  width:270px;
+  height:270px;
+  transform:translate(-50%,-50%) rotateX(50deg) rotateY(35deg);
+}
+
+.ai-brain{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:125px;
+  height:125px;
+  transform:translate(-50%,-50%);
+  border:1px solid rgba(255,255,255,.5);
+  border-radius:36%;
+  background:
+    radial-gradient(circle,rgba(255,255,255,.13),rgba(255,255,255,.025) 60%,transparent);
+  box-shadow:
+    0 0 45px rgba(255,255,255,.09),
+    inset 0 0 30px rgba(255,255,255,.05);
+}
+
+.ai-brain:before,
+.ai-brain:after{
+  content:"";
+  position:absolute;
+  background:rgba(255,255,255,.25);
+}
+
+.ai-brain:before{
+  width:70%;
+  height:1px;
+  top:50%;
+  left:15%;
+}
+
+.ai-brain:after{
+  width:1px;
+  height:70%;
+  left:50%;
+  top:15%;
+}
+
+.ai-satellite{
+  position:absolute;
+  width:15px;
+  height:15px;
+  border:1px solid #fff;
+  border-radius:50%;
+  box-shadow:0 0 15px rgba(255,255,255,.4);
+}
+
+/* =====================================================
+   GENESIS VISUAL
+===================================================== */
+
+.genesis-visual{
+  position:absolute;
+  right:0;
+  top:50%;
+  width:480px;
+  height:480px;
+  transform:translateY(-50%);
+  perspective:1000px;
+}
+
+.genesis-world{
+  position:absolute;
+  inset:50px;
+  transform-style:preserve-3d;
+  transform:rotateX(62deg) rotateZ(-15deg);
+}
+
+.genesis-grid{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(rgba(255,255,255,.09) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.09) 1px,transparent 1px);
+  background-size:38px 38px;
+  mask-image:radial-gradient(circle,#000 20%,transparent 75%);
+}
+
+.genesis-ring{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:220px;
+  height:220px;
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+}
+
+.genesis-dot{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:#fff;
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 50px rgba(255,255,255,.3);
+}
+
+/* =====================================================
+   DUO VISUAL
+===================================================== */
+
+.duo-visual{
+  position:absolute;
+  right:0;
+  top:50%;
+  width:500px;
+  height:400px;
+  transform:translateY(-50%);
+  perspective:1000px;
+}
+
+.duo-core{
+  position:absolute;
+  top:50%;
+  width:145px;
+  height:145px;
+  transform:translateY(-50%);
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:32px;
+  background:rgba(255,255,255,.045);
+  backdrop-filter:blur(18px);
   display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  max-width:700px;
+  align-items:flex-end;
+  padding:20px;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.16em;
 }
 
-.today-list span{
-  padding:12px 16px;
-  border:1px solid var(--line);
-  border-radius:50px;
-  color:#999;
-  font-size:11px;
-  transition:.3s;
+.duo-core.m{
+  left:25px;
+  transform:translateY(-50%) rotateY(18deg) rotateX(5deg);
 }
 
-.today-list span:hover{
-  color:#fff;
-  transform:translateY(-3px);
+.duo-core.b{
+  right:25px;
+  transform:translateY(-50%) rotateY(-18deg) rotateX(-5deg);
 }
 
-/* ============================= */
-/* FUTURE */
-/* ============================= */
+.duo-connection{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:160px;
+  height:1px;
+  transform:translate(-50%,-50%);
+  background:linear-gradient(90deg,transparent,#fff,transparent);
+  box-shadow:0 0 25px rgba(255,255,255,.3);
+}
+
+.duo-pulse{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#fff;
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 25px #fff;
+}
+
+/* =====================================================
+   FUTURE VISUAL
+===================================================== */
 
 .future{
   min-height:180vh;
 }
 
-.future .chapter-sticky{
-  justify-content:center;
-  text-align:center;
-}
-
-.future-orbit{
+.future-visual{
   position:absolute;
+  left:50%;
+  top:50%;
   width:650px;
   height:650px;
-  border:1px solid rgba(255,255,255,.1);
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+
+.future-ring{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:100%;
+  height:100%;
+  border:1px solid rgba(255,255,255,.08);
   border-radius:50%;
-  transform:rotateX(70deg);
-  animation:futureSpin 20s linear infinite;
+  transform:translate(-50%,-50%) rotateX(68deg);
 }
 
-.future-orbit:nth-child(2){
-  transform:rotateY(70deg);
-  animation-duration:27s;
+.future-ring:nth-child(2){
+  transform:translate(-50%,-50%) rotateY(68deg);
 }
 
-.future-orbit:nth-child(3){
-  width:350px;
-  height:350px;
-  animation-duration:13s;
+.future-ring:nth-child(3){
+  width:55%;
+  height:55%;
+  transform:translate(-50%,-50%) rotateX(55deg) rotateY(30deg);
 }
 
-@keyframes futureSpin{
-  to{transform:rotateX(70deg) rotateZ(360deg)}
+.future-core{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  background:#fff;
+  transform:translate(-50%,-50%);
+  box-shadow:
+    0 0 60px rgba(255,255,255,.2),
+    0 0 180px rgba(255,255,255,.08);
 }
 
-/* ============================= */
-/* FINAL */
-/* ============================= */
+/* =====================================================
+   FINAL
+===================================================== */
 
 .final{
-  height:130vh;
+  min-height:110svh;
   position:relative;
-  z-index:5;
-}
-
-.final-inner{
-  height:100%;
+  z-index:10;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
 }
 
-.final h2{
-  font-size:clamp(55px,12vw,170px);
-  line-height:.8;
-  letter-spacing:-.09em;
+.final-inner{
+  width:min(1000px,90%);
+}
+
+.final-title{
+  font-size:clamp(60px,12vw,165px);
+  line-height:.78;
+  letter-spacing:-.095em;
   font-weight:900;
 }
 
-.final h2 span{
+.final-title span{
   display:block;
 }
 
-.final .outline{
+.final-title .outline{
   color:transparent;
-  -webkit-text-stroke:1px rgba(255,255,255,.55);
+  -webkit-text-stroke:1px rgba(255,255,255,.62);
 }
 
-.final p{
-  margin:40px auto 0;
-  max-width:440px;
-  color:#777;
-  font-size:13px;
+.final-copy{
+  max-width:500px;
+  margin:42px auto 0;
+  color:#8d9198;
+  font-size:14px;
   line-height:1.8;
 }
 
 .footer{
   position:absolute;
-  bottom:30px;
-  left:50%;
-  transform:translateX(-50%);
-  width:90%;
+  left:5%;
+  right:5%;
+  bottom:28px;
   display:flex;
   justify-content:space-between;
-  color:#555;
+  color:#555960;
   font-size:9px;
   letter-spacing:.15em;
 }
 
-/* ============================= */
-/* REVEALS */
-/* ============================= */
+/* =====================================================
+   REVEAL
+===================================================== */
 
 .reveal{
   opacity:0;
-  transform:translateY(60px);
+  transform:translateY(50px);
   transition:
-    opacity 1s cubic-bezier(.2,.7,.2,1),
-    transform 1s cubic-bezier(.2,.7,.2,1);
+    opacity 1s var(--ease),
+    transform 1s var(--ease);
 }
 
-.reveal.show{
+.reveal.visible{
   opacity:1;
   transform:none;
 }
 
-/* ============================= */
-/* MOBILE */
-/* ============================= */
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media(max-width:800px){
 
   .nav{
-    top:12px;
-    height:52px;
+    top:10px;
+    width:calc(100% - 20px);
+    min-height:52px;
+    padding-left:15px;
   }
 
-  .nav-links{
+  .brand{
+    font-size:10px;
+  }
+
+  .navlinks{
     display:none;
   }
 
+  .nav-ai{
+    padding:11px 14px;
+    font-size:9px;
+  }
+
   .hero{
-    height:140vh;
+    min-height:150vh;
   }
 
-  .hero h1{
+  .hero-sticky{
+    min-height:100svh;
+  }
+
+  .hero-content{
+    width:90%;
+  }
+
+  .hero-kicker{
+    font-size:8px;
+    letter-spacing:.24em;
+  }
+
+  .hero-title{
     font-size:19vw;
+    line-height:.82;
   }
 
-  .hero-sub{
-    font-size:13px;
-    max-width:340px;
-  }
-
-  .core{
-    width:250px;
-    height:250px;
-    opacity:.4;
-  }
-
-  .chapter,
-  .aiworld,
-  .genesis,
-  .duo,
-  .today,
-  .future{
-    min-height:145vh;
-  }
-
-  .chapter-inner{
+  .hero-description{
     width:88%;
-    padding-top:40px;
-  }
-
-  .chapter-title{
-    font-size:15vw;
-  }
-
-  .chapter-copy{
     font-size:13px;
-    max-width:330px;
+    line-height:1.75;
+    margin-top:30px;
   }
 
-  .cube,
-  .archive,
-  .ai-core,
-  .genesis-world,
-  .duo-stage{
-    position:absolute;
+  .hero-system{
+    width:310px;
+    height:310px;
+    opacity:.5;
+  }
+
+  .hero-core{
+    width:58px;
+    height:58px;
+  }
+
+  .chapter{
+    min-height:150vh;
+  }
+
+  .chapter-sticky{
+    min-height:100svh;
+    height:auto;
+    padding:110px 0 60px;
+    align-items:flex-start;
+  }
+
+  .container{
+    width:88%;
+  }
+
+  .kicker{
+    font-size:8px;
+    letter-spacing:.22em;
+    margin-bottom:20px;
+  }
+
+  .title{
+    max-width:100%;
+    font-size:15.5vw;
+    line-height:.87;
+    letter-spacing:-.075em;
+  }
+
+  .body{
+    max-width:100%;
+    font-size:14px;
+    line-height:1.85;
+    margin-top:27px;
+  }
+
+  /*
+    IMPORTANT:
+    Visuals are now BELOW the text.
+    They can never cover the copy.
+  */
+
+  .visual,
+  .bridge,
+  .ai-visual,
+  .genesis-visual,
+  .duo-visual{
+    position:relative;
     right:auto;
-    left:50%;
+    left:auto;
     top:auto;
+    transform:none;
+    width:100%;
+    height:300px;
+    margin-top:55px;
+    pointer-events:none;
   }
 
-  .cube{
-    width:110px;
-    height:110px;
-    bottom:12%;
-    transform:translateX(-50%) rotateX(20deg) rotateY(20deg);
+  .visual-inner{
+    width:100%;
+    height:100%;
   }
 
-  .f1{transform:translateZ(55px)}
-  .f2{transform:rotateY(180deg) translateZ(55px)}
-  .f3{transform:rotateY(90deg) translateZ(55px)}
-  .f4{transform:rotateY(-90deg) translateZ(55px)}
-  .f5{transform:rotateX(90deg) translateZ(55px)}
-  .f6{transform:rotateX(-90deg) translateZ(55px)}
-
-  .archive{
-    width:280px;
-    height:190px;
-    bottom:10%;
-    top:auto;
-    transform:translateX(-50%) rotateX(14deg) rotateY(-12deg);
+  .orb{
+    width:95px;
+    height:95px;
   }
 
-  .ai-core{
+  .orb-ring{
+    width:220px;
+    height:80px;
+  }
+
+  .orb-ring.r3{
+    width:150px;
+    height:150px;
+  }
+
+  .story-grid{
+    grid-template-columns:1fr;
+    margin-top:35px;
+  }
+
+  .story-card{
+    min-height:auto;
+  }
+
+  .bridge{
+    height:260px;
+  }
+
+  .bridge-line{
+    width:270px;
+  }
+
+  .bridge-node{
+    width:72px;
+    height:72px;
+    font-size:7px;
+  }
+
+  .ai-visual{
+    height:330px;
+  }
+
+  .ai-orbit{
     width:270px;
     height:270px;
-    bottom:8%;
-    top:auto;
-    transform:translateX(-50%);
+  }
+
+  .ai-orbit.three{
+    width:190px;
+    height:190px;
+  }
+
+  .ai-brain{
+    width:95px;
+    height:95px;
+  }
+
+  .genesis-visual{
+    height:320px;
   }
 
   .genesis-world{
-    width:300px;
-    height:300px;
-    bottom:6%;
-    top:auto;
-    transform:translateX(-50%);
+    inset:25px;
   }
 
-  .duo-stage{
-    width:330px;
-    height:300px;
-    bottom:8%;
-    top:auto;
-    transform:translateX(-50%);
+  .genesis-ring{
+    width:170px;
+    height:170px;
   }
 
-  .person-core{
-    width:120px;
-    height:120px;
+  .duo-visual{
+    height:280px;
   }
 
-  .person-core:first-child{
+  .duo-core{
+    width:105px;
+    height:105px;
+    padding:14px;
+    font-size:8px;
+  }
+
+  .duo-core.m{
     left:0;
   }
 
-  .person-core:last-child{
+  .duo-core.b{
     right:0;
   }
 
-  .connection{
-    width:90px;
+  .duo-connection{
+    width:110px;
   }
 
-  .future-orbit{
-    width:350px;
-    height:350px;
+  .future{
+    min-height:150vh;
+  }
+
+  .future-visual{
+    width:330px;
+    height:330px;
   }
 
   .final{
-    height:110vh;
+    min-height:100svh;
+  }
+
+  .final-title{
+    font-size:19vw;
+  }
+
+  .final-copy{
+    font-size:13px;
+    line-height:1.75;
   }
 
   .footer{
     flex-direction:column;
-    gap:10px;
+    align-items:center;
+    gap:9px;
     text-align:center;
   }
 }
 
+@media(max-width:420px){
+
+  .hero-title{
+    font-size:20vw;
+  }
+
+  .title{
+    font-size:16.5vw;
+  }
+
+  .body{
+    font-size:13px;
+  }
+
+  .chapter-sticky{
+    padding-top:100px;
+  }
+
+  .hero-system{
+    width:260px;
+    height:260px;
+  }
+
+  .visual,
+  .bridge,
+  .ai-visual,
+  .genesis-visual,
+  .duo-visual{
+    height:270px;
+  }
+}
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
 @media(prefers-reduced-motion:reduce){
+
+  html{
+    scroll-behavior:auto;
+  }
+
   *,
-  *:before,
-  *:after{
+  *::before,
+  *::after{
     animation-duration:.001ms!important;
     animation-iteration-count:1!important;
-    scroll-behavior:auto!important;
     transition-duration:.001ms!important;
+  }
+
+  .reveal{
+    opacity:1;
+    transform:none;
   }
 }
 </style>
@@ -949,62 +1272,79 @@ body::-webkit-scrollbar-thumb{
 <body>
 
 <div class="progress" id="progress"></div>
-<canvas id="space"></canvas>
-<div class="noise"></div>
+<canvas id="universe"></canvas>
+<div class="glow" id="glow"></div>
 <div class="vignette"></div>
+<div class="noise"></div>
+
+<!-- =====================================================
+     NAV
+===================================================== -->
 
 <nav class="nav">
-  <div class="logo">MAGNUS VERITY</div>
 
-  <div class="nav-links">
+  <a href="#" class="brand">
+    MAGNUS VERITY
+  </a>
+
+  <div class="navlinks">
     <a href="#story">STORY</a>
     <a href="#work">WORK</a>
     <a href="#duo">DUO</a>
     <a href="#future">FUTURE</a>
   </div>
 
-  <button class="ai-btn" onclick="document.getElementById('ai').scrollIntoView({behavior:'smooth'})">
+  <button
+    class="nav-ai"
+    onclick="document.getElementById('ai').scrollIntoView({behavior:'smooth'})">
     TALK TO AI
   </button>
+
 </nav>
 
 
-<!-- ========================================= -->
-<!-- HERO -->
-<!-- ========================================= -->
+<!-- =====================================================
+     HERO
+===================================================== -->
 
 <section class="hero" id="story">
 
   <div class="hero-sticky">
 
-    <div class="core" id="heroCore">
-      <div class="core-orbit orbit-a"></div>
-      <div class="core-orbit orbit-b"></div>
-      <div class="core-orbit orbit-c"></div>
-      <div class="core-ball"></div>
+    <div class="hero-system" id="heroSystem">
+
+      <div class="ring one"></div>
+      <div class="ring two"></div>
+      <div class="ring three"></div>
+      <div class="ring four"></div>
+
+      <div class="hero-core"></div>
+
     </div>
 
     <div class="hero-content" id="heroContent">
 
-      <div class="eyebrow">
+      <div class="hero-kicker">
         FOUNDER · BUILDER · EXPLORER
       </div>
 
-      <h1>
+      <h1 class="hero-title">
         <span>MAGNUS</span>
         <span class="outline">VERITY</span>
       </h1>
 
-      <p class="hero-sub">
-        A story about curiosity, building, breaking,
-        rebuilding — and refusing to stop at the first version.
+      <p class="hero-description">
+        This isn't a résumé.
+        It's the story of an idea becoming a builder,
+        a builder becoming a founder,
+        and a journey that is still unfolding.
       </p>
 
     </div>
 
-    <div class="scroll-hint">
-      SCROLL TO ENTER
-      <div class="scroll-line"></div>
+    <div class="hero-scroll">
+      SCROLL TO BEGIN
+      <div class="hero-scroll-line"></div>
     </div>
 
   </div>
@@ -1012,41 +1352,75 @@ body::-webkit-scrollbar-thumb{
 </section>
 
 
-<!-- ========================================= -->
-<!-- CHAPTER 01 -->
-<!-- ========================================= -->
+<!-- =====================================================
+     CHAPTER 01
+===================================================== -->
 
 <section class="chapter">
 
   <div class="chapter-sticky">
 
-    <div class="chapter-inner">
+    <div class="container">
 
-      <div class="chapter-number">01 / THE BEGINNING</div>
+      <div class="kicker">
+        01 / BEFORE EVERYTHING
+      </div>
 
-      <h2 class="chapter-title reveal">
-        BEFORE<br>
-        <span class="ghost">THE STARTUP.</span>
+      <h2 class="title reveal">
+        IT STARTED<br>
+        WITH <span class="outline">CURIOSITY.</span>
       </h2>
 
-      <p class="chapter-copy reveal">
-        I didn't begin with a company.
-        I began with curiosity.
+      <p class="body reveal">
+        Before startups, there were questions.
 
-        The urge to understand technology,
-        the obsession with creating things,
-        and the feeling that ideas were only
-        valuable once they became real.
+        How does this work?
+        Why does this work?
+        What happens if I change it?
+
+        Curiosity slowly became experimentation.
+        Experimentation became building.
+
+        And building became something I couldn't stop doing.
       </p>
 
-      <div class="cube object">
-        <div class="cube-face f1"></div>
-        <div class="cube-face f2"></div>
-        <div class="cube-face f3"></div>
-        <div class="cube-face f4"></div>
-        <div class="cube-face f5"></div>
-        <div class="cube-face f6"></div>
-        <div class="cube-inner"></div>
+      <div class="story-grid reveal">
+
+        <div class="story-card">
+          <small>THE BEGINNING</small>
+          <h3>Question everything.</h3>
+          <p>
+            Every interesting idea started with a question.
+          </p>
+        </div>
+
+        <div class="story-card">
+          <small>THE MINDSET</small>
+          <h3>Make it real.</h3>
+          <p>
+            An idea becomes different once you actually build it.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="visual">
+
+        <div class="visual-inner">
+
+          <div class="orb"></div>
+
+          <div class="orb-ring"></div>
+          <div class="orb-ring r2"></div>
+          <div class="orb-ring r3"></div>
+
+          <div class="sphere s1"></div>
+          <div class="sphere s2"></div>
+          <div class="sphere s3"></div>
+          <div class="sphere s4"></div>
+
+        </div>
+
       </div>
 
     </div>
@@ -1056,33 +1430,57 @@ body::-webkit-scrollbar-thumb{
 </section>
 
 
-<!-- ========================================= -->
-<!-- CHAPTER 02 -->
-<!-- ========================================= -->
+<!-- =====================================================
+     CHAPTER 02
+===================================================== -->
 
 <section class="chapter">
 
   <div class="chapter-sticky">
 
-    <div class="chapter-inner">
+    <div class="container">
 
-      <div class="chapter-number">02 / THE IDEA</div>
+      <div class="kicker">
+        02 / THE FIRST BUILD
+      </div>
 
-      <h2 class="chapter-title reveal">
-        THINK.<br>
-        BUILD.<br>
-        <span class="ghost">TEST.</span>
+      <h2 class="title reveal">
+        IDEA →<br>
+        <span class="outline">REALITY.</span>
       </h2>
 
-      <p class="chapter-copy reveal">
-        The ideas started getting bigger.
+      <p class="body reveal">
+        At some point, thinking wasn't enough anymore.
 
-        Eventually the question changed from
-        "what could I make?"
-        to
+        I wanted to take an idea from a blank screen
+        and turn it into something people could actually see,
+        touch, use and react to.
 
-        "what could I make that people could actually use?"
+        That meant learning by doing.
+
+        Design.
+        Code.
+        Product thinking.
+        Mistakes.
+
+        Lots of mistakes.
+
       </p>
+
+      <div class="visual">
+
+        <div class="visual-inner">
+
+          <div class="orb"></div>
+          <div class="orb-ring"></div>
+          <div class="orb-ring r2"></div>
+
+          <div class="sphere s1"></div>
+          <div class="sphere s3"></div>
+
+        </div>
+
+      </div>
 
     </div>
 
@@ -1091,37 +1489,45 @@ body::-webkit-scrollbar-thumb{
 </section>
 
 
-<!-- ========================================= -->
-<!-- TALENTBRIDGE -->
-<!-- ========================================= -->
+<!-- =====================================================
+     TALENTBRIDGE
+===================================================== -->
 
 <section class="chapter" id="work">
 
   <div class="chapter-sticky">
 
-    <div class="chapter-inner">
+    <div class="container">
 
-      <div class="chapter-number">03 / FIRST REAL CHAPTER</div>
+      <div class="kicker">
+        03 / FIRST STARTUP CHAPTER
+      </div>
 
-      <h2 class="chapter-title reveal">
+      <h2 class="title reveal">
         TALENT<br>
-        <span class="ghost">BRIDGE.</span>
+        <span class="outline">BRIDGE.</span>
       </h2>
 
-      <p class="chapter-copy reveal">
-        TalentBridge was one of the first serious attempts
-        to turn an idea into a real product.
+      <p class="body reveal">
+        TalentBridge became one of my first serious attempts
+        to turn a startup idea into a real product.
 
-        It wasn't meant to be the final destination.
+        It wasn't the final destination.
 
-        It became something more useful:
-        experience.
+        But it gave me something I couldn't get from simply
+        thinking about startups:
 
-        Building.
-        Testing.
-        Breaking.
-        Learning.
+        <strong>experience.</strong>
 
+        I learned what happens when an idea meets reality.
+        What works.
+        What doesn't.
+        What needs to change.
+
+        Eventually, TalentBridge was closed.
+
+        But the lessons didn't disappear.
+        They became part of everything that came next.
       </p>
 
       <div class="status reveal">
@@ -1129,10 +1535,24 @@ body::-webkit-scrollbar-thumb{
         ARCHIVED · CLOSED
       </div>
 
-      <div class="archive">
-        <div class="archive-label">
-          CHAPTER CLOSED
+      <div class="bridge">
+
+        <div class="bridge-line"></div>
+
+        <div class="bridge-node a">
+          IDEA
         </div>
+
+        <div class="bridge-node b">
+          REALITY
+        </div>
+
+        <div class="bridge-node c">
+          LESSONS
+        </div>
+
+        <div class="bridge-particle"></div>
+
       </div>
 
     </div>
@@ -1142,34 +1562,58 @@ body::-webkit-scrollbar-thumb{
 </section>
 
 
-<!-- ========================================= -->
-<!-- TURNING POINT -->
-<!-- ========================================= -->
+<!-- =====================================================
+     CHAPTER 04
+===================================================== -->
 
 <section class="chapter">
 
   <div class="chapter-sticky">
 
-    <div class="chapter-inner">
+    <div class="container">
 
-      <div class="chapter-number">04 / THE TURNING POINT</div>
+      <div class="kicker">
+        04 / THE LESSON
+      </div>
 
-      <h2 class="chapter-title reveal">
-        BUILD<br>
-        <span class="ghost">BETTER.</span>
+      <h2 class="title reveal">
+        BUILD.<br>
+        BREAK.<br>
+        <span class="outline">REBUILD.</span>
       </h2>
 
-      <p class="chapter-copy reveal">
-        Every failed idea leaves something behind.
+      <p class="body reveal">
+        TalentBridge changed the way I looked at building.
 
-        A lesson.
-        A better question.
-        A stronger instinct.
+        The goal isn't to create something perfect
+        on the first attempt.
 
-        The goal was never to have a perfect first attempt.
+        The goal is to build something real,
+        discover what is wrong,
+        understand why,
+        and come back better.
 
-        It was to become better at the next one.
+        That mindset became the foundation
+        for the next chapter.
+
       </p>
+
+      <div class="visual">
+
+        <div class="visual-inner">
+
+          <div class="orb"></div>
+
+          <div class="orb-ring"></div>
+          <div class="orb-ring r2"></div>
+
+          <div class="sphere s1"></div>
+          <div class="sphere s2"></div>
+          <div class="sphere s4"></div>
+
+        </div>
+
+      </div>
 
     </div>
 
@@ -1178,39 +1622,45 @@ body::-webkit-scrollbar-thumb{
 </section>
 
 
-<!-- ========================================= -->
-<!-- AI WORKFORCE -->
-<!-- ========================================= -->
+<!-- =====================================================
+     AI WORKFORCE
+===================================================== -->
 
-<section class="chapter aiworld" id="aiworkforce">
+<section class="chapter" id="aiworkforce">
 
   <div class="chapter-sticky">
 
-    <div class="chapter-inner">
+    <div class="container">
 
-      <div class="chapter-number">05 / CURRENT CHAPTER</div>
+      <div class="kicker">
+        05 / CURRENT CHAPTER
+      </div>
 
-      <h2 class="chapter-title reveal">
+      <h2 class="title reveal">
         AI<br>
-        <span class="ghost">WORKFORCE.</span>
+        <span class="outline">WORKFORCE.</span>
       </h2>
 
-      <p class="chapter-copy reveal">
-        Then came a bigger question:
+      <p class="body reveal">
+        Then the question became bigger:
 
-        What if AI could become more than a chatbot?
+        What if AI wasn't limited to answering questions?
 
-        What if AI employees could actually
-        perform real digital work?
+        What if AI employees could actually perform
+        real digital work?
 
-        AI Workforce is the answer we're building.
+        That became AI Workforce.
 
-        Not finished.
-        Not "done."
+        A platform built around AI employees,
+        real workflows, customer context,
+        and the idea that AI should be useful
+        beyond a chat window.
 
-        <strong>Working.</strong>
-        Evolving.
-        Getting better.
+        The product is currently working and being improved.
+
+        It's not the end.
+
+        It's the chapter we're actively building right now.
       </p>
 
       <div class="status reveal">
@@ -1219,21 +1669,25 @@ body::-webkit-scrollbar-thumb{
       </div>
 
       <a
-        class="ai-link"
+        class="cta reveal"
         href="https://aiworkforce.ai.studio"
         target="_blank"
-        rel="noopener noreferrer"
-      >
+        rel="noopener noreferrer">
         OPEN AI WORKFORCE ↗
       </a>
 
-      <div class="ai-core">
+      <div class="ai-visual">
 
-        <div class="ai-ring"></div>
-        <div class="ai-ring"></div>
-        <div class="ai-ring"></div>
+        <div class="ai-orbit"></div>
+        <div class="ai-orbit two"></div>
+        <div class="ai-orbit three"></div>
 
-        <div class="ai-node"></div>
+        <div class="ai-brain"></div>
+
+        <div class="ai-satellite" style="left:12%;top:45%"></div>
+        <div class="ai-satellite" style="right:13%;top:20%"></div>
+        <div class="ai-satellite" style="right:19%;bottom:19%"></div>
+        <div class="ai-satellite" style="left:23%;bottom:13%"></div>
 
       </div>
 
@@ -1244,37 +1698,72 @@ body::-webkit-scrollbar-thumb{
 </section>
 
 
-<!-- ========================================= -->
-<!-- BUILDER PHILOSOPHY -->
-<!-- ========================================= -->
+<!-- =====================================================
+     CHAPTER 06
+===================================================== -->
 
 <section class="chapter">
 
   <div class="chapter-sticky">
 
-    <div class="chapter-inner">
+    <div class="container">
 
-      <div class="chapter-number">06 / THE BUILDER</div>
+      <div class="kicker">
+        06 / HOW I BUILD
+      </div>
 
-      <h2 class="chapter-title reveal">
-        RELIABILITY<br>
-        <span class="ghost">FIRST.</span>
+      <h2 class="title reveal">
+        FOUNDATION<br>
+        <span class="outline">FIRST.</span>
       </h2>
 
-      <p class="chapter-copy reveal">
-        Build the foundation first.
+      <p class="body reveal">
+        Building fast is exciting.
 
-        Reliability.
-        Security.
-        Performance.
-        AI quality.
-        Design.
+        But building something that survives
+        real users is different.
 
+        My priorities became simple:
+
+        Reliability before polish.
+        Security before scale.
+        Performance before unnecessary features.
+        AI quality before visual tricks.
+        Then design.
         Then the crazy stuff.
 
-        Because a beautiful product that doesn't work
-        isn't a product.
+        The goal isn't to make something look impressive.
+
+        The goal is to make something that actually works.
       </p>
+
+      <div class="story-grid reveal">
+
+        <div class="story-card">
+          <small>01</small>
+          <h3>Reliability</h3>
+          <p>Make the core work.</p>
+        </div>
+
+        <div class="story-card">
+          <small>02</small>
+          <h3>Security</h3>
+          <p>Protect the system and its users.</p>
+        </div>
+
+        <div class="story-card">
+          <small>03</small>
+          <h3>Performance</h3>
+          <p>Fast enough to feel effortless.</p>
+        </div>
+
+        <div class="story-card">
+          <small>04</small>
+          <h3>AI quality</h3>
+          <p>Useful beats impressive-looking.</p>
+        </div>
+
+      </div>
 
     </div>
 
@@ -1283,36 +1772,38 @@ body::-webkit-scrollbar-thumb{
 </section>
 
 
-<!-- ========================================= -->
-<!-- GENESIS -->
-<!-- ========================================= -->
+<!-- =====================================================
+     GENESIS
+===================================================== -->
 
-<section class="chapter genesis">
+<section class="chapter" id="genesis">
 
   <div class="chapter-sticky">
 
-    <div class="chapter-inner">
+    <div class="container">
 
-      <div class="chapter-number">07 / NEXT CHAPTER</div>
+      <div class="kicker">
+        07 / NEXT BUILD
+      </div>
 
-      <h2 class="chapter-title reveal">
+      <h2 class="title reveal">
         GENESIS<br>
-        <span class="ghost">AI.</span>
+        <span class="outline">AI.</span>
       </h2>
 
-      <p class="chapter-copy reveal">
-        Another idea is taking shape.
-
-        GenesisAI is being built around a simple question:
+      <p class="body reveal">
+        And then came another question:
 
         What if creating a Roblox game
-        could begin with an idea,
-        rather than hours of technical work?
+        could begin with an idea instead of
+        starting from a blank development environment?
 
-        It's still being built.
+        GenesisAI is being built around that vision.
 
-        Which means the most interesting part
-        hasn't happened yet.
+        It's still in development.
+
+        Which means we're still discovering
+        what it can become.
       </p>
 
       <div class="status reveal">
@@ -1320,17 +1811,16 @@ body::-webkit-scrollbar-thumb{
         IN DEVELOPMENT
       </div>
 
-      <div class="genesis-world">
+      <div class="genesis-visual">
 
-        <div class="grid-floor"></div>
+        <div class="genesis-world">
 
-        <div class="genesis-cube">
-          <div class="gc1"></div>
-          <div class="gc2"></div>
-          <div class="gc3"></div>
-          <div class="gc4"></div>
-          <div class="gc5"></div>
-          <div class="gc6"></div>
+          <div class="genesis-grid"></div>
+
+          <div class="genesis-ring"></div>
+
+          <div class="genesis-dot"></div>
+
         </div>
 
       </div>
@@ -1342,49 +1832,55 @@ body::-webkit-scrollbar-thumb{
 </section>
 
 
-<!-- ========================================= -->
-<!-- DUO -->
-<!-- ========================================= -->
+<!-- =====================================================
+     DUO
+===================================================== -->
 
-<section class="chapter duo" id="duo">
+<section class="chapter" id="duo">
 
   <div class="chapter-sticky">
 
-    <div class="chapter-inner">
+    <div class="container">
 
-      <div class="chapter-number">08 / THE DUO</div>
+      <div class="kicker">
+        08 / THE DUO
+      </div>
 
-      <h2 class="chapter-title reveal">
+      <h2 class="title reveal">
         MAGNUS<br>
-        <span class="ghost">× BL4Z3</span>
+        <span class="outline">× BL4Z3.</span>
       </h2>
 
-      <p class="chapter-copy reveal">
-        Two minds.
+      <p class="body reveal">
+        Some things are better built together.
 
-        One obsession with building.
+        Magnus Verity × BL4Z3.
 
-        Magnus Verity —
-        vision, product, ideas and direction.
+        One side driven by vision, product,
+        ideas and direction.
 
-        BL4Z3 —
-        technology, systems and execution.
+        The other deeply focused on technology,
+        systems and execution.
 
-        Not a finished story.
+        AI Workforce became one of the clearest
+        expressions of that partnership.
 
-        A partnership still building.
+        The point isn't that everything is figured out.
+
+        The point is that we're still building.
       </p>
 
-      <div class="duo-stage">
+      <div class="duo-visual">
 
-        <div class="person-core">
-          <span>MAGNUS</span>
+        <div class="duo-core m">
+          MAGNUS
         </div>
 
-        <div class="connection"></div>
+        <div class="duo-connection"></div>
+        <div class="duo-pulse"></div>
 
-        <div class="person-core">
-          <span>BL4Z3</span>
+        <div class="duo-core b">
+          BL4Z3
         </div>
 
       </div>
@@ -1396,48 +1892,74 @@ body::-webkit-scrollbar-thumb{
 </section>
 
 
-<!-- ========================================= -->
-<!-- TODAY -->
-<!-- ========================================= -->
+<!-- =====================================================
+     TODAY
+===================================================== -->
 
-<section class="chapter today">
+<section class="chapter">
 
   <div class="chapter-sticky">
 
-    <div class="chapter-inner">
+    <div class="container">
 
-      <div class="chapter-number">09 / TODAY</div>
+      <div class="kicker">
+        09 / TODAY
+      </div>
 
-      <h2 class="chapter-title reveal">
+      <h2 class="title reveal">
         STILL<br>
-        <span class="ghost">BUILDING.</span>
+        <span class="outline">LEARNING.</span>
       </h2>
 
-      <p class="chapter-copy reveal">
-        I'm still learning.
-        Still experimenting.
-        Still breaking things.
-        Still rebuilding.
+      <p class="body reveal">
+        Today, the journey is still moving.
+
+        I'm learning by building.
+        Building by experimenting.
+        Experimenting by asking better questions.
 
         AI.
         Software.
         Startups.
-        Design.
+        Product design.
         Automation.
         Creative technology.
 
-        The list keeps getting longer.
+        Some ideas become products.
+
+        Some become lessons.
+
+        Some disappear.
+
+        And some become the beginning of something much bigger.
       </p>
 
-      <div class="today-list reveal">
-        <span>ARTIFICIAL INTELLIGENCE</span>
-        <span>STARTUPS</span>
-        <span>SOFTWARE</span>
-        <span>AI AGENTS</span>
-        <span>SAAS</span>
-        <span>PRODUCT DESIGN</span>
-        <span>AUTOMATION</span>
-        <span>CREATIVE TECHNOLOGY</span>
+      <div class="story-grid reveal">
+
+        <div class="story-card">
+          <small>BUILDING</small>
+          <h3>AI Workforce</h3>
+          <p>Currently working and evolving.</p>
+        </div>
+
+        <div class="story-card">
+          <small>EXPLORING</small>
+          <h3>GenesisAI</h3>
+          <p>Being built around a new idea.</p>
+        </div>
+
+        <div class="story-card">
+          <small>ARCHIVED</small>
+          <h3>TalentBridge</h3>
+          <p>A closed chapter that shaped the next.</p>
+        </div>
+
+        <div class="story-card">
+          <small>ALWAYS</small>
+          <h3>What's next?</h3>
+          <p>Still unknown.</p>
+        </div>
+
       </div>
 
     </div>
@@ -1447,37 +1969,47 @@ body::-webkit-scrollbar-thumb{
 </section>
 
 
-<!-- ========================================= -->
-<!-- FUTURE -->
-<!-- ========================================= -->
+<!-- =====================================================
+     FUTURE
+===================================================== -->
 
 <section class="chapter future" id="future">
 
   <div class="chapter-sticky">
 
-    <div class="future-orbit"></div>
-    <div class="future-orbit"></div>
-    <div class="future-orbit"></div>
+    <div class="future-visual">
 
-    <div class="chapter-inner">
+      <div class="future-ring"></div>
+      <div class="future-ring"></div>
+      <div class="future-ring"></div>
 
-      <div class="chapter-number">10 / WHAT'S NEXT</div>
+      <div class="future-core"></div>
 
-      <h2 class="chapter-title reveal">
+    </div>
+
+    <div class="container" style="text-align:center;position:relative;z-index:5">
+
+      <div class="kicker">
+        10 / WHAT'S NEXT
+      </div>
+
+      <h2 class="title reveal" style="margin:auto">
         I DON'T<br>
-        <span class="ghost">KNOW YET.</span>
+        <span class="outline">KNOW YET.</span>
       </h2>
 
-      <p class="chapter-copy reveal" style="margin-left:auto;margin-right:auto">
-        And that's exactly what makes it interesting.
+      <p class="body reveal" style="margin:35px auto 0">
+        And honestly, that's part of the fun.
 
-        The next startup.
         The next product.
+        The next startup.
+        The next experiment.
         The next impossible idea.
 
         It hasn't been revealed yet.
 
-        Maybe that's the best part.
+        This story isn't supposed to have
+        a final chapter.
       </p>
 
     </div>
@@ -1487,33 +2019,42 @@ body::-webkit-scrollbar-thumb{
 </section>
 
 
-<!-- ========================================= -->
-<!-- AI -->
-<!-- ========================================= -->
+<!-- =====================================================
+     MAGNUS AI
+===================================================== -->
 
 <section class="chapter" id="ai">
 
   <div class="chapter-sticky">
 
-    <div class="chapter-inner" style="text-align:center">
+    <div class="container" style="text-align:center">
 
-      <div class="chapter-number">11 / MEET THE AI</div>
+      <div class="kicker">
+        11 / THE INTERACTIVE CHAPTER
+      </div>
 
-      <h2 class="chapter-title reveal" style="margin:auto">
-        TALK TO<br>
-        <span class="ghost">MAGNUS AI.</span>
+      <h2 class="title reveal" style="margin:auto">
+        MEET<br>
+        <span class="outline">MAGNUS AI.</span>
       </h2>
 
-      <p class="chapter-copy reveal" style="margin:35px auto 0">
-        Explore the projects, ideas and story behind
-        Magnus Verity through an interactive AI assistant.
+      <p class="body reveal" style="margin:35px auto 0">
+        Want to know more?
+
+        Ask the AI assistant about the journey,
+        the projects, AI Workforce, GenesisAI,
+        ideas, building and everything currently
+        documented about Magnus's public work.
+
+        It isn't Magnus.
+
+        It's the interactive guide to the story.
       </p>
 
       <button
-        class="ai-link reveal"
-        onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})"
-      >
-        START CONVERSATION ↓
+        class="cta reveal"
+        onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})">
+        TALK TO MAGNUS AI ↓
       </button>
 
     </div>
@@ -1523,9 +2064,9 @@ body::-webkit-scrollbar-thumb{
 </section>
 
 
-<!-- ========================================= -->
-<!-- FINAL -->
-<!-- ========================================= -->
+<!-- =====================================================
+     FINAL
+===================================================== -->
 
 <section class="final">
 
@@ -1533,16 +2074,16 @@ body::-webkit-scrollbar-thumb{
 
     <div>
 
-      <div class="eyebrow">
+      <div class="kicker">
         THE STORY IS STILL BEING WRITTEN.
       </div>
 
-      <h2>
+      <h2 class="final-title">
         <span>STAY</span>
         <span class="outline">LIMITLESS.</span>
       </h2>
 
-      <p>
+      <p class="final-copy">
         I build things that help people become
         better versions of themselves.
       </p>
@@ -1554,15 +2095,15 @@ body::-webkit-scrollbar-thumb{
   <div class="footer">
     <span>MAGNUS VERITY</span>
     <span>MAGNUS × BL4Z3</span>
-    <span>2026 — STILL BUILDING</span>
+    <span>STILL BUILDING · 2026</span>
   </div>
 
 </section>
 
 
-<!-- ========================================= -->
-<!-- MAGNUS AI WIDGET -->
-<!-- ========================================= -->
+<!-- =====================================================
+     MAGNUS AI WIDGET
+===================================================== -->
 
 <script
   src="https://aiworkforce.ai.studio/widget.js"
@@ -1572,104 +2113,115 @@ body::-webkit-scrollbar-thumb{
 
 
 <script>
-/* =========================================
-   PARTICLE UNIVERSE
-========================================= */
+/* =====================================================
+   CANVAS UNIVERSE
+===================================================== */
 
-const canvas = document.getElementById("space");
+const canvas = document.getElementById("universe");
 const ctx = canvas.getContext("2d");
 
 let W = innerWidth;
 let H = innerHeight;
-let dpr = Math.min(devicePixelRatio || 1,2);
+let DPR = Math.min(devicePixelRatio || 1,2);
 
-function resize(){
+function resizeCanvas(){
+
   W = innerWidth;
   H = innerHeight;
+  DPR = Math.min(devicePixelRatio || 1,2);
 
-  canvas.width = W*dpr;
-  canvas.height = H*dpr;
+  canvas.width = W * DPR;
+  canvas.height = H * DPR;
+
   canvas.style.width = W+"px";
   canvas.style.height = H+"px";
 
-  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.setTransform(DPR,0,0,DPR,0,0);
 }
 
-resize();
-addEventListener("resize",resize);
+resizeCanvas();
+addEventListener("resize",resizeCanvas);
+
+const mobile = innerWidth < 800;
+const particleCount = mobile ? 55 : 110;
 
 const particles = [];
 
-const count = innerWidth < 700 ? 75 : 145;
-
-for(let i=0;i<count;i++){
+for(let i=0;i<particleCount;i++){
 
   particles.push({
     x:Math.random()*W,
     y:Math.random()*H,
-    z:Math.random(),
-    size:Math.random()*1.5+.2,
-    speed:Math.random()*.25+.04,
+    r:Math.random()*1.5+.25,
+    vx:(Math.random()-.5)*.12,
+    vy:(Math.random()-.5)*.12,
+    depth:Math.random(),
     phase:Math.random()*Math.PI*2
   });
 
 }
 
-let scrollY = 0;
-let previousScroll = 0;
-let velocity = 0;
-let smoothVelocity = 0;
+let lastTime = performance.now();
 
-function particlesLoop(){
+function drawUniverse(time){
+
+  const dt = Math.min(32,time-lastTime);
+  lastTime = time;
 
   ctx.clearRect(0,0,W,H);
 
-  smoothVelocity += (velocity-smoothVelocity)*.08;
-
   for(const p of particles){
 
-    p.y -= p.speed + smoothVelocity*.025;
-    p.x += Math.sin(performance.now()*.0003+p.phase)*.08;
+    p.x += p.vx * dt;
+    p.y += p.vy * dt;
 
-    if(p.y < -10) p.y = H+10;
-    if(p.y > H+10) p.y = -10;
+    if(p.x<-10)p.x=W+10;
+    if(p.x>W+10)p.x=-10;
+    if(p.y<-10)p.y=H+10;
+    if(p.y>H+10)p.y=-10;
 
-    let alpha = .12 + p.z*.45;
+    const alpha =
+      .08 +
+      p.depth*.28 +
+      Math.sin(time*.0007+p.phase)*.035;
 
     ctx.beginPath();
     ctx.arc(
       p.x,
       p.y,
-      p.size*(.6+p.z),
+      p.r*(.7+p.depth),
       0,
       Math.PI*2
     );
 
-    ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+    ctx.fillStyle=`rgba(255,255,255,${alpha})`;
     ctx.fill();
-
   }
 
-  requestAnimationFrame(particlesLoop);
+  requestAnimationFrame(drawUniverse);
 }
 
-particlesLoop();
+requestAnimationFrame(drawUniverse);
 
 
-/* =========================================
-   SCROLL ENGINE
-========================================= */
+/* =====================================================
+   SCROLL PHYSICS
+===================================================== */
 
-let ticking = false;
+let scrollY = 0;
+let previousY = 0;
+let velocity = 0;
+let smoothVelocity = 0;
 
 function updateScroll(){
 
   scrollY = window.scrollY;
 
-  velocity = scrollY-previousScroll;
-  previousScroll = scrollY;
+  velocity = scrollY - previousY;
+  previousY = scrollY;
 
-  smoothVelocity += (velocity-smoothVelocity)*.08;
+  smoothVelocity +=
+    (velocity-smoothVelocity)*.1;
 
   const max =
     document.documentElement.scrollHeight-innerHeight;
@@ -1677,235 +2229,299 @@ function updateScroll(){
   const progress =
     max > 0 ? scrollY/max : 0;
 
-  document.getElementById("progress").style.width =
-    `${progress*100}%`;
-
-  ticking = false;
+  document.getElementById("progress")
+    .style.width=(progress*100)+"%";
 }
 
-window.addEventListener("scroll",()=>{
-
-  if(!ticking){
-    requestAnimationFrame(updateScroll);
-    ticking = true;
-  }
-
-});
+addEventListener("scroll",updateScroll,{passive:true});
 
 
-/* =========================================
-   HERO PARALLAX
-========================================= */
+/* =====================================================
+   HERO SCROLL TRANSFORMATION
+===================================================== */
 
 const hero = document.querySelector(".hero");
 const heroContent = document.getElementById("heroContent");
-const heroCore = document.getElementById("heroCore");
+const heroSystem = document.getElementById("heroSystem");
 
-function heroMotion(){
+function updateHero(){
 
-  const rect = hero.getBoundingClientRect();
+  if(!hero)return;
 
-  const p =
-    Math.min(
-      1,
-      Math.max(
-        0,
-        -rect.top/(hero.offsetHeight-innerHeight)
-      )
-    );
+  const rect=hero.getBoundingClientRect();
 
-  const scale = 1+p*.75;
-  const rotate = p*18;
+  const max=Math.max(1,hero.offsetHeight-innerHeight);
 
-  heroContent.style.transform =
-    `translate3d(0,${p*-100}px,0)
-     scale(${1-p*.25})
-     rotateX(${rotate*.2}deg)`;
+  const p=Math.max(
+    0,
+    Math.min(1,-rect.top/max)
+  );
 
-  heroCore.style.transform =
+  heroContent.style.transform=
+    `translate3d(0,${p*-90}px,0)
+     scale(${1-p*.22})
+     rotateX(${p*10}deg)`;
+
+  heroContent.style.opacity=
+    String(1-p*.75);
+
+  heroSystem.style.transform=
     `translate(-50%,-50%)
-     scale(${scale})
-     rotateX(${p*45}deg)
-     rotateY(${p*70}deg)`;
+     scale(${1+p*.55})
+     rotateX(${p*28}deg)
+     rotateY(${p*50}deg)`;
+
+  heroSystem.style.opacity=
+    String(.85-p*.45);
+}
+
+function heroLoop(){
+
+  updateHero();
+  requestAnimationFrame(heroLoop);
 
 }
 
-function animationLoop(){
-
-  heroMotion();
-
-  requestAnimationFrame(animationLoop);
-
-}
-
-animationLoop();
+heroLoop();
 
 
-/* =========================================
-   POINTER PHYSICS
-========================================= */
+/* =====================================================
+   POINTER GLOW
+===================================================== */
 
-let mouseX = 0;
-let mouseY = 0;
-let targetX = 0;
-let targetY = 0;
+const glow=document.getElementById("glow");
+
+let pointerX=innerWidth/2;
+let pointerY=innerHeight/2;
+
+let glowX=pointerX;
+let glowY=pointerY;
 
 addEventListener("pointermove",e=>{
 
-  targetX =
-    (e.clientX/innerWidth-.5)*2;
+  pointerX=e.clientX;
+  pointerY=e.clientY;
 
-  targetY =
-    (e.clientY/innerHeight-.5)*2;
+},{passive:true});
 
-});
+function glowLoop(){
 
-function pointerLoop(){
+  glowX+=(pointerX-glowX)*.07;
+  glowY+=(pointerY-glowY)*.07;
 
-  mouseX += (targetX-mouseX)*.05;
-  mouseY += (targetY-mouseY)*.05;
+  glow.style.left=glowX+"px";
+  glow.style.top=glowY+"px";
 
+  requestAnimationFrame(glowLoop);
+}
+
+glowLoop();
+
+
+/* =====================================================
+   3D MOUSE PHYSICS
+===================================================== */
+
+let mx=0;
+let my=0;
+let tx=0;
+let ty=0;
+
+addEventListener("pointermove",e=>{
+
+  tx=(e.clientX/innerWidth-.5)*2;
+  ty=(e.clientY/innerHeight-.5)*2;
+
+},{passive:true});
+
+const interactiveVisuals=[
+  ".visual-inner",
+  ".bridge",
+  ".ai-visual",
+  ".genesis-visual",
+  ".duo-visual",
+  ".future-visual"
+];
+
+function pointerPhysics(){
+
+  mx+=(tx-mx)*.045;
+  my+=(ty-my)*.045;
+
+  document.querySelectorAll(interactiveVisuals.join(","))
+    .forEach((el,index)=>{
+
+      const strength =
+        index%2===0 ? 8 : 12;
+
+      const rotateX=
+        my*-strength;
+
+      const rotateY=
+        mx*strength;
+
+      el.style.transform=
+        `translate3d(
+          ${mx*strength}px,
+          ${my*strength}px,
+          0
+        )
+        rotateX(${rotateX*.25}deg)
+        rotateY(${rotateY*.25}deg)`;
+
+    });
+
+  requestAnimationFrame(pointerPhysics);
+}
+
+pointerPhysics();
+
+
+/* =====================================================
+   ORBITAL MICRO PHYSICS
+===================================================== */
+
+const satellites=
   document.querySelectorAll(
-    ".cube,.archive,.ai-core,.genesis-world,.duo-stage"
-  ).forEach((el,i)=>{
+    ".sphere,.ai-satellite,.bridge-particle"
+  );
 
-    const amount = i%2 ? 7 : 11;
+function orbitalMotion(time){
 
-    el.style.marginLeft =
-      `${mouseX*amount}px`;
+  satellites.forEach((el,i)=>{
 
-    el.style.marginTop =
-      `${mouseY*amount}px`;
+    const phase=i*1.7;
+    const x=Math.sin(time*.0007+phase)*18;
+    const y=Math.cos(time*.0009+phase)*15;
+
+    el.style.translate=
+      `${x}px ${y}px`;
 
   });
 
-  requestAnimationFrame(pointerLoop);
+  requestAnimationFrame(orbitalMotion);
 }
 
-pointerLoop();
+requestAnimationFrame(orbitalMotion);
 
 
-/* =========================================
-   REVEAL SYSTEM
-========================================= */
+/* =====================================================
+   SCROLL VELOCITY OBJECT MOTION
+===================================================== */
 
-const revealObserver =
+const movingVisuals=
+  document.querySelectorAll(
+    ".orb,.ai-brain,.genesis-dot,.duo-pulse,.future-core"
+  );
+
+let objectRotation=0;
+
+function scrollObjectPhysics(){
+
+  objectRotation += smoothVelocity*.025;
+
+  movingVisuals.forEach((el,i)=>{
+
+    const direction=i%2===0?1:-1;
+
+    el.style.rotate=
+      `${objectRotation*direction}deg`;
+
+    const scale=
+      1+Math.min(
+        .08,
+        Math.abs(smoothVelocity)*.0008
+      );
+
+    el.style.scale=scale;
+  });
+
+  requestAnimationFrame(scrollObjectPhysics);
+}
+
+scrollObjectPhysics();
+
+
+/* =====================================================
+   REVEAL OBSERVER
+===================================================== */
+
+const observer=
   new IntersectionObserver(
     entries=>{
 
       entries.forEach(entry=>{
 
         if(entry.isIntersecting){
-          entry.target.classList.add("show");
+
+          entry.target.classList.add("visible");
+
         }
 
       });
 
     },
     {
-      threshold:.15
+      threshold:.14,
+      rootMargin:"0px 0px -8% 0px"
     }
   );
 
 document.querySelectorAll(".reveal")
-  .forEach(el=>revealObserver.observe(el));
+  .forEach(el=>observer.observe(el));
 
 
-/* =========================================
-   3D STARTUP OBJECT ROTATION
-========================================= */
+/* =====================================================
+   MAGNETIC CTA
+===================================================== */
 
-const objects = document.querySelectorAll(
-  ".cube,.archive,.ai-core,.genesis-cube,.person-core"
-);
+document.querySelectorAll(".cta,.nav-ai")
+  .forEach(button=>{
 
-window.addEventListener("scroll",()=>{
+    button.addEventListener("pointermove",e=>{
 
-  const v = Math.min(25,Math.abs(velocity));
+      const r=
+        button.getBoundingClientRect();
 
-  objects.forEach((el,i)=>{
+      const x=
+        (e.clientX-r.left-r.width/2)*.12;
 
-    const current =
-      parseFloat(el.dataset.rotation || 0);
+      const y=
+        (e.clientY-r.top-r.height/2)*.12;
 
-    const next =
-      current + velocity*.08;
+      button.style.transform=
+        `translate(${x}px,${y}px) scale(1.02)`;
 
-    el.dataset.rotation = next;
+    });
 
-    if(el.classList.contains("cube")){
-      el.style.rotate =
-        `${next*.35}deg ${next*.5}deg`;
-    }
+    button.addEventListener("pointerleave",()=>{
 
-    if(el.classList.contains("ai-core")){
-      el.style.rotate =
-        `${next*.15}deg ${next*.3}deg`;
-    }
+      button.style.transform="";
 
-    if(el.classList.contains("genesis-cube")){
-      el.style.rotate =
-        `${next*.3}deg ${next*.5}deg`;
-    }
+    });
 
   });
 
-});
 
-
-/* =========================================
-   MAGNETIC BUTTONS
-========================================= */
-
-document.querySelectorAll(".ai-btn,.ai-link")
-.forEach(btn=>{
-
-  btn.addEventListener("pointermove",e=>{
-
-    const r = btn.getBoundingClientRect();
-
-    const x =
-      (e.clientX-r.left-r.width/2)*.15;
-
-    const y =
-      (e.clientY-r.top-r.height/2)*.15;
-
-    btn.style.transform =
-      `translate(${x}px,${y}px)`;
-
-  });
-
-  btn.addEventListener("pointerleave",()=>{
-
-    btn.style.transform = "";
-
-  });
-
-});
-
-
-/* =========================================
-   TOUCH FRIENDLY RESET
-========================================= */
+/* =====================================================
+   MOBILE SAFETY
+===================================================== */
 
 addEventListener("touchstart",()=>{
-  targetX = 0;
-  targetY = 0;
+  tx=0;
+  ty=0;
 },{passive:true});
 
-
-/* =========================================
-   PREVENT HEAVY LAYOUT ON HIDDEN TABS
-========================================= */
-
-document.addEventListener("visibilitychange",()=>{
-
-  if(document.hidden){
-    velocity = 0;
+document.addEventListener(
+  "visibilitychange",
+  ()=>{
+    if(document.hidden){
+      velocity=0;
+      smoothVelocity=0;
+    }
   }
-
-});
+);
 </script>
 
 </body>
-    </html>
+          </html>

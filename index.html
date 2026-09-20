@@ -2,1807 +2,812 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
-<meta name="theme-color" content="#050505">
-<title>LIMITLESS — Magnus Verity × BL4Z3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magnus Verity — Builder. Founder. Limitless.</title>
 
 <style>
-/* =========================================================
-   RESET
-========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root{
+  --bg:#050505;
+  --fg:#f5f5f5;
+  --muted:#888;
+  --line:rgba(255,255,255,.11);
+  --glass:rgba(255,255,255,.045);
+}
 
 *{
   box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
 html{
-  margin:0;
-  padding:0;
-  width:100%;
-  overflow-x:hidden;
+  scroll-behavior:smooth;
   background:#050505;
-  scroll-behavior:auto;
 }
 
 body{
-  margin:0;
-  padding:0;
-  width:100%;
-  overflow-x:hidden;
-  background:#050505;
-  color:#fff;
+  background:var(--bg);
+  color:var(--fg);
   font-family:Inter,Arial,sans-serif;
-  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
 
-body::-webkit-scrollbar{
-  width:4px;
-}
-
-body::-webkit-scrollbar-track{
-  background:#050505;
-}
-
-body::-webkit-scrollbar-thumb{
-  background:#444;
-}
-
-::selection{
-  background:#fff;
-  color:#000;
-}
-
-img,
-svg,
-canvas{
-  max-width:100%;
-}
-
-button{
-  font:inherit;
-}
-
-
-/* =========================================================
+/* =========================
    GLOBAL
-========================================================= */
+========================= */
 
-:root{
-  --white:#fff;
-  --black:#050505;
-  --gray:#777;
-  --soft:#aaa;
-  --ease:cubic-bezier(.16,1,.3,1);
-}
-
-main{
-  width:100%;
-  overflow:hidden;
-}
-
-.scene{
-  position:relative;
-  width:100%;
-}
-
-.kicker{
-  font-size:9px;
-  line-height:1;
-  letter-spacing:.28em;
-  text-transform:uppercase;
-  color:#777;
-}
-
-.big{
-  font-size:clamp(65px,12vw,170px);
-  line-height:.76;
-  letter-spacing:-.095em;
-  font-weight:900;
-}
-
-.muted{
-  color:#666;
-}
-
-.hide-mobile{
-  display:block;
-}
-
-
-/* =========================================================
-   INTRO
-========================================================= */
-
-#intro{
+body:before{
+  content:"";
   position:fixed;
   inset:0;
-  z-index:9999;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#050505;
-  transition:
-    opacity 1s var(--ease),
-    visibility 1s;
-}
-
-#intro.done{
-  opacity:0;
-  visibility:hidden;
   pointer-events:none;
+  z-index:20;
+  opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
 }
 
-.intro-inner{
-  width:min(1100px,calc(100% - 40px));
-}
-
-.intro-small{
-  font-size:9px;
-  letter-spacing:.3em;
-  color:#555;
-  margin-bottom:28px;
-}
-
-.intro-title{
-  font-size:clamp(55px,12vw,150px);
-  line-height:.72;
-  font-weight:900;
-  letter-spacing:-.1em;
-}
-
-.intro-line{
-  width:0;
-  height:1px;
-  margin-top:38px;
-  background:#fff;
-  animation:introLine 1.6s var(--ease) forwards;
-}
-
-@keyframes introLine{
-  to{width:100%}
-}
-
-
-/* =========================================================
-   NAV
-========================================================= */
-
-.nav{
+#canvas{
   position:fixed;
-  z-index:500;
-  top:0;
-  left:0;
+  inset:0;
   width:100%;
-  height:70px;
-  padding:0 clamp(20px,4vw,60px);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+  height:100%;
+  z-index:0;
   pointer-events:none;
-  mix-blend-mode:difference;
-}
-
-.nav-logo{
-  font-size:9px;
-  font-weight:800;
-  letter-spacing:.22em;
-}
-
-.nav-status{
-  font-size:8px;
-  color:#aaa;
-  letter-spacing:.2em;
 }
 
 .progress{
   position:fixed;
-  z-index:501;
+  top:0;
   left:0;
-  top:0;
-  height:1px;
   width:100%;
-  transform-origin:left;
-  transform:scaleX(0);
-  background:#fff;
-  mix-blend-mode:difference;
+  height:2px;
+  z-index:100;
+  background:rgba(255,255,255,.08);
 }
 
-
-/* =========================================================
-   SCROLL MOVIE
-========================================================= */
-
-.movie{
-  position:relative;
-  height:1050vh;
-  background:#050505;
-}
-
-.stage{
-  position:sticky;
-  top:0;
-  width:100%;
-  height:100svh;
-  height:100vh;
-  min-height:600px;
-  overflow:hidden;
-  perspective:1400px;
-  background:#050505;
-}
-
-
-/* =========================================================
-   CANVAS
-========================================================= */
-
-#space{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-  opacity:.7;
-}
-
-
-/* =========================================================
-   ATMOSPHERE
-========================================================= */
-
-.atmosphere{
-  position:absolute;
-  inset:-20%;
-  pointer-events:none;
-  background:
-    radial-gradient(
-      circle at 50% 50%,
-      rgba(255,255,255,.055),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 80% 30%,
-      rgba(255,255,255,.035),
-      transparent 25%
-    );
-  filter:blur(30px);
-  transform:translateZ(0);
-}
-
-.vignette{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background:
-    radial-gradient(
-      ellipse at center,
-      transparent 35%,
-      rgba(0,0,0,.55) 100%
-    );
-}
-
-
-/* =========================================================
-   WORLD
-========================================================= */
-
-.world{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:min(65vw,850px);
-  height:min(65vw,850px);
-  transform:
-    translate(-50%,-50%)
-    translate3d(0,0,0);
-  transform-style:preserve-3d;
-  pointer-events:none;
-  will-change:transform;
-}
-
-.world-ring{
-  position:absolute;
-  left:50%;
-  top:50%;
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:50%;
-  transform-style:preserve-3d;
-  will-change:transform;
-}
-
-.r1{
-  width:72%;
-  height:28%;
-  transform:
-    translate(-50%,-50%)
-    rotateX(65deg)
-    rotateZ(-20deg);
-}
-
-.r2{
-  width:48%;
-  height:78%;
-  transform:
-    translate(-50%,-50%)
-    rotateY(67deg);
-}
-
-.r3{
-  width:90%;
-  height:42%;
-  transform:
-    translate(-50%,-50%)
-    rotateX(70deg)
-    rotateZ(45deg);
-}
-
-.r4{
-  width:38%;
-  height:38%;
-  transform:
-    translate(-50%,-50%)
-    rotateX(70deg)
-    rotateY(40deg);
-}
-
-.world-core{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:150px;
-  height:150px;
-  transform:
-    translate(-50%,-50%)
-    rotateX(55deg)
-    rotateZ(35deg);
-  transform-style:preserve-3d;
-}
-
-.face{
-  position:absolute;
-  inset:0;
-  border:1px solid rgba(255,255,255,.4);
-  background:rgba(255,255,255,.018);
-  backdrop-filter:blur(2px);
-}
-
-.face:nth-child(1){
-  transform:translateZ(75px);
-}
-
-.face:nth-child(2){
-  transform:
-    rotateY(90deg)
-    translateZ(75px);
-}
-
-.face:nth-child(3){
-  transform:
-    rotateX(90deg)
-    translateZ(75px);
-}
-
-.face:nth-child(4){
-  transform:translateZ(-75px);
-}
-
-.face:nth-child(5){
-  transform:
-    rotateY(90deg)
-    translateZ(-75px);
-}
-
-.face:nth-child(6){
-  transform:
-    rotateX(90deg)
-    translateZ(-75px);
-}
-
-.core-light{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:22px;
-  height:22px;
-  border-radius:50%;
-  background:#fff;
-  transform:translate(-50%,-50%);
-  box-shadow:
-    0 0 20px #fff,
-    0 0 80px rgba(255,255,255,.3);
-}
-
-
-/* =========================================================
-   HERO TEXT
-========================================================= */
-
-.hero-copy{
-  position:absolute;
-  z-index:20;
-  left:max(24px,calc((100% - 1180px)/2));
-  top:50%;
-  transform:translateY(-50%);
-  width:min(760px,calc(100% - 48px));
-}
-
-.hero-label{
-  margin-bottom:28px;
-}
-
-.hero-title{
-  margin:0;
-  font-size:clamp(70px,13vw,185px);
-  line-height:.73;
-  letter-spacing:-.105em;
-  font-weight:900;
-}
-
-.hero-title span{
+.progress span{
   display:block;
-}
-
-.hero-description{
-  width:min(510px,100%);
-  margin-top:48px;
-  color:#666;
-  font-size:16px;
-  line-height:1.7;
-}
-
-.scroll-hint{
-  position:absolute;
-  z-index:30;
-  left:24px;
-  bottom:28px;
-  font-size:8px;
-  color:#555;
-  letter-spacing:.25em;
-}
-
-
-/* =========================================================
-   CINEMATIC TEXT SYSTEM
-========================================================= */
-
-.scene-copy{
-  position:absolute;
-  z-index:30;
-  width:min(850px,calc(100% - 48px));
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-}
-
-.scene-copy.right{
-  left:auto;
-  right:max(24px,calc((100% - 1180px)/2));
-  transform:translateY(-50%);
-}
-
-.scene-copy.left{
-  left:max(24px,calc((100% - 1180px)/2));
-  transform:translateY(-50%);
-}
-
-.scene-number{
-  margin-bottom:30px;
-}
-
-.scene-heading{
-  margin:0;
-  font-size:clamp(60px,11vw,150px);
-  line-height:.76;
-  letter-spacing:-.09em;
-  font-weight:900;
-}
-
-.scene-description{
-  max-width:520px;
-  margin-top:40px;
-  color:#666;
-  font-size:17px;
-  line-height:1.75;
-}
-
-
-/* =========================================================
-   HUGE WORDS
-========================================================= */
-
-.word{
-  position:absolute;
-  z-index:10;
-  left:50%;
-  top:50%;
-  white-space:nowrap;
-  transform:
-    translate(-50%,-50%)
-    scale(1);
-  font-size:clamp(100px,22vw,310px);
-  line-height:.7;
-  letter-spacing:-.12em;
-  font-weight:900;
-  color:#fff;
-  will-change:transform,opacity;
-  pointer-events:none;
-}
-
-
-/* =========================================================
-   WHITE WORLD
-========================================================= */
-
-.white-world{
-  position:absolute;
-  inset:0;
+  width:0;
+  height:100%;
   background:#fff;
-  color:#050505;
-  opacity:0;
-  will-change:opacity;
-  pointer-events:none;
+  transform-origin:left;
 }
 
-.white-grid{
-  position:absolute;
-  inset:-20%;
-  opacity:.12;
-  background:
-    linear-gradient(#000 1px,transparent 1px),
-    linear-gradient(90deg,#000 1px,transparent 1px);
-  background-size:70px 70px;
-  transform:
-    perspective(700px)
-    rotateX(65deg)
-    translateY(35%);
-}
-
-.white-orb{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:260px;
-  height:260px;
-  border-radius:50%;
-  transform:translate(-50%,-50%);
-  background:
-    radial-gradient(
-      circle at 30% 25%,
-      #fff,
-      #bbb 20%,
-      #555 45%,
-      #050505 75%
-    );
-  box-shadow:
-    0 50px 100px rgba(0,0,0,.15);
-}
-
-
-/* =========================================================
-   PARTICLE / OBJECT LAYERS
-========================================================= */
-
-.object{
-  position:absolute;
-  z-index:15;
-  left:50%;
-  top:50%;
-  width:180px;
-  height:180px;
-  border:1px solid rgba(255,255,255,.2);
-  transform:
-    translate(-50%,-50%)
-    translateZ(0);
-  will-change:transform,opacity;
-}
-
-.object.square{
-  transform:
-    translate(-50%,-50%)
-    rotate(45deg);
-}
-
-.object.circle{
-  border-radius:50%;
-}
-
-.object.small{
-  width:80px;
-  height:80px;
-}
-
-.object.large{
-  width:360px;
-  height:360px;
-}
-
-.object::after{
-  content:"";
-  position:absolute;
-  inset:20%;
-  border:1px solid rgba(255,255,255,.12);
-}
-
-.object.light{
-  width:10px;
-  height:10px;
-  border:0;
-  border-radius:50%;
-  background:#fff;
-  box-shadow:
-    0 0 25px #fff,
-    0 0 100px rgba(255,255,255,.3);
-}
-
-
-/* =========================================================
-   TIMELINE MARKERS
-========================================================= */
-
-.timeline{
+.nav{
   position:fixed;
-  z-index:200;
-  right:25px;
-  top:50%;
-  transform:translateY(-50%);
-  display:flex;
-  flex-direction:column;
-  gap:9px;
-  pointer-events:none;
-}
-
-.timeline span{
-  width:4px;
-  height:4px;
-  border-radius:50%;
-  background:#555;
-  transition:
-    transform .3s,
-    background .3s;
-}
-
-.timeline span.active{
-  background:#fff;
-  transform:scale(2);
-}
-
-
-/* =========================================================
-   BELOW MOVIE
-========================================================= */
-
-.after{
-  position:relative;
-  background:#fff;
-  color:#050505;
-  padding:180px 0 0;
-}
-
-.after-inner{
-  width:min(1180px,calc(100% - 48px));
-  margin:auto;
-}
-
-.after-heading{
-  margin:30px 0 0;
-  font-size:clamp(60px,12vw,160px);
-  line-height:.75;
-  letter-spacing:-.095em;
-  font-weight:900;
-}
-
-
-/* =========================================================
-   STORY PANELS
-========================================================= */
-
-.story-panel{
-  width:min(900px,calc(100% - 48px));
-  min-height:520px;
-  margin:130px auto;
-  padding:clamp(30px,6vw,75px);
-  border-radius:32px;
-  border:1px solid #ddd;
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.98),
-      rgba(240,240,240,.75)
-    );
-  box-shadow:
-    0 40px 100px rgba(0,0,0,.08);
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  overflow:hidden;
-  transform-style:preserve-3d;
-  transition:
-    transform .7s var(--ease);
-}
-
-.story-panel:hover{
-  transform:
-    perspective(1000px)
-    rotateX(2deg)
-    rotateY(-2deg)
-    translateY(-8px);
-}
-
-.panel-top{
-  display:flex;
-  justify-content:space-between;
-  color:#999;
-  font-size:9px;
-  letter-spacing:.2em;
-}
-
-.story-panel h2{
-  margin:0;
-  font-size:clamp(48px,8vw,100px);
-  line-height:.8;
-  letter-spacing:-.08em;
-}
-
-.story-panel p{
-  max-width:600px;
-  margin:30px 0 0;
-  color:#707070;
-  line-height:1.7;
-}
-
-
-/* =========================================================
-   AI WORKFORCE FEATURE
-========================================================= */
-
-.ai-feature{
-  position:relative;
-  min-height:900px;
-  padding:170px 0;
-  background:#050505;
-  color:#fff;
-  overflow:hidden;
-}
-
-.ai-feature-inner{
-  position:relative;
-  z-index:5;
-  width:min(1180px,calc(100% - 48px));
-  margin:auto;
-}
-
-.ai-feature-title{
-  margin:30px 0 0;
-  font-size:clamp(60px,13vw,180px);
-  line-height:.72;
-  letter-spacing:-.1em;
-  font-weight:900;
-}
-
-.ai-feature-copy{
-  max-width:600px;
-  margin-top:60px;
-  color:#666;
-  font-size:18px;
-  line-height:1.75;
-}
-
-.ai-machine{
-  position:absolute;
-  right:-100px;
-  top:50%;
-  width:650px;
-  height:650px;
-  transform:
-    translateY(-50%)
-    perspective(1000px);
-  transform-style:preserve-3d;
-}
-
-.machine-ring{
-  position:absolute;
+  top:20px;
   left:50%;
-  top:50%;
-  border:1px solid rgba(255,255,255,.13);
-  border-radius:50%;
-  transform-style:preserve-3d;
-}
+  transform:translateX(-50%);
+  width:min(94%,1100px);
+  height:62px;
+  z-index:90;
 
-.machine-ring:nth-child(1){
-  width:450px;
-  height:450px;
-  transform:
-    translate(-50%,-50%)
-    rotateX(65deg);
-}
-
-.machine-ring:nth-child(2){
-  width:330px;
-  height:500px;
-  transform:
-    translate(-50%,-50%)
-    rotateY(65deg);
-}
-
-.machine-ring:nth-child(3){
-  width:520px;
-  height:220px;
-  transform:
-    translate(-50%,-50%)
-    rotateX(70deg)
-    rotateZ(30deg);
-}
-
-.machine-core{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:130px;
-  height:130px;
-  transform:
-    translate(-50%,-50%)
-    rotateX(55deg)
-    rotateZ(35deg);
-  border:1px solid rgba(255,255,255,.4);
-  background:rgba(255,255,255,.025);
-}
-
-.machine-core::after{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:15px;
-  height:15px;
-  border-radius:50%;
-  background:#fff;
-  transform:translate(-50%,-50%);
-  box-shadow:0 0 50px #fff;
-}
-
-
-/* =========================================================
-   DUO
-========================================================= */
-
-.duo{
-  padding:180px 0;
-  background:#f3f3f3;
-  color:#050505;
-}
-
-.duo-grid{
-  width:min(1100px,calc(100% - 48px));
-  margin:auto;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
-}
-
-.duo-card{
-  min-height:500px;
-  padding:clamp(30px,5vw,65px);
-  border:1px solid #d5d5d5;
-  border-radius:32px;
-  background:#fff;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  transform-style:preserve-3d;
-  transition:
-    transform .5s var(--ease),
-    box-shadow .5s var(--ease);
-}
-
-.duo-card:hover{
-  transform:
-    perspective(1000px)
-    rotateX(3deg)
-    rotateY(-4deg)
-    translateY(-10px);
-  box-shadow:0 40px 100px rgba(0,0,0,.1);
-}
-
-.duo-card small{
-  font-size:9px;
-  letter-spacing:.25em;
-  color:#999;
-}
-
-.duo-card h2{
-  margin:0;
-  font-size:clamp(45px,7vw,85px);
-  line-height:.8;
-  letter-spacing:-.08em;
-}
-
-
-/* =========================================================
-   FUTURE
-========================================================= */
-
-.future{
-  position:relative;
-  min-height:100vh;
   display:flex;
   align-items:center;
-  overflow:hidden;
-  background:#050505;
+  justify-content:space-between;
+
+  padding:0 20px;
+  border:1px solid var(--line);
+  background:rgba(5,5,5,.52);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  border-radius:999px;
+
+  transition:.4s ease;
+}
+
+.logo{
+  font-size:14px;
+  font-weight:800;
+  letter-spacing:-.04em;
+}
+
+.logo span{
+  opacity:.42;
+}
+
+.navlinks{
+  display:flex;
+  gap:24px;
+}
+
+.navlinks a{
+  color:#aaa;
+  text-decoration:none;
+  font-size:12px;
+  transition:.3s;
+}
+
+.navlinks a:hover{
   color:#fff;
 }
 
-.future-inner{
-  width:min(1180px,calc(100% - 48px));
-  margin:auto;
-  position:relative;
-  z-index:5;
-}
-
-.future-title{
-  margin:30px 0 0;
-  font-size:clamp(65px,14vw,190px);
-  line-height:.72;
-  letter-spacing:-.1em;
-  font-weight:900;
-}
-
-.future-copy{
-  max-width:600px;
-  margin-top:55px;
-  color:#666;
-  font-size:18px;
-  line-height:1.75;
-}
-
-.future-orbit{
-  position:absolute;
-  right:-220px;
-  bottom:-220px;
-  width:750px;
-  height:750px;
-  border:1px solid rgba(255,255,255,.13);
-  border-radius:50%;
-}
-
-.future-orbit::before,
-.future-orbit::after{
-  content:"";
-  position:absolute;
-  inset:70px;
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:50%;
-}
-
-.future-orbit::after{
-  inset:160px;
-}
-
-
-/* =========================================================
-   FINAL
-========================================================= */
-
-.final{
-  min-height:100vh;
+.nav-btn{
+  border:1px solid rgba(255,255,255,.2);
   background:#fff;
-  color:#050505;
+  color:#000;
+  padding:10px 16px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  min-height:100vh;
+  position:relative;
+  z-index:2;
+
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
-  padding:100px 20px;
+
+  perspective:1400px;
+  overflow:hidden;
 }
 
-.final-title{
-  margin:0;
-  font-size:clamp(80px,18vw,250px);
-  line-height:.68;
+.hero-content{
+  width:min(1000px,92%);
+  position:relative;
+  z-index:5;
+  transform-style:preserve-3d;
+}
+
+.eyebrow{
+  display:inline-flex;
+  gap:9px;
+  align-items:center;
+  border:1px solid var(--line);
+  padding:8px 13px;
+  border-radius:999px;
+  background:rgba(255,255,255,.035);
+  color:#aaa;
+  font-size:10px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  margin-bottom:30px;
+}
+
+.dot{
+  width:6px;
+  height:6px;
+  background:#fff;
+  border-radius:50%;
+  box-shadow:0 0 18px #fff;
+}
+
+.hero h1{
+  font-size:clamp(62px,12vw,170px);
+  line-height:.82;
+  letter-spacing:-.085em;
+  font-weight:900;
+  margin-left:-.07em;
+}
+
+.hero h1 .line{
+  display:block;
+}
+
+.hero h1 .ghost{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.45);
+}
+
+.hero-sub{
+  max-width:570px;
+  margin:40px auto 0;
+  color:#999;
+  font-size:15px;
+  line-height:1.7;
+}
+
+.hero-actions{
+  margin-top:30px;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  padding:14px 20px;
+  border-radius:999px;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:700;
+  transition:.35s;
+}
+
+.btn-primary{
+  background:#fff;
+  color:#000;
+}
+
+.btn-secondary{
+  color:#fff;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+}
+
+.btn:hover{
+  transform:translateY(-4px);
+}
+
+/* =========================
+   3D CORE
+========================= */
+
+.core{
+  position:absolute;
+  width:430px;
+  height:430px;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+  opacity:.65;
+  z-index:1;
+}
+
+.orbit{
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:50%;
+  transform-style:preserve-3d;
+}
+
+.o1{
+  transform:rotateX(67deg) rotateZ(20deg);
+  animation:orbit1 13s linear infinite;
+}
+
+.o2{
+  transform:rotateY(66deg) rotateZ(-25deg);
+  animation:orbit2 17s linear infinite reverse;
+}
+
+.o3{
+  inset:55px;
+  transform:rotateX(70deg) rotateY(20deg);
+  animation:orbit3 10s linear infinite;
+}
+
+.core-ball{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:100px;
+  height:100px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fff,#777 18%,#111 60%,#000);
+  box-shadow:
+    0 0 40px rgba(255,255,255,.18),
+    0 0 120px rgba(255,255,255,.06);
+  animation:float 4s ease-in-out infinite;
+}
+
+.core-ball:after{
+  content:"";
+  position:absolute;
+  inset:-15px;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:50%;
+}
+
+@keyframes orbit1{
+  to{transform:rotateX(67deg) rotateZ(380deg)}
+}
+
+@keyframes orbit2{
+  to{transform:rotateY(66deg) rotateZ(-385deg)}
+}
+
+@keyframes orbit3{
+  to{transform:rotateX(70deg) rotateY(380deg)}
+}
+
+@keyframes float{
+  50%{transform:translate(-50%,-57%)}
+}
+
+/* =========================
+   SECTION
+========================= */
+
+section{
+  position:relative;
+  z-index:3;
+}
+
+.section{
+  min-height:100vh;
+  width:min(1180px,92%);
+  margin:auto;
+  display:flex;
+  align-items:center;
+  padding:130px 0;
+}
+
+.section-inner{
+  width:100%;
+}
+
+.section-tag{
+  color:#777;
+  font-size:10px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  margin-bottom:25px;
+}
+
+.section-title{
+  font-size:clamp(42px,7vw,100px);
+  line-height:.92;
+  letter-spacing:-.07em;
+  max-width:950px;
+}
+
+.section-title span{
+  color:#555;
+}
+
+.description{
+  color:#888;
+  max-width:560px;
+  line-height:1.75;
+  font-size:14px;
+  margin-top:30px;
+}
+
+/* =========================
+   MANIFESTO
+========================= */
+
+.manifesto{
+  min-height:120vh;
+}
+
+.manifesto-word{
+  font-size:clamp(75px,17vw,230px);
+  line-height:.78;
+  letter-spacing:-.1em;
+  font-weight:900;
+  color:#111;
+  -webkit-text-stroke:1px rgba(255,255,255,.16);
+  transition:color .6s;
+}
+
+.manifesto-word.active{
+  color:#fff;
+}
+
+/* =========================
+   PROJECTS
+========================= */
+
+.projects{
+  min-height:100vh;
+  padding:150px 0;
+}
+
+.projects-grid{
+  width:min(1180px,92%);
+  margin:70px auto 0;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+
+.project{
+  min-height:430px;
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:30px;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.13),transparent 35%),
+    rgba(255,255,255,.025);
+
+  transform-style:preserve-3d;
+  transition:
+    transform .18s ease,
+    border-color .4s;
+}
+
+.project:hover{
+  border-color:rgba(255,255,255,.3);
+}
+
+.project-number{
+  font-size:11px;
+  color:#666;
+}
+
+.project h3{
+  position:absolute;
+  bottom:78px;
+  left:30px;
+  font-size:clamp(35px,5vw,65px);
+  letter-spacing:-.07em;
+  transform:translateZ(50px);
+}
+
+.project p{
+  position:absolute;
+  bottom:30px;
+  left:30px;
+  color:#777;
+  font-size:12px;
+  max-width:340px;
+  line-height:1.6;
+}
+
+.project-orb{
+  position:absolute;
+  right:-70px;
+  top:-70px;
+  width:250px;
+  height:250px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:
+    inset 0 0 70px rgba(255,255,255,.04),
+    0 0 70px rgba(255,255,255,.04);
+  transform:translateZ(80px);
+  transition:.6s;
+}
+
+.project:hover .project-orb{
+  transform:translateZ(120px) rotate(25deg) scale(1.08);
+}
+
+/* =========================
+   3D WORLD
+========================= */
+
+.world{
+  height:120vh;
+  overflow:hidden;
+}
+
+.world-inner{
+  position:sticky;
+  top:0;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  perspective:1300px;
+}
+
+.world-grid{
+  position:absolute;
+  width:130vw;
+  height:130vw;
+  min-width:1000px;
+  min-height:1000px;
+  border:1px solid rgba(255,255,255,.1);
+  transform:rotateX(70deg) translateY(330px);
+  background-image:
+    linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:70px 70px;
+  mask-image:linear-gradient(to top,transparent,black 45%,transparent);
+}
+
+.ring-system{
+  width:500px;
+  height:500px;
+  position:relative;
+  transform-style:preserve-3d;
+}
+
+.ring-system div{
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:50%;
+}
+
+.r1{transform:rotateX(72deg)}
+.r2{transform:rotateY(65deg)}
+.r3{transform:rotateX(45deg) rotateY(45deg)}
+.r4{
+  inset:100px!important;
+  border-style:dashed!important;
+}
+
+.world-center{
+  position:absolute;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 70px rgba(255,255,255,.45);
+}
+
+/* =========================
+   DUO
+========================= */
+
+.duo{
+  min-height:100vh;
+  padding:160px 0;
+}
+
+.duo-wrap{
+  width:min(1180px,92%);
+  margin:auto;
+}
+
+.duo-card{
+  margin-top:70px;
+  border:1px solid var(--line);
+  border-radius:35px;
+  padding:60px;
+  min-height:500px;
+  background:linear-gradient(
+    130deg,
+    rgba(255,255,255,.055),
+    rgba(255,255,255,.012)
+  );
+  position:relative;
+  overflow:hidden;
+}
+
+.duo-names{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.duo-name{
+  font-size:clamp(38px,6vw,85px);
+  letter-spacing:-.08em;
+  font-weight:800;
+}
+
+.duo-x{
+  color:#555;
+  font-size:40px;
+}
+
+.duo-line{
+  width:100%;
+  height:1px;
+  background:var(--line);
+  margin:45px 0;
+}
+
+.duo-card p{
+  color:#888;
+  max-width:650px;
+  line-height:1.8;
+}
+
+/* =========================
+   AI SECTION
+========================= */
+
+.ai-section{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:120px 20px;
+}
+
+.ai-content{
+  max-width:850px;
+}
+
+.ai-title{
+  font-size:clamp(55px,10vw,130px);
+  letter-spacing:-.09em;
+  line-height:.85;
+}
+
+.ai-sub{
+  color:#777;
+  max-width:550px;
+  margin:35px auto;
+  line-height:1.7;
+}
+
+.ai-pill{
+  display:inline-block;
+  border:1px solid var(--line);
+  padding:12px 18px;
+  border-radius:999px;
+  color:#aaa;
+  font-size:11px;
+}
+
+/* =========================
+   FINAL
+========================= */
+
+.final{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+}
+
+.final h2{
+  font-size:clamp(75px,17vw,240px);
+  line-height:.76;
   letter-spacing:-.11em;
   font-weight:900;
 }
 
-.final-line{
-  width:100%;
-  height:1px;
-  margin:65px 0 30px;
-  background:#ddd;
+.final h2 span{
+  display:block;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.45);
 }
 
-.final-meta{
+.footer{
+  position:relative;
+  z-index:4;
+  padding:30px 5%;
   display:flex;
   justify-content:space-between;
-  color:#888;
-  font-size:8px;
-  letter-spacing:.22em;
+  color:#555;
+  font-size:10px;
+  border-top:1px solid var(--line);
 }
 
+/* =========================
+   REVEALS
+========================= */
 
-/* =========================================================
+.reveal{
+  opacity:0;
+  transform:translateY(60px);
+  transition:
+    opacity 1s cubic-bezier(.16,1,.3,1),
+    transform 1s cubic-bezier(.16,1,.3,1);
+}
+
+.reveal.visible{
+  opacity:1;
+  transform:none;
+}
+
+/* =========================
    MOBILE
-========================================================= */
+========================= */
 
 @media(max-width:700px){
 
   .nav{
-    height:60px;
-    padding:0 18px;
+    top:10px;
+    height:54px;
   }
 
-  .nav-logo{
-    font-size:7px;
+  .navlinks{
+    display:none;
   }
 
-  .nav-status{
-    font-size:7px;
+  .hero h1{
+    font-size:19vw;
   }
 
-  .timeline{
-    right:12px;
+  .hero-sub{
+    font-size:13px;
   }
 
-  .movie{
-    height:1250vh;
+  .core{
+    width:300px;
+    height:300px;
+    opacity:.45;
   }
 
-  .stage{
-    min-height:560px;
+  .projects-grid{
+    grid-template-columns:1fr;
   }
 
-  .hero-copy{
-    left:20px;
-    width:calc(100% - 40px);
+  .project{
+    min-height:360px;
   }
 
-  .hero-title{
-    font-size:clamp(62px,18vw,110px);
+  .duo-card{
+    padding:30px;
   }
 
-  .hero-description{
-    max-width:300px;
-    font-size:14px;
-  }
-
-  .world{
-    width:600px;
-    height:600px;
-    left:70%;
-    top:70%;
-    opacity:.65;
-  }
-
-  .world-core{
-    width:100px;
-    height:100px;
-  }
-
-  .face:nth-child(1){
-    transform:translateZ(50px);
-  }
-
-  .face:nth-child(2){
-    transform:
-      rotateY(90deg)
-      translateZ(50px);
-  }
-
-  .face:nth-child(3){
-    transform:
-      rotateX(90deg)
-      translateZ(50px);
-  }
-
-  .face:nth-child(4){
-    transform:translateZ(-50px);
-  }
-
-  .face:nth-child(5){
-    transform:
-      rotateY(90deg)
-      translateZ(-50px);
-  }
-
-  .face:nth-child(6){
-    transform:
-      rotateX(90deg)
-      translateZ(-50px);
-  }
-
-  .scene-copy,
-  .scene-copy.left,
-  .scene-copy.right{
-    left:20px;
-    right:auto;
-    width:calc(100% - 40px);
-    transform:translateY(-50%);
-  }
-
-  .scene-heading{
-    font-size:clamp(55px,16vw,105px);
-  }
-
-  .scene-description{
-    font-size:15px;
-    max-width:320px;
-  }
-
-  .word{
-    font-size:clamp(100px,30vw,180px);
-  }
-
-  .object.large{
-    width:260px;
-    height:260px;
-  }
-
-  .white-orb{
-    width:170px;
-    height:170px;
-  }
-
-  .ai-feature{
-    min-height:850px;
-    padding:120px 0;
-  }
-
-  .ai-feature-inner{
-    width:calc(100% - 40px);
-  }
-
-  .ai-feature-title{
-    font-size:clamp(55px,16vw,105px);
-  }
-
-  .ai-feature-copy{
-    font-size:15px;
-  }
-
-  .ai-machine{
-    width:480px;
-    height:480px;
-    right:-260px;
-    top:72%;
-  }
-
-  .machine-ring:nth-child(1){
+  .ring-system{
     width:330px;
     height:330px;
   }
 
-  .machine-ring:nth-child(2){
-    width:250px;
-    height:370px;
+  .world-grid{
+    width:190vw;
+    height:190vw;
   }
 
-  .machine-ring:nth-child(3){
-    width:390px;
-    height:170px;
-  }
-
-  .machine-core{
-    width:90px;
-    height:90px;
-  }
-
-  .duo{
-    padding:110px 0;
-  }
-
-  .duo-grid{
-    width:calc(100% - 40px);
-    grid-template-columns:1fr;
-  }
-
-  .duo-card{
-    min-height:350px;
-  }
-
-  .future-inner{
-    width:calc(100% - 40px);
-  }
-
-  .future-title{
-    font-size:clamp(58px,17vw,105px);
-  }
-
-  .future-copy{
-    font-size:15px;
-  }
-
-  .future-orbit{
-    width:520px;
-    height:520px;
-    right:-300px;
-    bottom:-180px;
-  }
-
-  .after{
-    padding-top:110px;
-  }
-
-  .after-inner{
-    width:calc(100% - 40px);
-  }
-
-  .story-panel{
-    width:calc(100% - 40px);
-    min-height:420px;
-    margin:80px auto;
-    border-radius:24px;
-  }
-
-  .story-panel h2{
-    font-size:clamp(42px,12vw,75px);
-  }
-
-  .final{
-    min-height:80vh;
-  }
-
-  .final-title{
-    font-size:clamp(75px,20vw,130px);
-  }
-
-  .final-meta{
-    font-size:6px;
+  .footer{
+    flex-direction:column;
+    gap:10px;
   }
 }
-
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
 
 @media(prefers-reduced-motion:reduce){
-
-  html{
-    scroll-behavior:auto;
-  }
-
-  *,
-  *::before,
-  *::after{
-    animation:none!important;
-    transition:none!important;
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    transition-duration:.01ms!important;
+    scroll-behavior:auto!important;
   }
 }
-
 </style>
 </head>
 
-
 <body>
 
+<div class="progress"><span id="progress"></span></div>
 
-<!-- =======================================================
-     INTRO
-======================================================= -->
-
-<div id="intro">
-
-  <div class="intro-inner">
-
-    <div class="intro-small">
-      MAGNUS VERITY × BL4Z3
-    </div>
-
-    <div class="intro-title">
-      LIMITLESS
-    </div>
-
-    <div class="intro-line"></div>
-
-  </div>
-
-</div>
-
-
-<!-- =======================================================
-     NAV
-======================================================= -->
+<canvas id="canvas"></canvas>
 
 <nav class="nav">
+  <div class="logo">MAGNUS <span>VERITY</span></div>
 
-  <div class="nav-logo">
-    MAGNUS VERITY × BL4Z3
+  <div class="navlinks">
+    <a href="#work">Work</a>
+    <a href="#story">Story</a>
+    <a href="#duo">Duo</a>
+    <a href="#future">Future</a>
   </div>
 
-  <div class="nav-status">
-    THE EXPERIMENT
-  </div>
-
+  <button class="nav-btn" onclick="document.getElementById('ai').scrollIntoView({behavior:'smooth'})">
+    TALK TO AI
+  </button>
 </nav>
 
-<div class="progress" id="progress"></div>
 
-
-<!-- =======================================================
-     TIMELINE
-======================================================= -->
-
-<div class="timeline" id="timeline">
-
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-
-</div>
-
-
-<main>
-
-
-<!-- =======================================================
-     MOVIE
-======================================================= -->
-
-<section class="movie" id="movie">
-
-  <div class="stage" id="stage">
-
-    <canvas id="space"></canvas>
-
-    <div class="atmosphere" id="atmosphere"></div>
-
-
-    <!-- 3D WORLD -->
-
-    <div class="world" id="world">
-
-      <div class="world-ring r1"></div>
-      <div class="world-ring r2"></div>
-      <div class="world-ring r3"></div>
-      <div class="world-ring r4"></div>
-
-      <div class="world-core">
-
-        <div class="face"></div>
-        <div class="face"></div>
-        <div class="face"></div>
-        <div class="face"></div>
-        <div class="face"></div>
-        <div class="face"></div>
-
-        <div class="core-light"></div>
-
-      </div>
-
-    </div>
-
-
-    <!-- ===================================================
-         SCENE 01
-    ==================================================== -->
-
-    <div class="hero-copy" id="heroCopy">
-
-      <div class="kicker hero-label">
-        AN ONGOING EXPERIMENT
-      </div>
-
-      <h1 class="hero-title">
-        <span>WE</span>
-        <span>DON'T</span>
-        <span>STOP.</span>
-      </h1>
-
-      <p class="hero-description">
-        Two minds. One obsession.
-        Build things that shouldn't exist.
-        Then keep going.
-      </p>
-
-    </div>
-
-
-    <!-- ===================================================
-         SCENE 02
-    ==================================================== -->
-
-    <div class="scene-copy left" id="scene2">
-
-      <div class="kicker scene-number">
-        01 / THE BEGINNING
-      </div>
-
-      <h2 class="scene-heading">
-        FIRST<br>
-        THERE WAS<br>
-        NOTHING.
-      </h2>
-
-      <p class="scene-description">
-        No company. No audience.
-        No finished product.
-        Just an idea that refused to disappear.
-      </p>
-
-    </div>
-
-
-    <!-- ===================================================
-         SCENE 03
-    ==================================================== -->
-
-    <div class="word" id="ideaWord">
-      IDEA.
-    </div>
-
-
-    <!-- ===================================================
-         SCENE 04
-    ==================================================== -->
-
-    <div class="scene-copy right" id="scene4">
-
-      <div class="kicker scene-number">
-        02 / OBSESSION
-      </div>
-
-      <h2 class="scene-heading">
-        THINK<br>
-        BIGGER.
-      </h2>
-
-      <p class="scene-description">
-        Small thinking creates small systems.
-        The objective was always larger:
-        build something useful enough
-        to matter.
-      </p>
-
-    </div>
-
-
-    <!-- ===================================================
-         SCENE 05
-    ==================================================== -->
-
-    <div class="word" id="buildWord">
-      BUILD.
-    </div>
-
-
-    <!-- ===================================================
-         SCENE 06
-    ==================================================== -->
-
-    <div class="object large circle" id="object1"></div>
-
-    <div class="object square small" id="object2"></div>
-
-    <div class="object circle small" id="object3"></div>
-
-    <div class="scene-copy left" id="scene6">
-
-      <div class="kicker scene-number">
-        03 / CREATION
-      </div>
-
-      <h2 class="scene-heading">
-        MAKE<br>
-        IT<br>
-        REAL.
-      </h2>
-
-      <p class="scene-description">
-        Prototype.
-        Test.
-        Ship.
-        Learn.
-        Repeat.
-      </p>
-
-    </div>
-
-
-    <!-- ===================================================
-         SCENE 07
-    ==================================================== -->
-
-    <div class="word" id="breakWord">
-      BREAK.
-    </div>
-
-
-    <!-- ===================================================
-         SCENE 08
-    ==================================================== -->
-
-    <div class="scene-copy right" id="scene8">
-
-      <div class="kicker scene-number">
-        04 / FAILURE
-      </div>
-
-      <h2 class="scene-heading">
-        GOOD<br>
-        THINGS<br>
-        BREAK.
-      </h2>
-
-      <p class="scene-description">
-        Bugs.
-        Bad ideas.
-        Broken systems.
-        Wrong assumptions.
-        None of them are the ending.
-      </p>
-
-    </div>
-
-
-    <!-- ===================================================
-         SCENE 09
-    ==================================================== -->
-
-    <div class="word" id="rebuildWord">
-      AGAIN.
-    </div>
-
-
-    <!-- ===================================================
-         WHITE WORLD
-    ==================================================== -->
-
-    <div class="white-world" id="whiteWorld">
-
-      <div class="white-grid"></div>
-
-      <div class="white-orb"></div>
-
-      <div class="scene-copy left" id="whiteCopy">
-
-        <div class="kicker scene-number">
-          05 / REBUILD
-        </div>
-
-        <h2 class="scene-heading">
-          BETTER<br>
-          THAN<br>
-          BEFORE.
-        </h2>
-
-        <p class="scene-description">
-          Reliability before decoration.
-          Security before scale.
-          Performance before complexity.
-        </p>
-
-      </div>
-
-    </div>
-
-
-    <!-- ===================================================
-         FINAL MOVIE SCENE
-    ==================================================== -->
-
-    <div class="scene-copy left" id="scene10">
-
-      <div class="kicker scene-number">
-        06 / THE FIRST SYSTEM
-      </div>
-
-      <h2 class="scene-heading">
-        THEN<br>
-        IT<br>
-        MOVED.
-      </h2>
-
-      <p class="scene-description">
-        The idea became a system.
-        The system became a product.
-        And the product entered the real world.
-      </p>
-
-    </div>
-
-
-    <div class="scroll-hint">
-      SCROLL — CONTROL THE FILM
-    </div>
-
-    <div class="vignette"></div>
-
+<!-- HERO -->
+<section class="hero">
+
+  <div class="core" id="core">
+    <div class="orbit o1"></div>
+    <div class="orbit o2"></div>
+    <div class="orbit o3"></div>
+    <div class="core-ball"></div>
   </div>
 
-</section>
+  <div class="hero-content" id="heroContent">
 
-
-<!-- =======================================================
-     AFTER MOVIE — AI WORKFORCE
-======================================================= -->
-
-<section class="ai-feature">
-
-  <div class="ai-feature-inner">
-
-    <div class="kicker">
-      07 / FIRST MAJOR CREATION
+    <div class="eyebrow">
+      <span class="dot"></span>
+      Builder / Founder / Explorer
     </div>
 
-    <h2 class="ai-feature-title">
-      AI<br>
-      WORKFORCE
-    </h2>
+    <h1>
+      <span class="line">MAGNUS</span>
+      <span class="line ghost">VERITY</span>
+    </h1>
 
-    <div class="ai-feature-copy">
+    <p class="hero-sub">
+      I build technology, experiment with impossible ideas,
+      and turn ambitious concepts into things that actually exist.
+    </p>
 
-      <p>
-        The first major system born from the
-        obsession.
-      </p>
-
-      <p>
-        A global B2B SaaS built around
-        AI employees that work alongside humans,
-        beginning with an
-        <strong>AI Sales Manager.</strong>
-      </p>
-
-      <p>
-        One product.
-        One launch.
-        A much larger direction.
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <div class="ai-machine">
-
-    <div class="machine-ring"></div>
-    <div class="machine-ring"></div>
-    <div class="machine-ring"></div>
-
-    <div class="machine-core"></div>
-
-  </div>
-
-</section>
-
-
-<!-- =======================================================
-     STORY
-======================================================= -->
-
-<section class="after">
-
-  <div class="after-inner">
-
-    <div class="kicker">
-      THE STORY CONTINUES
-    </div>
-
-    <h2 class="after-heading">
-      THERE'S<br>
-      MORE.
-    </h2>
-
-  </div>
-
-
-  <article class="story-panel">
-
-    <div class="panel-top">
-      <span>08 / PRINCIPLE</span>
-      <span>01</span>
-    </div>
-
-    <div>
-
-      <h2>
-        BUILD<br>
-        USEFUL<br>
-        THINGS.
-      </h2>
-
-      <p>
-        The objective isn't to make something
-        complicated. It's to make something
-        that actually improves someone's life,
-        workflow or business.
-      </p>
-
-    </div>
-
-  </article>
-
-
-  <article class="story-panel">
-
-    <div class="panel-top">
-      <span>09 / PRINCIPLE</span>
-      <span>02</span>
-    </div>
-
-    <div>
-
-      <h2>
-        NO<br>
-        FEATURE<br>
-        CREEP.
-      </h2>
-
-      <p>
-        Reliability first.
-        Security next.
-        Performance next.
-        Intelligence next.
-        Then the beautiful stuff.
-      </p>
-
-    </div>
-
-  </article>
-
-
-  <article class="story-panel">
-
-    <div class="panel-top">
-      <span>10 / PRINCIPLE</span>
-      <span>03</span>
-    </div>
-
-    <div>
-
-      <h2>
-        KEEP<br>
-        MOVING.
-      </h2>
-
-      <p>
-        Every launch is another starting point.
-        Every failure is another piece of information.
-      </p>
-
-    </div>
-
-  </article>
-
-</section>
-
-
-<!-- =======================================================
-     DUO
-======================================================= -->
-
-<section class="duo">
-
-  <div class="duo-grid">
-
-    <div class="duo-card">
-
-      <small>
-        THE BUILDER
-      </small>
-
-      <h2>
-        MAGNUS<br>
-        VERITY
-      </h2>
-
-    </div>
-
-
-    <div class="duo-card">
-
-      <small>
-        THE SYSTEM
-      </small>
-
-      <h2>
-        BL4Z3
-      </h2>
-
+    <div class="hero-actions">
+      <a href="#work" class="btn btn-primary">Explore the work</a>
+      <a href="#ai" class="btn btn-secondary">Talk to Magnus AI</a>
     </div>
 
   </div>
@@ -1810,62 +815,153 @@ main{
 </section>
 
 
-<!-- =======================================================
-     FUTURE
-======================================================= -->
+<!-- MANIFESTO -->
+<section class="section manifesto" id="story">
 
-<section class="future">
+  <div class="section-inner">
 
-  <div class="future-inner">
+    <div class="section-tag reveal">01 — Philosophy</div>
 
-    <div class="kicker">
-      11 / THE FUTURE
-    </div>
+    <div class="manifesto-word reveal">BUILD.</div>
+    <div class="manifesto-word reveal">BREAK.</div>
+    <div class="manifesto-word reveal">REBUILD.</div>
 
-    <h2 class="future-title">
-      THIS<br>
-      ISN'T<br>
-      ENOUGH.
-    </h2>
-
-    <p class="future-copy">
-      AI Workforce is one system.
-      The bigger objective is to keep building:
-      better products, better systems,
-      better ideas.
+    <p class="description reveal">
+      Ideas are cheap until someone makes them real.
+      The goal isn't to look like a builder.
+      The goal is to build.
     </p>
 
   </div>
 
-  <div class="future-orbit"></div>
+</section>
+
+
+<!-- WORK -->
+<section class="projects" id="work">
+
+  <div class="section" style="min-height:auto;padding-bottom:0;">
+
+    <div class="section-inner">
+
+      <div class="section-tag reveal">02 — Selected Work</div>
+
+      <h2 class="section-title reveal">
+        Things that<br>
+        <span>actually exist.</span>
+      </h2>
+
+    </div>
+
+  </div>
+
+
+  <div class="projects-grid">
+
+    <article class="project tilt reveal">
+      <div class="project-number">01 / AI</div>
+      <div class="project-orb"></div>
+
+      <h3>AI Workforce</h3>
+
+      <p>
+        AI employees designed to handle real digital workflows
+        and work alongside people.
+      </p>
+    </article>
+
+
+    <article class="project tilt reveal">
+      <div class="project-number">02 / DIGITAL IDENTITY</div>
+      <div class="project-orb"></div>
+
+      <h3>LIMITLESS</h3>
+
+      <p>
+        A personal digital universe documenting the journey,
+        experiments, projects and ideas.
+      </p>
+    </article>
+
+
+    <article class="project tilt reveal">
+      <div class="project-number">03 / EXPERIMENT</div>
+      <div class="project-orb"></div>
+
+      <h3>GenesisAI</h3>
+
+      <p>
+        An AI-powered game creation concept exploring a
+        radically simpler way to build games.
+      </p>
+    </article>
+
+
+    <article class="project tilt reveal">
+      <div class="project-number">04 / EXPLORATION</div>
+      <div class="project-orb"></div>
+
+      <h3>WHAT'S NEXT?</h3>
+
+      <p>
+        New experiments in AI, automation, software,
+        interfaces and creative technology.
+      </p>
+    </article>
+
+  </div>
 
 </section>
 
 
-<!-- =======================================================
-     FINAL
-======================================================= -->
+<!-- 3D WORLD -->
+<section class="world" id="future">
 
-<section class="final">
+  <div class="world-inner">
 
-  <div>
+    <div class="world-grid" id="grid"></div>
 
-    <h2 class="final-title">
-      LIMIT<br>
-      LESS.
+    <div class="ring-system" id="rings">
+      <div class="r1"></div>
+      <div class="r2"></div>
+      <div class="r3"></div>
+      <div class="r4"></div>
+      <div class="world-center"></div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- DUO -->
+<section class="duo" id="duo">
+
+  <div class="duo-wrap">
+
+    <div class="section-tag reveal">03 — The Build</div>
+
+    <h2 class="section-title reveal">
+      One vision.<br>
+      <span>Two minds.</span>
     </h2>
 
-    <div class="final-line"></div>
+    <div class="duo-card tilt reveal">
 
-    <div class="final-meta">
+      <div class="duo-names">
+        <div class="duo-name">MAGNUS</div>
+        <div class="duo-x">×</div>
+        <div class="duo-name">BL4Z3</div>
+      </div>
 
-      <span>
-        NO FINISH LINE
-      </span>
+      <div class="duo-line"></div>
 
-      <span>
-        MAGNUS VERITY × BL4Z3
-      </span>
+      <p>
+        A founder and a technical mind building together —
+        turning ideas into systems, products and experiments.
+        The objective isn't to follow the map.
+        It's to build something that requires a new one.
+      </p>
 
     </div>
 
@@ -1874,952 +970,393 @@ main{
 </section>
 
 
-</main>
+<!-- AI -->
+<section class="ai-section" id="ai">
+
+  <div class="ai-content">
+
+    <div class="section-tag reveal">04 — Digital Representative</div>
+
+    <h2 class="ai-title reveal">
+      TALK TO<br>
+      MAGNUS AI
+    </h2>
+
+    <p class="ai-sub reveal">
+      Curious about Magnus, the projects, the ideas,
+      AI Workforce, GenesisAI, or potential collaboration?
+      Ask directly.
+    </p>
+
+    <div class="ai-pill reveal">
+      AI ASSISTANT · POWERED BY AI WORKFORCE
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FINAL -->
+<section class="final">
+
+  <div>
+    <h2 class="reveal">
+      STAY
+      <span>LIMITLESS.</span>
+    </h2>
+  </div>
+
+</section>
+
+
+<footer class="footer">
+  <span>© Magnus Verity</span>
+  <span>BUILT WITHOUT LIMITS.</span>
+</footer>
+
+
+<!-- MAGNUS AI WIDGET -->
+<script
+  src="https://aiworkforce.ai.studio/widget.js"
+  data-widget-id="wgt_8va1xl_re01u0"
+  async>
+</script>
 
 
 <script>
-/* =========================================================
-   INTRO
-========================================================= */
 
-window.addEventListener("load",()=>{
+/* ==========================================
+   PARTICLE UNIVERSE
+========================================== */
 
-  setTimeout(()=>{
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
-    document
-      .getElementById("intro")
-      .classList.add("done");
-
-  },1700);
-
-});
-
-
-/* =========================================================
-   ELEMENTS
-========================================================= */
-
-const movie =
-  document.getElementById("movie");
-
-const progress =
-  document.getElementById("progress");
-
-const world =
-  document.getElementById("world");
-
-const heroCopy =
-  document.getElementById("heroCopy");
-
-const whiteWorld =
-  document.getElementById("whiteWorld");
-
-const atmosphere =
-  document.getElementById("atmosphere");
-
-const timeline =
-  [...document.querySelectorAll("#timeline span")];
-
-const scenes = {
-
-  scene2:
-    document.getElementById("scene2"),
-
-  scene4:
-    document.getElementById("scene4"),
-
-  scene6:
-    document.getElementById("scene6"),
-
-  scene8:
-    document.getElementById("scene8"),
-
-  scene10:
-    document.getElementById("scene10"),
-
-  whiteCopy:
-    document.getElementById("whiteCopy"),
-
-  ideaWord:
-    document.getElementById("ideaWord"),
-
-  buildWord:
-    document.getElementById("buildWord"),
-
-  breakWord:
-    document.getElementById("breakWord"),
-
-  rebuildWord:
-    document.getElementById("rebuildWord")
-
-};
-
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
-const clamp =
-  (v,min,max)=>
-    Math.max(min,Math.min(max,v));
-
-const lerp =
-  (a,b,t)=>
-    a+(b-a)*t;
-
-const smooth =
-  t =>
-    t*t*(3-2*t);
-
-function range(
-  value,
-  start,
-  end
-){
-
-  return clamp(
-    (value-start)/(end-start),
-    0,
-    1
-  );
-
-}
-
-
-/* =========================================================
-   STATE
-========================================================= */
-
-let targetProgress=0;
-let currentProgress=0;
-
-let pointerTargetX=0;
-let pointerTargetY=0;
-
-let pointerX=0;
-let pointerY=0;
-
-let lastScroll=0;
-let scrollVelocity=0;
-let smoothVelocity=0;
-
-let ticking=false;
-
-
-/* =========================================================
-   POINTER
-========================================================= */
-
-if(
-  window.matchMedia("(hover:hover)").matches
-){
-
-  window.addEventListener(
-    "pointermove",
-    e=>{
-
-      pointerTargetX =
-        e.clientX/window.innerWidth-.5;
-
-      pointerTargetY =
-        e.clientY/window.innerHeight-.5;
-
-    },
-    {passive:true}
-  );
-
-}
-
-
-/* =========================================================
-   SCROLL
-========================================================= */
-
-function updateScroll(){
-
-  const rect =
-    movie.getBoundingClientRect();
-
-  const total =
-    movie.offsetHeight-window.innerHeight;
-
-  const passed =
-    -rect.top;
-
-  targetProgress =
-    clamp(
-      passed/total,
-      0,
-      1
-    );
-
-  ticking=false;
-
-}
-
-window.addEventListener(
-  "scroll",
-  ()=>{
-
-    const now =
-      window.scrollY;
-
-    scrollVelocity =
-      now-lastScroll;
-
-    lastScroll=now;
-
-    if(!ticking){
-
-      requestAnimationFrame(
-        updateScroll
-      );
-
-      ticking=true;
-
-    }
-
-  },
-  {passive:true}
-);
-
-
-/* =========================================================
-   SCENE VISIBILITY
-========================================================= */
-
-function showElement(
-  element,
-  opacity,
-  y,
-  scale=1
-){
-
-  element.style.opacity =
-    opacity;
-
-  element.style.transform =
-    `translate3d(0,${y}px,0) scale(${scale})`;
-
-}
-
-
-/* =========================================================
-   MOVIE ENGINE
-========================================================= */
-
-function renderMovie(){
-
-  /*
-    Smooth camera timeline.
-  */
-
-  currentProgress =
-    lerp(
-      currentProgress,
-      targetProgress,
-      .085
-    );
-
-
-  /*
-    Smooth pointer.
-  */
-
-  pointerX =
-    lerp(
-      pointerX,
-      pointerTargetX,
-      .06
-    );
-
-  pointerY =
-    lerp(
-      pointerY,
-      pointerTargetY,
-      .06
-    );
-
-
-  /*
-    Scroll velocity.
-  */
-
-  smoothVelocity =
-    lerp(
-      smoothVelocity,
-      scrollVelocity,
-      .08
-    );
-
-  scrollVelocity *= .88;
-
-
-  const p =
-    currentProgress;
-
-
-  /*
-    Progress bar.
-  */
-
-  progress.style.transform =
-    `scaleX(${p})`;
-
-
-  /* =======================================================
-     CAMERA
-  ==================================================== */
-
-  const cameraX =
-    pointerX*18;
-
-  const cameraY =
-    pointerY*12;
-
-  const cameraDepth =
-    p*140;
-
-  world.style.transform =
-    `
-      translate(-50%,-50%)
-      translate3d(
-        ${cameraX}px,
-        ${cameraY}px,
-        ${cameraDepth}px
-      )
-      rotateX(${pointerY*-8}deg)
-      rotateY(${pointerX*10}deg)
-    `;
-
-
-  /* =======================================================
-     HERO
-  ==================================================== */
-
-  const heroOut =
-    range(p,0,.10);
-
-  showElement(
-    heroCopy,
-    1-heroOut,
-    heroOut*-80,
-    1-heroOut*.12
-  );
-
-
-  /* =======================================================
-     WORLD SCALE
-  ==================================================== */
-
-  const worldScale =
-    1+
-    p*.8+
-    Math.abs(smoothVelocity)*.002;
-
-  const worldOpacity =
-    clamp(
-      1-p*.65,
-      .2,
-      1
-    );
-
-  world.style.opacity =
-    worldOpacity;
-
-
-  /*
-    Rings become more cinematic
-    as the camera travels.
-  */
-
-  const rings =
-    document.querySelectorAll(
-      ".world-ring"
-    );
-
-  rings[0].style.transform =
-    `
-      translate(-50%,-50%)
-      rotateX(65deg)
-      rotateZ(${p*500-20}deg)
-      scale(${worldScale})
-    `;
-
-  rings[1].style.transform =
-    `
-      translate(-50%,-50%)
-      rotateY(67deg)
-      rotateZ(${p*-400}deg)
-      scale(${1+p*.5})
-    `;
-
-  rings[2].style.transform =
-    `
-      translate(-50%,-50%)
-      rotateX(70deg)
-      rotateZ(${p*600+45}deg)
-      scale(${1+p*.7})
-    `;
-
-  rings[3].style.transform =
-    `
-      translate(-50%,-50%)
-      rotateX(70deg)
-      rotateY(40deg)
-      rotateZ(${p*-800}deg)
-      scale(${1+p})
-    `;
-
-
-  /* =======================================================
-     IDEA
-  ==================================================== */
-
-  const idea =
-    range(p,.10,.19);
-
-  showElement(
-    scenes.ideaWord,
-    Math.sin(idea*Math.PI),
-    0,
-    lerp(
-      3,
-      .75,
-      idea
-    )
-  );
-
-
-  /* =======================================================
-     SCENE 2
-  ==================================================== */
-
-  const s2 =
-    range(p,.18,.28);
-
-  showElement(
-    scenes.scene2,
-    Math.sin(s2*Math.PI),
-    lerp(100,-20,s2),
-    lerp(.85,1,s2)
-  );
-
-
-  /* =======================================================
-     BUILD
-  ==================================================== */
-
-  const build =
-    range(p,.27,.37);
-
-  showElement(
-    scenes.buildWord,
-    Math.sin(build*Math.PI),
-    0,
-    lerp(
-      .55,
-      3,
-      build
-    )
-  );
-
-
-  /* =======================================================
-     SCENE 4
-  ==================================================== */
-
-  const s4 =
-    range(p,.36,.46);
-
-  showElement(
-    scenes.scene4,
-    Math.sin(s4*Math.PI),
-    lerp(100,-10,s4),
-    lerp(.8,1,s4)
-  );
-
-
-  /* =======================================================
-     OBJECTS
-  ==================================================== */
-
-  const object1 =
-    document.getElementById(
-      "object1"
-    );
-
-  const object2 =
-    document.getElementById(
-      "object2"
-    );
-
-  const object3 =
-    document.getElementById(
-      "object3"
-    );
-
-
-  const objectProgress =
-    range(p,.43,.62);
-
-
-  object1.style.transform =
-    `
-      translate(-50%,-50%)
-      translate3d(
-        ${lerp(-500,300,objectProgress)}px,
-        ${lerp(300,-250,objectProgress)}px,
-        ${lerp(-300,500,objectProgress)}px
-      )
-      rotateX(${objectProgress*600}deg)
-      rotateY(${objectProgress*400}deg)
-      scale(${lerp(.3,1.7,objectProgress)})
-    `;
-
-  object1.style.opacity =
-    Math.sin(objectProgress*Math.PI);
-
-
-  object2.style.transform =
-    `
-      translate(-50%,-50%)
-      translate3d(
-        ${lerp(400,-350,objectProgress)}px,
-        ${lerp(-250,280,objectProgress)}px,
-        ${lerp(200,-400,objectProgress)}px
-      )
-      rotateZ(${objectProgress*900}deg)
-      rotateY(${objectProgress*500}deg)
-    `;
-
-  object2.style.opacity =
-    Math.sin(objectProgress*Math.PI);
-
-
-  object3.style.transform =
-    `
-      translate(-50%,-50%)
-      translate3d(
-        ${lerp(-200,450,objectProgress)}px,
-        ${lerp(-300,200,objectProgress)}px,
-        ${lerp(500,-500,objectProgress)}px
-      )
-      rotateX(${objectProgress*700}deg)
-    `;
-
-  object3.style.opacity =
-    Math.sin(objectProgress*Math.PI);
-
-
-  /* =======================================================
-     BREAK
-  ==================================================== */
-
-  const br =
-    range(p,.50,.60);
-
-  showElement(
-    scenes.breakWord,
-    Math.sin(br*Math.PI),
-    0,
-    lerp(
-      2.7,
-      .6,
-      br
-    )
-  );
-
-
-  /* =======================================================
-     SCENE 8
-  ==================================================== */
-
-  const s8 =
-    range(p,.59,.69);
-
-  showElement(
-    scenes.scene8,
-    Math.sin(s8*Math.PI),
-    lerp(100,-10,s8),
-    lerp(.8,1,s8)
-  );
-
-
-  /* =======================================================
-     REBUILD
-  ==================================================== */
-
-  const rebuild =
-    range(p,.68,.78);
-
-  showElement(
-    scenes.rebuildWord,
-    Math.sin(rebuild*Math.PI),
-    0,
-    lerp(
-      .5,
-      3,
-      rebuild
-    )
-  );
-
-
-  /* =======================================================
-     WHITE WORLD TRANSITION
-  ==================================================== */
-
-  const white =
-    range(p,.75,.86);
-
-  whiteWorld.style.opacity =
-    smooth(white);
-
-
-  /*
-    Black world disappears
-    while white world takes over.
-  */
-
-  const whiteScale =
-    lerp(
-      .4,
-      1,
-      smooth(white)
-    );
-
-  document
-    .querySelector(".white-orb")
-    .style.transform =
-      `
-        translate(-50%,-50%)
-        scale(${whiteScale})
-      `;
-
-
-  const wc =
-    range(p,.79,.88);
-
-  showElement(
-    scenes.whiteCopy,
-    Math.sin(wc*Math.PI),
-    lerp(120,-10,wc),
-    lerp(.85,1,wc)
-  );
-
-
-  /* =======================================================
-     SCENE 10
-  ==================================================== */
-
-  const s10 =
-    range(p,.86,.97);
-
-  showElement(
-    scenes.scene10,
-    Math.sin(s10*Math.PI),
-    lerp(120,-10,s10),
-    lerp(.85,1,s10)
-  );
-
-
-  /*
-    Atmosphere reacts to scroll.
-  */
-
-  atmosphere.style.transform =
-    `
-      translate3d(
-        ${pointerX*-25}px,
-        ${pointerY*-20}px,
-        0
-      )
-      scale(${1+p*.15})
-    `;
-
-
-  /* =======================================================
-     TIMELINE DOTS
-  ==================================================== */
-
-  const active =
-    Math.min(
-      9,
-      Math.floor(p*10)
-    );
-
-  timeline.forEach(
-    (dot,i)=>{
-
-      dot.classList.toggle(
-        "active",
-        i===active
-      );
-
-    }
-  );
-
-
-  requestAnimationFrame(
-    renderMovie
-  );
-
-}
-
-renderMovie();
-
-
-/* =========================================================
-   CANVAS PARTICLES
-   ONE CANVAS = MUCH CHEAPER THAN 100+ DOM NODES
-========================================================= */
-
-const canvas =
-  document.getElementById("space");
-
-const ctx =
-  canvas.getContext("2d",{
-    alpha:true,
-    desynchronized:true
-  });
-
-let W=0;
-let H=0;
-let DPR=1;
-
+let W,H,dpr;
 let particles=[];
+let mouse={x:0,y:0};
+let scrollVelocity=0;
+let lastScroll=window.scrollY;
 
 function resizeCanvas(){
 
-  DPR =
-    Math.min(
-      window.devicePixelRatio||1,
-      1.5
-    );
+  dpr=Math.min(window.devicePixelRatio || 1,2);
 
-  W =
-    window.innerWidth;
+  W=window.innerWidth;
+  H=window.innerHeight;
 
-  H =
-    window.innerHeight;
+  canvas.width=W*dpr;
+  canvas.height=H*dpr;
 
-  canvas.width =
-    W*DPR;
+  canvas.style.width=W+"px";
+  canvas.style.height=H+"px";
 
-  canvas.height =
-    H*DPR;
-
-  canvas.style.width =
-    W+"px";
-
-  canvas.style.height =
-    H+"px";
-
-  ctx.setTransform(
-    DPR,
-    0,
-    0,
-    DPR,
-    0,
-    0
-  );
-
-
-  /*
-    Fewer particles on mobile.
-  */
-
-  const count =
-    W<700
-      ? 55
-      : 100;
-
-  particles=[];
-
-  for(
-    let i=0;
-    i<count;
-    i++
-  ){
-
-    particles.push({
-
-      x:Math.random()*W,
-
-      y:Math.random()*H,
-
-      z:Math.random(),
-
-      size:
-        Math.random()*1.4+.3,
-
-      speed:
-        Math.random()*.18+.04,
-
-      drift:
-        Math.random()*2-1
-
-    });
-
-  }
-
+  ctx.setTransform(dpr,0,0,dpr,0,0);
 }
 
 resizeCanvas();
 
-window.addEventListener(
-  "resize",
-  resizeCanvas,
-  {passive:true}
-);
+window.addEventListener("resize",resizeCanvas);
 
+function createParticles(){
 
-/* =========================================================
-   PARTICLE RENDER
-========================================================= */
+  particles=[];
 
-function renderParticles(){
+  const count=window.innerWidth<700 ? 65 : 120;
 
-  ctx.clearRect(
-    0,
-    0,
-    W,
-    H
-  );
+  for(let i=0;i<count;i++){
 
+    particles.push({
+      x:(Math.random()-.5)*W*1.6,
+      y:(Math.random()-.5)*H*1.6,
+      z:Math.random()*1000+1,
+      size:Math.random()*1.5+.2,
+      speed:Math.random()*.5+.15
+    });
 
-  const velocity =
-    clamp(
-      Math.abs(smoothVelocity),
-      0,
-      30
-    );
+  }
+}
 
+createParticles();
 
-  for(
-    const p of particles
-  ){
+function drawParticles(){
 
-    p.y -=
-      p.speed+
-      velocity*.012;
+  ctx.clearRect(0,0,W,H);
 
-    p.x +=
-      p.drift*.015;
+  for(const p of particles){
 
+    p.z-=p.speed + Math.abs(scrollVelocity)*.015;
 
-    if(p.y<-5)
-      p.y=H+5;
+    if(p.z<1){
+      p.z=1000;
+      p.x=(Math.random()-.5)*W*1.6;
+      p.y=(Math.random()-.5)*H*1.6;
+    }
 
-    if(p.x<-5)
-      p.x=W+5;
+    const scale=500/p.z;
 
-    if(p.x>W+5)
-      p.x=-5;
+    const x=W/2+p.x*scale;
+    const y=H/2+p.y*scale;
 
+    if(x<-20||x>W+20||y<-20||y>H+20) continue;
 
-    const depth =
-      .35+
-      p.z*.65;
-
-    const alpha =
-      .12+
-      p.z*.35;
-
-
-    ctx.globalAlpha =
-      alpha;
-
-    ctx.fillStyle =
-      "#fff";
+    const alpha=Math.min(1,(1000-p.z)/500);
 
     ctx.beginPath();
 
     ctx.arc(
-      p.x+
-      pointerX*20*p.z,
-
-      p.y+
-      pointerY*15*p.z,
-
-      p.size*depth,
-
+      x,
+      y,
+      Math.max(.3,p.size*scale),
       0,
       Math.PI*2
     );
 
-    ctx.fill();
+    ctx.fillStyle=`rgba(255,255,255,${alpha*.45})`;
 
+    ctx.fill();
   }
 
+  requestAnimationFrame(drawParticles);
+}
 
-  ctx.globalAlpha=1;
+drawParticles();
 
-  requestAnimationFrame(
-    renderParticles
-  );
+
+/* ==========================================
+   SCROLL VELOCITY
+========================================== */
+
+window.addEventListener("scroll",()=>{
+
+  const now=window.scrollY;
+
+  scrollVelocity=now-lastScroll;
+
+  lastScroll=now;
+
+  clearTimeout(window.scrollTimer);
+
+  window.scrollTimer=setTimeout(()=>{
+    scrollVelocity*=.2;
+  },80);
+
+});
+
+
+/* ==========================================
+   PROGRESS
+========================================== */
+
+const progress=document.getElementById("progress");
+
+function updateProgress(){
+
+  const max=document.documentElement.scrollHeight-window.innerHeight;
+
+  const amount=max>0 ? window.scrollY/max : 0;
+
+  progress.style.width=(amount*100)+"%";
 
 }
 
-renderParticles();
+window.addEventListener("scroll",updateProgress);
 
 
-/* =========================================================
-   DUO CARD PHYSICS
-========================================================= */
+/* ==========================================
+   HERO PARALLAX
+========================================== */
 
-if(
-  window.matchMedia("(hover:hover)").matches
-){
+const heroContent=document.getElementById("heroContent");
+const core=document.getElementById("core");
 
-  document
-    .querySelectorAll(".duo-card,.story-panel")
-    .forEach(card=>{
+window.addEventListener("pointermove",e=>{
 
-      card.addEventListener(
-        "pointermove",
-        e=>{
+  mouse.x=e.clientX;
+  mouse.y=e.clientY;
 
-          const r =
-            card.getBoundingClientRect();
+  const px=(e.clientX/window.innerWidth-.5);
+  const py=(e.clientY/window.innerHeight-.5);
 
-          const x =
-            (e.clientX-r.left)/
-            r.width-.5;
+  heroContent.style.transform=
+    `rotateY(${px*5}deg) rotateX(${-py*5}deg)`;
 
-          const y =
-            (e.clientY-r.top)/
-            r.height-.5;
+  core.style.transform=
+    `translate(-50%,-50%) translate(${px*25}px,${py*25}px) rotate(${px*8}deg)`;
 
-          card.style.transform =
-            `
-              perspective(1000px)
-              rotateX(${y*-4}deg)
-              rotateY(${x*5}deg)
-              translateY(-7px)
-            `;
+});
 
-        },
-        {passive:true}
-      );
 
-      card.addEventListener(
-        "pointerleave",
-        ()=>{
-          card.style.transform="";
-        }
-      );
+/* ==========================================
+   TILT CARDS
+========================================== */
 
-    });
+document.querySelectorAll(".tilt").forEach(card=>{
 
+  card.addEventListener("pointermove",e=>{
+
+    if(window.innerWidth<700)return;
+
+    const r=card.getBoundingClientRect();
+
+    const x=e.clientX-r.left;
+    const y=e.clientY-r.top;
+
+    const px=x/r.width-.5;
+    const py=y/r.height-.5;
+
+    card.style.setProperty("--mx",(x/r.width*100)+"%");
+    card.style.setProperty("--my",(y/r.height*100)+"%");
+
+    card.style.transform=
+      `perspective(1000px)
+       rotateX(${-py*7}deg)
+       rotateY(${px*7}deg)
+       translateY(-5px)`;
+
+  });
+
+  card.addEventListener("pointerleave",()=>{
+
+    card.style.transform="";
+
+  });
+
+});
+
+
+/* ==========================================
+   REVEAL ENGINE
+========================================== */
+
+const observer=new IntersectionObserver(entries=>{
+
+  entries.forEach(entry=>{
+
+    if(entry.isIntersecting){
+
+      entry.target.classList.add("visible");
+
+    }
+
+  });
+
+},{
+  threshold:.12
+});
+
+document.querySelectorAll(".reveal").forEach(el=>{
+  observer.observe(el);
+});
+
+
+/* ==========================================
+   MANIFESTO ACTIVATION
+========================================== */
+
+const words=document.querySelectorAll(".manifesto-word");
+
+const wordObserver=new IntersectionObserver(entries=>{
+
+  entries.forEach(entry=>{
+
+    if(entry.isIntersecting){
+      entry.target.classList.add("active");
+    }
+
+  });
+
+},{
+  threshold:.65
+});
+
+words.forEach(w=>wordObserver.observe(w));
+
+
+/* ==========================================
+   3D WORLD SCROLL
+========================================== */
+
+const rings=document.getElementById("rings");
+const grid=document.getElementById("grid");
+
+function animateWorld(){
+
+  const rect=document
+    .querySelector(".world")
+    .getBoundingClientRect();
+
+  const progress=
+    Math.max(0,Math.min(1,
+      (window.innerHeight-rect.top)/
+      (window.innerHeight+rect.height)
+    ));
+
+  const rotation=progress*360;
+
+  rings.style.transform=
+    `rotateX(${progress*15}deg)
+     rotateY(${rotation}deg)
+     scale(${.7+progress*.45})`;
+
+  grid.style.transform=
+    `rotateX(${68+progress*7}deg)
+     translateY(${330-progress*260}px)
+     rotateZ(${progress*18}deg)`;
+
+  requestAnimationFrame(animateWorld);
 }
 
+animateWorld();
 
-/* =========================================================
-   INITIAL UPDATE
-========================================================= */
 
-updateScroll();
+/* ==========================================
+   MOBILE TOUCH FRIENDLY BEHAVIOR
+========================================== */
+
+let touchStart=0;
+
+window.addEventListener("touchstart",e=>{
+  touchStart=e.touches[0].clientY;
+},{passive:true});
+
+window.addEventListener("touchmove",e=>{
+
+  const current=e.touches[0].clientY;
+
+  scrollVelocity=(touchStart-current)*.15;
+
+  touchStart=current;
+
+},{passive:true});
+
+
+/* ==========================================
+   SMOOTH NAV HOVER
+========================================== */
+
+document.querySelectorAll(".navlinks a").forEach(link=>{
+
+  link.addEventListener("click",e=>{
+
+    const target=document.querySelector(
+      link.getAttribute("href")
+    );
+
+    if(target){
+
+      e.preventDefault();
+
+      target.scrollIntoView({
+        behavior:"smooth"
+      });
+
+    }
+
+  });
+
+});
 
 </script>
 
